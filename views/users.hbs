@@ -1,0 +1,208 @@
+<div class="admin-section">
+    <div class="header-section">
+        <div class="container">
+            <nav class="navbar navbar-light navbar-expand-sm p-0">
+                <button class="navbar-toggler"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#nav-section"
+                        type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse" id="nav-section">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a href="/" class="nav-link px-3">Dashboard</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a href="/users" class="nav-link px-3">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/products" class="nav-link px-3">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/orders" class="nav-link px-3">Orders</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="intro-section">
+        <div class="container">
+            <div class="d-flex align-items-center py-30">
+                <div class="flex-grow-1 flex-shrink-1">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0 align-items-center">
+                            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door-fill icon-1"></i></a></li>
+                            <li class="breadcrumb-item text-uppercase active">Users</li>
+                        </ol>
+                    </nav>
+                    <h1 class="m-0 fw-bold">Users</h1>
+                </div>  
+            </div>
+        </div>
+    </div>
+    <div class="main-section">
+        <div class="container">
+            <div class="card">
+                <div class="table-responsive">
+                    <div class="m-3">
+                        <div class="row">
+                            <div class="col-md-4 offset-md-8">
+                                <div class="search-form search-form--light d-flex">
+                                    <input type="text"
+                                        class="form-control search"
+                                        placeholder="Search">
+                                    <button class="btn"
+                                            type="button"
+                                            role="button"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table mb-0 table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 18px;" class="text-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input js-toggle-check-all" data-target="#products" id="customCheckAll">
+                                        <label class="custom-control-label" for="customCheckAll">
+                                            <span class="text-hide">Toggle all</span>
+                                        </label>
+                                    </div>
+                                </th>
+                                <th style="width: 30px;">#ID</th>
+                                <th>Name</th>
+                                <th style="width: 150px;">Username</th>
+                                <th>Email</th>
+                                <th style="width: 100px;">Created At</th>
+                                <th style="width: 60px;" class="text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="list"
+                            id="users">
+                            <tr>
+                                <td class="text-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox"
+                                            class="custom-control-input js-check-selected-row"
+                                            id="customCheck1_1">
+                                        <label class="custom-control-label"
+                                            for="customCheck1_1"><span class="text-hide">Check</span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="badge bg-lightblue">#101</div>
+                                </td>
+                                <td>
+                                    <img src="images/clem-onojeghuo-192088.jpg"
+                                        alt="product"
+                                        style="width:35px"
+                                        class="rounded mr-2">
+                                    <a href="#">Nguyen Gia Huy</a>
+                                </td>
+                                <td>huy123</td>
+                                <td>
+                                    <a href="#">huy123@yahoo.com</a>
+                                </td>
+                                <td>01/01/2019</td>
+                                <td class="text-center">
+                                    <a href="#" class="btn btn-sm btn-primary">EDIT</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox"
+                                            class="custom-control-input js-check-selected-row"
+                                            id="customCheck1_2">
+                                        <label class="custom-control-label"
+                                            for="customCheck1_2"><span class="text-hide">Check</span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="badge bg-lightblue">#102</div>
+                                </td>
+                                <td>
+                                    <img src="images/lobostudio-hamburg-64728.jpg"
+                                        alt="product"
+                                        style="width:35px"
+                                        class="rounded mr-2">
+                                    <a href="#">Doan The Huy</a>
+                                </td>
+                                <td>huy456</td>
+                                <td >
+                                    <a href="#">huy456@gmail.com</a>
+                                </td>
+                                <td>01/01/2019</td>
+                                <td class="text-center"><a href="#"
+                                    class="btn btn-sm btn-primary">EDIT</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox"
+                                            class="custom-control-input js-check-selected-row"
+                                            id="customCheck1_3">
+                                        <label class="custom-control-label"
+                                            for="customCheck1_3"><span class="text-hide">Check</span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="badge bg-lightblue">#103</div>
+                                </td>
+                                <td>
+                                    <img src="images/clem-onojeghuo-192088.jpg"
+                                        alt="product"
+                                        style="width:35px"
+                                        class="rounded mr-2">
+                                    <a href="#">Nguyen Viet Minh Tam</a>
+                                </td>
+                                <td>tam789</td>
+                                <td>
+                                    <a href="#">tam789@gmail.com</a>
+                                </td>
+
+                                <td>01/01/2019</td>
+                                <td class="text-center"><a href="#"
+                                    class="btn btn-sm btn-primary">EDIT</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox"
+                                            class="custom-control-input js-check-selected-row"
+                                            id="customCheck1_4">
+                                        <label class="custom-control-label"
+                                            for="customCheck1_4"><span class="text-hide">Check</span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="badge bg-lightblue">#104</div>
+                                </td>
+                                <td>
+                                    <img src="images/lobostudio-hamburg-64728.jpg"
+                                        alt="product"
+                                        style="width:35px"
+                                        class="rounded mr-2">
+                                    <a href="#">Tran Manh Duc</a>
+                                </td>
+                                <td>dukepro321</td>
+                                <td>
+                                    <a href="#">dukepro321@gmail.com</a>
+                                </td>
+
+                                <td>01/01/2019</td>
+                                <td class="text-center"><a href="#"
+                                    class="btn btn-sm btn-primary">EDIT</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>      
+                <div class="card-body text-end">
+                    15 <span class="text-muted">of 25</span><a href="#"
+                        class="text-muted-light"><i class="bi bi-arrow-right"></i></a>
+                </div>                        
+            </div>
+        </div>
+    </div>
+</div>

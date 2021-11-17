@@ -1,0 +1,250 @@
+<div class="admin-section">
+    <div class="header-section">
+        <div class="container">
+            <nav class="navbar navbar-light navbar-expand-sm p-0">
+                <button class="navbar-toggler"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#nav-section"
+                        type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse" id="nav-section">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <a href="/index" class="nav-link px-3">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/users" class="nav-link px-3">Users</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a href="/products" class="nav-link px-3">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/orders" class="nav-link px-3">Orders</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="intro-section">
+        <div class="container">
+            <div class="d-flex align-items-center py-30">
+                <div class="flex-grow-1 flex-shrink-1">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0 align-items-center">
+                            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door-fill icon-1"></i></a></li>
+                            <li class="breadcrumb-item text-uppercase active">Products</li>
+                        </ol>
+                    </nav>
+                    <h1 class="m-0 fw-bold">Products</h1>
+                </div>
+                <a href="addproduct.html"
+                    class="btn btn-success ml-3">Create</a>
+            </div>
+        </div>
+    </div>
+    <div class="main-section">
+        <div class="container">
+            <div class="card">
+                <div class="table-responsive">
+                    <div class="m-3">
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                <select name="#"
+                                        class="form-control form-select">
+                                    <option value="-1">All</option>
+                                    <option value="1">Hats</option>
+                                    <option value="2">Coats</option>
+                                    <option value="3">Jeans</option>
+                                    <option value="4">T-Shirt</option>
+                                    <option value="5">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="search-form search-form--light d-flex">
+                                    <input type="text"
+                                        class="form-control search"
+                                        placeholder="Search">
+                                    <button class="btn"
+                                            type="button"
+                                            role="button"><i class="bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table mb-0 table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width: 18px;" class="text-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input js-toggle-check-all" data-target="#products" id="customCheckAll">
+                                        <label class="custom-control-label" for="customCheckAll">
+                                            <span class="text-hide">Toggle all</span>
+                                        </label>
+                                    </div>
+                                </th>
+                                <th style="width: 30px;"
+                                    class="text-center">#ID</th>
+                                <th>Product</th>
+                                <th class="text-center" style="width: 120px;">Stock</th>
+                                <th style="width: 120px">Category</th>
+                                <th class="text-end" style="width:120px;">Price</th>
+                                <th style="width: 100px;" class="text-end">
+                                    <div class="dropdown">
+                                        <a href="#" data-bs-toggle="dropdown" class="dropdown-toggle">Bulk</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="javascript:void(0)" class="dropdown-item">Set Price</a>
+                                            <a href="javascript:void(0)" class="dropdown-item">Archive</a>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="list"
+                            id="products">
+
+                            <tr>
+                                <td class="text-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox"
+                                            class="custom-control-input js-check-selected-row"
+                                            id="customCheck1_1">
+                                        <label class="custom-control-label"
+                                            for="customCheck1_1"><span class="text-hide">Check</span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="badge bg-lightblue">#101</div>
+                                </td>
+                                <td>
+                                    <img src="images/clem-onojeghuo-192088.jpg"
+                                        alt="product"
+                                        style="width:35px"
+                                        class="rounded mr-2">
+                                    <a href="#">Bleu Snow Coat</a>
+                                </td>
+                                <td 
+                                    class="text-center">
+                                    4 items</td>
+                                <td >
+
+                                    <a href="#">Coats</a>
+
+                                </td>
+
+                                <td class="text-end">$22</td>
+                                <td class="text-end"><a href="#"
+                                    class="btn btn-sm btn-primary">EDIT</td>
+                            </tr>
+
+                            <tr>
+                                <td class="text-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox"
+                                            class="custom-control-input js-check-selected-row"
+                                            id="customCheck1_2">
+                                        <label class="custom-control-label"
+                                            for="customCheck1_2"><span class="text-hide">Check</span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="badge bg-lightblue">#102</div>
+                                </td>
+                                <td>
+                                    <img src="images/lobostudio-hamburg-64728.jpg"
+                                        alt="product"
+                                        style="width:35px"
+                                        class="rounded mr-2">
+                                    <a href="#">Navy Hat with Stripes</a>
+                                </td>
+                                <td 
+                                    class="text-center">
+                                    10 items</td>
+                                <td >
+
+                                    <a href="#">Hats</a>
+
+                                </td>
+
+                                <td class="text-end">$54</td>
+                                <td class="text-end"><a href="#"
+                                    class="btn btn-sm btn-primary">EDIT</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox"
+                                            class="custom-control-input js-check-selected-row"
+                                            id="customCheck1_3">
+                                        <label class="custom-control-label"
+                                            for="customCheck1_3"><span class="text-hide">Check</span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="badge bg-lightblue">#103</div>
+                                </td>
+                                <td>
+                                    <img src="images/clem-onojeghuo-192088.jpg"
+                                        alt="product"
+                                        style="width:35px"
+                                        class="rounded mr-2">
+                                    <a href="#">Bleu Snow Coat</a>
+                                </td>
+                                <td 
+                                    class="text-center">
+                                    4 items</td>
+                                <td >
+
+                                    <a href="#">Coats</a>
+
+                                </td>
+
+                                <td class="text-end">$22</td>
+                                <td class="text-end"><a href="#"
+                                    class="btn btn-sm btn-primary">EDIT</td>
+                            </tr>
+
+                            <tr>
+                                <td class="text-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox"
+                                            class="custom-control-input js-check-selected-row"
+                                            id="customCheck1_4">
+                                        <label class="custom-control-label"
+                                            for="customCheck1_4"><span class="text-hide">Check</span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="badge bg-lightblue">#104</div>
+                                </td>
+                                <td>
+                                    <img src="images/lobostudio-hamburg-64728.jpg"
+                                        alt="product"
+                                        style="width:35px"
+                                        class="rounded mr-2">
+                                    <a href="#">Navy Hat with Stripes</a>
+                                </td>
+                                <td 
+                                    class="text-center">
+                                    10 items</td>
+                                <td >
+                                    <a href="#">Hats</a>
+                                </td>
+
+                                <td class="text-end">$54</td>
+                                <td class="text-end"><a href="#"
+                                    class="btn btn-sm btn-primary">EDIT</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>   
+                <div class="card-body text-end">
+                    15 <span class="text-muted">of 25</span> <a href="#"
+                        class="text-muted-light"><i class="bi bi-arrow-right"></i></a>
+                </div>                        
+            </div>
+        </div>
+    </div>
+</div>
