@@ -8,13 +8,13 @@
                 </button>
                 <div class="navbar-collapse collapse" id="nav-section">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a href="/" class="nav-link px-3">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a href="/users" class="nav-link px-3">Users</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a href="/products" class="nav-link px-3">Products</a>
                         </li>
                         <li class="nav-item">
@@ -35,11 +35,14 @@
                                 <a href="index.html"><i class="bi bi-house-door-fill icon-1"></i></a>
                             </li>
                             <li class="breadcrumb-item text-uppercase active">
-                                Account
+                                Products
+                            </li>
+                            <li class="breadcrumb-item text-uppercase active">
+                                Add Product
                             </li>
                         </ol>
                     </nav>
-                    <h1 class="m-0 fw-bold">Edit Account</h1>
+                    <h1 class="m-0 fw-bold">Add Product</h1>
                 </div>
             </div>
         </div>
@@ -49,55 +52,45 @@
             <div class="card">
                 <div class="row g-0">
                     <div class="col-lg-4 p-4">
-                        <p class="fw-bold mb-3">Basic Information</p>
+                        <p class="fw-bold mb-3">Product Information</p>
                         <p class="text-muted mb-3">
-                            Edit your account details and settings.
+                            Adding some basic product information.
                         </p>
                     </div>
                     <div class="col-lg-8 p-4">
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="fname">First name</label>
-                                    <input id="fname" type="text" class="form-control" placeholder="First name"
-                                        value="Huy" />
+                                    <label for="pname">Name</label>
+                                    <input id="pname" type="text" class="form-control" placeholder="Product Name" />
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="lname">Last name</label>
-                                    <input id="lname" type="text" class="form-control" placeholder="Last name"
-                                        value="Nguyen" />
+                                    <label for="pcategory">Category</label>
+                                    <input id="pcategory" type="text" class="form-control" placeholder="Product Category"/>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col">
+                            <div class="col-2">
                                 <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input id="email" type="text" class="form-control" placeholder="Email"
-                                        value="huy@abc.com" />
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="tel">Tel</label>
-                                    <input id="tel" type="text" class="form-control" placeholder="Tel"
-                                        value="0123456789" />
+                                    <label for="pname">Quantity</label>
+                                    <input id="pname" type="number" class="form-control" value="0"/>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="desc">Bio / Description</label>
+                            <label for="desc">Description</label>
                             <textarea id="desc" rows="4" class="form-control"
-                                placeholder="Bio / description ..."></textarea>
+                                placeholder="Product Description..."></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Avatar</label>
+                            <label>Image</label>
                             <div class="d-flex align-items-center">
                                 <div class="me-3">
                                     <div class="avatar" style="width: 80px; height: 80px">
-                                        <img src="images/account-add-photo.svg" class="avatar-img rounded"
+                                        <img src="/images/account-add-photo.svg" class="avatar-img rounded"
                                             alt="..." data-dz-thumbnail />
                                     </div>
                                 </div>
@@ -111,38 +104,8 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="row g-0">
-                    <div class="col-lg-4 p-4">
-                        <p class="fw-bold mb-3">Update Your Password</p>
-                        <p class="text-muted mb-3">Change your password.</p>
-                    </div>
-                    <div class="col-lg-8 p-4">
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input id="username" type="text" class="form-control w-50" placeholder="Username"
-                                value="huy27201" disabled />
-                        </div>
-                        <div class="form-group">
-                            <label for="opass">Old Password</label>
-                            <input id="opass" type="password" class="form-control w-50"
-                                placeholder="Old password" value="****" />
-                        </div>
-                        <div class="form-group">
-                            <label for="npass">New Password</label>
-                            <input id="npass" type="password" class="form-control is-invalid w-50" />
-                            <small class="invalid-feedback">The new password must not be empty.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="cpass">Confirm Password</label>
-                            <input id="cpass" type="password" class="form-control w-50"
-                                placeholder="Confirm password" />
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="text-end mb-5">
-                <a href="" class="btn btn-success">Save</a>
+                <a href="#" class="btn btn-success">Create</a>
             </div>
         </div>
     </div>
