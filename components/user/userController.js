@@ -1,5 +1,8 @@
+const userService = require('./userService');
+
 module.exports = {
-    list: (req, res) => {
-        res.render('user/users', { title: 'Users' });
+    list: async (req, res) => {
+        const users = await userService.list();
+        res.render('user/users', { title: 'Users' , users});
     }
 }

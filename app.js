@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const hbs = require('hbs');
+const { body,validationResult } = require('express-validator');
 
 const indexRouter = require('./components/dashboard');
 const userRouter = require('./components/user');
@@ -10,7 +12,8 @@ const profileRouter = require('./components/profile');
 const productRouter = require('./components/product');
 const orderRouter = require('./components/order');
 
-const hbs = require('hbs');
+const helpers = require('./hbsHelpers');
+
 const app = express();
 
 // view engine setup
@@ -19,11 +22,16 @@ app.set('view engine', 'hbs');
 
 hbs.registerPartials(__dirname + '/views/partials', (err) => {});
 
+// load helpers
+
+helpers.helpers(hbs);
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({extended: true}));
 
 app.use('/', indexRouter);
 app.use('/users', userRouter);

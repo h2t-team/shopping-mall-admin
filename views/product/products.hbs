@@ -51,26 +51,23 @@
                     <div class="m-3">
                         <div class="row">
                             <div class="col-md-4">
-
-                                <select name="#"
-                                        class="form-control form-select">
+                                <select name="#" class="form-control form-select">
                                     <option value="-1">All</option>
-                                    <option value="1">Hats</option>
-                                    <option value="2">Coats</option>
-                                    <option value="3">Jeans</option>
-                                    <option value="4">T-Shirt</option>
-                                    <option value="5">Other</option>
+                                    {{#each category}}
+                                        <option value={{id}}>{{name}}</option> 
+                                    {{/each}}
                                 </select>
                             </div>
                             <div class="col-md-8">
-                                <div class="search-form search-form--light d-flex">
+                                <form class="search-form search-form--light d-flex" action="/products" method="get">
                                     <input type="text"
                                         class="form-control search"
-                                        placeholder="Search">
+                                        placeholder="Search"
+                                        name="search">
                                     <button class="btn"
-                                            type="button"
+                                            type="submit"
                                             role="button"><i class="bi bi-search"></i></button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -88,161 +85,63 @@
                                 <th style="width: 30px;"
                                     class="text-center">#ID</th>
                                 <th>Product</th>
-                                <th class="text-center" style="width: 120px;">Stock</th>
-                                <th style="width: 120px">Category</th>
-                                <th class="text-end" style="width:120px;">Price</th>
-                                <th style="width: 100px;" class="text-end">
+                                <th class="text-center" style="width: 150px;">Stock</th>
+                                <th class="text-center" style="width: 150px">Category</th>
+                                <th class="text-center" style="width: 150px;">Price</th>
+                                <th class="text-center" style="width: 100px;">Rate</th>
+                                <th style="width: 100px;" class="text-center">
                                     <div class="dropdown">
                                         <a href="#" data-bs-toggle="dropdown" class="dropdown-toggle">Bulk</a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="javascript:void(0)" class="dropdown-item">Set Price</a>
-                                            <a href="javascript:void(0)" class="dropdown-item">Archive</a>
+                                            <a href="javascript:void(0)" class="dropdown-item">Remove selection products</a>
                                         </div>
                                     </div>
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="list"
-                            id="products">
-
+                        <tbody class="list" id="products">
+                            {{#each products}}
                             <tr>
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox"
                                             class="custom-control-input js-check-selected-row"
-                                            id="customCheck1_1">
+                                            id="customCheck_{{id}}">
                                         <label class="custom-control-label"
-                                            for="customCheck1_1"><span class="text-hide">Check</span></label>
+                                            for="customCheck_{{id}}"><span class="text-hide">Check</span></label>
                                     </div>
                                 </td>
-                                <td>
-                                    <div class="badge bg-lightblue">#101</div>
-                                </td>
-                                <td>
-                                    <img src="/images/clem-onojeghuo-192088.jpg"
-                                        alt="product"
-                                        style="width:35px"
-                                        class="rounded mr-2">
-                                    <a href="#">Bleu Snow Coat</a>
-                                </td>
-                                <td 
-                                    class="text-center">
-                                    4 items</td>
-                                <td >
-
-                                    <a href="#">Coats</a>
-
-                                </td>
-
-                                <td class="text-end">$22</td>
-                                <td class="text-end"><a href="#"
-                                    class="btn btn-sm btn-primary">EDIT</td>
-                            </tr>
-
-                            <tr>
                                 <td class="text-center">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox"
-                                            class="custom-control-input js-check-selected-row"
-                                            id="customCheck1_2">
-                                        <label class="custom-control-label"
-                                            for="customCheck1_2"><span class="text-hide">Check</span></label>
-                                    </div>
+                                    <div class="badge bg-lightblue">{{id}}</div>
                                 </td>
                                 <td>
-                                    <div class="badge bg-lightblue">#102</div>
-                                </td>
-                                <td>
-                                    <img src="/images/lobostudio-hamburg-64728.jpg"
+                                    <img src="{{'product_images.image_url'}}"
                                         alt="product"
                                         style="width:35px"
                                         class="rounded mr-2">
-                                    <a href="#">Navy Hat with Stripes</a>
+                                    <a href="#" class="ms-3">{{name}}</a>
                                 </td>
-                                <td 
-                                    class="text-center">
-                                    10 items</td>
-                                <td >
-
-                                    <a href="#">Hats</a>
-
-                                </td>
-
-                                <td class="text-end">$54</td>
-                                <td class="text-end"><a href="#"
-                                    class="btn btn-sm btn-primary">EDIT</td>
-                            </tr>
-                            <tr>
+                                {{#if total_amount}}
+                                    <td class="text-center">{{total_amount}}</td>
+                                {{else}}
+                                    <td class="text-center">0</td>
+                                {{/if}}
+                                <td class="text-center">{{'category.name'}}</td>
+                                <td class="text-center">{{currencyFormat price}}</td>
+                                <td class="text-center">{{rate}}/5</td>
                                 <td class="text-center">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox"
-                                            class="custom-control-input js-check-selected-row"
-                                            id="customCheck1_3">
-                                        <label class="custom-control-label"
-                                            for="customCheck1_3"><span class="text-hide">Check</span></label>
-                                    </div>
+                                    <a href="#"class="btn btn-sm btn-primary">EDIT</a>
                                 </td>
-                                <td>
-                                    <div class="badge bg-lightblue">#103</div>
-                                </td>
-                                <td>
-                                    <img src="/images/clem-onojeghuo-192088.jpg"
-                                        alt="product"
-                                        style="width:35px"
-                                        class="rounded mr-2">
-                                    <a href="#">Bleu Snow Coat</a>
-                                </td>
-                                <td 
-                                    class="text-center">
-                                    4 items</td>
-                                <td >
-
-                                    <a href="#">Coats</a>
-
-                                </td>
-
-                                <td class="text-end">$22</td>
-                                <td class="text-end"><a href="#"
-                                    class="btn btn-sm btn-primary">EDIT</td>
                             </tr>
-
-                            <tr>
-                                <td class="text-center">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox"
-                                            class="custom-control-input js-check-selected-row"
-                                            id="customCheck1_4">
-                                        <label class="custom-control-label"
-                                            for="customCheck1_4"><span class="text-hide">Check</span></label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="badge bg-lightblue">#104</div>
-                                </td>
-                                <td>
-                                    <img src="/images/lobostudio-hamburg-64728.jpg"
-                                        alt="product"
-                                        style="width:35px"
-                                        class="rounded mr-2">
-                                    <a href="#">Navy Hat with Stripes</a>
-                                </td>
-                                <td 
-                                    class="text-center">
-                                    10 items</td>
-                                <td >
-                                    <a href="#">Hats</a>
-                                </td>
-
-                                <td class="text-end">$54</td>
-                                <td class="text-end"><a href="#"
-                                    class="btn btn-sm btn-primary">EDIT</td>
-                            </tr>
+                            {{/each}}
                         </tbody>
                     </table>
                 </div>   
-                <div class="card-body text-end">
-                    15 <span class="text-muted">of 25</span> <a href="#"
-                        class="text-muted-light"><i class="bi bi-arrow-right"></i></a>
+                <div class="card-body d-flex justify-content-end">
+                    <ul class="pagination">
+                        {{#page currentPage maxPage search}}
+                        {{/page}}
+                    </ul>
                 </div>                        
             </div>
         </div>

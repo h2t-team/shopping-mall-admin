@@ -71,7 +71,7 @@
                                         </label>
                                     </div>
                                 </th>
-                                <th style="width: 30px;">#ID</th>
+                                <th style="width: 30px;" class="text-center">#ID</th>
                                 <th>Name</th>
                                 <th style="width: 150px;">Username</th>
                                 <th>Email</th>
@@ -79,8 +79,8 @@
                                 <th style="width: 60px;" class="text-center"></th>
                             </tr>
                         </thead>
-                        <tbody class="list"
-                            id="users">
+                        <tbody class="list" id="users">
+                            {{#each users}}
                             <tr>
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox">
@@ -91,110 +91,25 @@
                                             for="customCheck1_1"><span class="text-hide">Check</span></label>
                                     </div>
                                 </td>
-                                <td>
-                                    <div class="badge bg-lightblue">#101</div>
+                                <td class="text-center">
+                                    <div class="badge bg-lightblue">{{id}}</div>
                                 </td>
                                 <td>
                                     <img src="/images/clem-onojeghuo-192088.jpg"
                                         alt="product"
                                         style="width:35px"
                                         class="rounded mr-2">
-                                    <a href="#">Nguyen Gia Huy</a>
+                                    <a href="#">{{first_name}} {{last_name}}</a>
                                 </td>
-                                <td>huy123</td>
+                                <td>{{username}}</td>
                                 <td>
-                                    <a href="#">huy123@yahoo.com</a>
+                                    <a href="#">{{email}}</a>
                                 </td>
-                                <td>01/01/2019</td>
+                                <td>{{dob}}</td>
                                 <td class="text-center">
                                     <a href="#" class="btn btn-sm btn-primary">EDIT</td>
                             </tr>
-                            <tr>
-                                <td class="text-center">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox"
-                                            class="custom-control-input js-check-selected-row"
-                                            id="customCheck1_2">
-                                        <label class="custom-control-label"
-                                            for="customCheck1_2"><span class="text-hide">Check</span></label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="badge bg-lightblue">#102</div>
-                                </td>
-                                <td>
-                                    <img src="/images/lobostudio-hamburg-64728.jpg"
-                                        alt="product"
-                                        style="width:35px"
-                                        class="rounded mr-2">
-                                    <a href="#">Doan The Huy</a>
-                                </td>
-                                <td>huy456</td>
-                                <td >
-                                    <a href="#">huy456@gmail.com</a>
-                                </td>
-                                <td>01/01/2019</td>
-                                <td class="text-center"><a href="#"
-                                    class="btn btn-sm btn-primary">EDIT</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox"
-                                            class="custom-control-input js-check-selected-row"
-                                            id="customCheck1_3">
-                                        <label class="custom-control-label"
-                                            for="customCheck1_3"><span class="text-hide">Check</span></label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="badge bg-lightblue">#103</div>
-                                </td>
-                                <td>
-                                    <img src="/images/clem-onojeghuo-192088.jpg"
-                                        alt="product"
-                                        style="width:35px"
-                                        class="rounded mr-2">
-                                    <a href="#">Nguyen Viet Minh Tam</a>
-                                </td>
-                                <td>tam789</td>
-                                <td>
-                                    <a href="#">tam789@gmail.com</a>
-                                </td>
-
-                                <td>01/01/2019</td>
-                                <td class="text-center"><a href="#"
-                                    class="btn btn-sm btn-primary">EDIT</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox"
-                                            class="custom-control-input js-check-selected-row"
-                                            id="customCheck1_4">
-                                        <label class="custom-control-label"
-                                            for="customCheck1_4"><span class="text-hide">Check</span></label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="badge bg-lightblue">#104</div>
-                                </td>
-                                <td>
-                                    <img src="/images/lobostudio-hamburg-64728.jpg"
-                                        alt="product"
-                                        style="width:35px"
-                                        class="rounded mr-2">
-                                    <a href="#">Tran Manh Duc</a>
-                                </td>
-                                <td>dukepro321</td>
-                                <td>
-                                    <a href="#">dukepro321@gmail.com</a>
-                                </td>
-
-                                <td>01/01/2019</td>
-                                <td class="text-center"><a href="#"
-                                    class="btn btn-sm btn-primary">EDIT</td>
-                            </tr>
+                            {{/each}}
                         </tbody>
                     </table>
                 </div>      
