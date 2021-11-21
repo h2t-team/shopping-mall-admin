@@ -37,6 +37,10 @@ h1 {
 .btn:focus {
     box-shadow: none;
 }
+.dropdown-item:hover {
+    background-color: transparent;
+    color: var(--sea);
+}
 .bg-lightblue {
     background-color: var(--lightblue);
     color: var(--grey);
