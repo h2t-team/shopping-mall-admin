@@ -2,6 +2,7 @@ const helpers = (hbs) => {
     hbs.registerHelper('currencyFormat', money => 
         new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money));
 
+    // Huy sẽ sửa cái này sau
     hbs.registerHelper('page', (currentPage, maxPage, search) => {
         const searchTerm = typeof search !== 'undefined' ? `search=${search}&` : '';
         let item = "<li class=\"page-item " + (currentPage == 1 ? "disabled" : "") + "\">" + 

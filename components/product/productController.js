@@ -19,7 +19,23 @@ module.exports = {
         }
     },
 
-    addProduct: (req, res) => {
-        res.render('product/addProduct', { title: 'Add Product' });
+    addProductPage: async (req, res) => {
+        try {
+            const category = await productService.category();
+            res.render('product/addProduct', { title: 'Add Product', category });
+        }
+        catch(err) {
+            console.log(err.message);
+        }
+    },
+    addProductForm: async (req, res) => {
+        try {
+            const { pname, pcategory, pprice, pdesc } = req.body
+            await productService.addProduct(pname, pcategory, pprice, pdesc);
+            res.end();
+        }
+        catch(err) {
+            console.log(err.message);
+        }
     }
 }

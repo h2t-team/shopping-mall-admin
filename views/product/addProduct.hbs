@@ -58,54 +58,105 @@
                         </p>
                     </div>
                     <div class="col-lg-8 p-4">
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="pname">Name</label>
-                                    <input id="pname" type="text" class="form-control" placeholder="Product Name" />
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="pcategory">Category</label>
-                                    <input id="pcategory" type="text" class="form-control" placeholder="Product Category"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-2">
-                                <div class="form-group">
-                                    <label for="pname">Quantity</label>
-                                    <input id="pname" type="number" class="form-control" value="0"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="desc">Description</label>
-                            <textarea id="desc" rows="4" class="form-control"
-                                placeholder="Product Description..."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Image</label>
-                            <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <div class="avatar" style="width: 80px; height: 80px">
-                                        <img src="/images/account-add-photo.svg" class="avatar-img rounded"
-                                            alt="..." data-dz-thumbnail />
+                        <form action="/products/addproduct" id="add-product-form" method="post" onsubmit="handleAddProduct()">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="pname">Name</label>
+                                        <input name="pname" id="pname" type="text" class="form-control" placeholder="Product Name"  autocomplete="off"/>
                                     </div>
                                 </div>
-                                <div class="media-body">
-                                    <button class="btn btn-sm btn-primary dz-clickable">
-                                        Choose photo
-                                    </button>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="pcategory">Category</label>
+                                        <select name="pcategory" id="pcategory" class="form-control form-select">
+                                            {{#each category}}
+                                                <option value={{id}}>{{name}}</option> 
+                                            {{/each}}
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="psize">Size</label>
+                                        <select name="psize" class="form-control form-select" id="psize">
+                                            <option value="xs">XS</option> 
+                                            <option value="s">S</option> 
+                                            <option value="m">M</option> 
+                                            <option value="l">L</option> 
+                                            <option value="xl">XL</option> 
+                                            <option value="xxl">XXL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="pquantity">Quantity</label>
+                                        <input id="pquantity" name="pquantity" type="number" class="form-control" value="0" min="0"/>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <div class="form-group">
+                                        <label>Add</label>
+                                        <a href="javascript:void(0)" class="btn btn-primary d-block" id="add-product-btn">
+                                            <i class="bi bi-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="offset-1 col-6 align-self-start">
+                                    <div class="table-responsive" >
+                                        <table class="table mb-0 table-striped" id="table-quantities">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Size</th>
+                                                    <th class="text-center">Quantity</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="list" id="psize-table">
+                                            </tbody>
+                                        </table>                
+                                    </div>        
+                                </div>
+                            </div>                     
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="pprice">Price (VNĐ)</label>
+                                        <input id="pprice" name="pprice" type="number" class="form-control" value="0" min="0"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pdesc">Description</label>
+                                <textarea name="pdesc" id="pdesc" rows="4" class="form-control"
+                                    placeholder="Product Description..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Image</label>
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3">
+                                        <div class="avatar" style="width: 80px; height: 80px">
+                                            <img src="/images/account-add-photo.svg" class="avatar-img rounded"
+                                                alt="..." />
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        <button class="btn btn-sm btn-primary">
+                                            Choose photo
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="text-end mb-5">
+                                    <button class="btn btn-success">Create</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </div>
-            <div class="text-end mb-5">
-                <a href="#" class="btn btn-success">Create</a>
             </div>
         </div>
     </div>

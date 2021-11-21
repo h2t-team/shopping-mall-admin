@@ -2,91 +2,75 @@ const { models } = require('../../models');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 
+const listConfig = { 
+    raw: true,
+    attributes: [
+        'id',
+        'name', 
+        'price', 
+        'rate',
+        [sequelize.fn('sum', sequelize.col('product_sizes.quantity')), 'total_amount']
+    ],
+    include: [
+        {
+            model: models.category, 
+            as: 'category',
+            attributes: ['name'],
+            required: true
+        },
+        {
+            model: models.product_size, 
+            as: 'product_sizes',
+            attributes: [
+                'product_id',
+                'quantity',
+            ],
+            duplicating: false,
+        },
+        {
+            model: models.product_image, 
+            as: 'product_images',
+            attributes: ['image_url'],
+            duplicating: false,
+            required: true
+        }
+    ],
+    group: ['product.id'],
+    order: [['id', 'ASC']],
+}
+
 module.exports = {
     list: (page = 0, itemsPerPage = 8) => models.product.findAndCountAll({ 
-        raw: true,
-        attributes: [
-            'id',
-            'name', 
-            'price', 
-            'rate',
-            [sequelize.fn('sum', sequelize.col('product_sizes.quantity')), 'total_amount']
-        ],
-        include: [
-            {
-                model: models.category, 
-                as: 'category',
-                attributes: ['name'],
-                required: true
-            },
-            {
-                model: models.product_size, 
-                as: 'product_sizes',
-                attributes: [
-                    'product_id',
-                    'quantity',
-                ],
-                duplicating: false,
-            },
-            {
-                model: models.product_image, 
-                as: 'product_images',
-                attributes: ['image_url'],
-                duplicating: false,
-                required: true
-            }
-        ],
-        group: ['product.id'],
+        ...listConfig,
         offset: itemsPerPage * page,
-        limit: itemsPerPage,
-        order: [['id', 'ASC']]
+        limit: itemsPerPage
     }),
     category: () => models.category.findAll({
         raw: true
     }),
     findName: (name, page = 0, itemsPerPage = 8) => models.product.findAndCountAll({ 
-        raw: true,
-        attributes: [
-            'id',
-            'name', 
-            'price', 
-            'rate',
-            [sequelize.fn('sum', sequelize.col('product_sizes.quantity')), 'total_amount']
-        ],
+        ...listConfig,
         where: {
             'name': {
                 [Op.like]: `%${name}%`
             }
         },
-        include: [
-            {
-                model: models.category, 
-                as: 'category',
-                attributes: ['name'],
-                required: true
-            },
-            {
-                model: models.product_size, 
-                as: 'product_sizes',
-                attributes: [
-                    'product_id',
-                    'quantity',
-                ],
-                duplicating: false,
-            },
-            {
-                model: models.product_image, 
-                as: 'product_images',
-                attributes: ['image_url'],
-                duplicating: false,
-                required: true
-            }
-        ],
-        group: ['product.id'],
         offset: itemsPerPage * page,
         limit: itemsPerPage,
-        order: [['id', 'ASC']]
+    }),
+    addProduct: (name, category_id, price, description) => models.product.create({
+        category_id: category_id,
+        name: name,
+        price: price,
+        description: description,
+        rate: 0
     })
+    .then(res => models.product_image.create({
+        // Có vấn đề về khóa chính
+        id: 22,
+        product_id: res.dataValues.id,
+        image_url: ''
+    }))
 }
 
 
