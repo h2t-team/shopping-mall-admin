@@ -28,14 +28,25 @@ module.exports = {
             console.log(err.message);
         }
     },
-    addProductForm: async (req, res) => {
+    addProductForm: async (req, res) => { 
         try {
-            const { pname, pcategory, pprice, pdesc } = req.body
+            const { pname, pcategory, pprice, pdesc } = req.body;
             await productService.addProduct(pname, pcategory, pprice, pdesc);
-            res.end();
+            res.redirect('/products');
         }
         catch(err) {
             console.log(err.message);
+        }
+    },
+    removeProduct: async (req, res) => {
+        try {
+            const { id } = req.body;
+            await productService.removeProduct(id);
+            res.status(200).send({ message: "Success" });
+        }
+        catch(err) {
+            console.log(err.message);
+            res.status(500).send({ message: "Failed to remove" });
         }
     }
 }

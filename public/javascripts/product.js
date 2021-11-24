@@ -25,6 +25,21 @@ document.getElementById('add-product-btn').addEventListener('click', () => {
     }
 })
 
-function handleAddProduct() {
-    alert(1);
+function handleAddProduct(form) {
+    alert(form)
+}
+async function removeProduct(id) {
+    try {
+        const options = {
+            method: 'POST',
+            body: JSON.stringify({id}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const response = await fetch('/products', options)
+        location.reload();
+    } catch(err) {
+        console.log(err.message)
+    }
 }

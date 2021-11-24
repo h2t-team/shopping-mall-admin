@@ -66,10 +66,18 @@ module.exports = {
         rate: 0
     })
     .then(res => models.product_image.create({
-        // Có vấn đề về khóa chính
-        id: 22,
         product_id: res.dataValues.id,
         image_url: ''
+    })),
+    removeProduct: id => models.product_image.destroy({
+        where: {
+            product_id: id
+        },
+    })
+    .then(res => models.product.destroy({
+        where: {
+            id: id
+        },
     }))
 }
 

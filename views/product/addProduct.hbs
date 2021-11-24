@@ -58,15 +58,15 @@
                         </p>
                     </div>
                     <div class="col-lg-8 p-4">
-                        <form action="/products/addproduct" id="add-product-form" method="post" onsubmit="handleAddProduct()">
+                        <form action="/products/addproduct" id="add-product-form" method="post" onsubmit="handleAddProduct(this)">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-sm">
                                     <div class="form-group">
                                         <label for="pname">Name</label>
                                         <input name="pname" id="pname" type="text" class="form-control" placeholder="Product Name"  autocomplete="off"/>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-sm">
                                     <div class="form-group">
                                         <label for="pcategory">Category</label>
                                         <select name="pcategory" id="pcategory" class="form-control form-select">
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label for="psize">Size</label>
                                         <select name="psize" class="form-control form-select" id="psize">
@@ -91,13 +91,13 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label for="pquantity">Quantity</label>
                                         <input id="pquantity" name="pquantity" type="number" class="form-control" value="0" min="0"/>
                                     </div>
                                 </div>
-                                <div class="col-1">
+                                <div class="col-sm-2 col-xxl-1">
                                     <div class="form-group">
                                         <label>Add</label>
                                         <a href="javascript:void(0)" class="btn btn-primary d-block" id="add-product-btn">
@@ -105,8 +105,8 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="offset-1 col-6 align-self-start">
-                                    <div class="table-responsive" >
+                                <div class="offset-sm-0 offset-xxl-1 col-sm-6 align-self-start">
+                                    <div class="table-responsive mb-3">
                                         <table class="table mb-0 table-striped" id="table-quantities">
                                             <thead>
                                                 <tr>
@@ -121,7 +121,7 @@
                                 </div>
                             </div>                     
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label for="pprice">Price (VNĐ)</label>
                                         <input id="pprice" name="pprice" type="number" class="form-control" value="0" min="0"/>
