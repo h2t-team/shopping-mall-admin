@@ -58,7 +58,7 @@ module.exports = {
         offset: itemsPerPage * page,
         limit: itemsPerPage,
     }),
-    addProduct: (name, category_id, price, description) => models.product.create({
+    addProduct: (name, category_id, price, description, sizes) => models.product.create({
         category_id: category_id,
         name: name,
         price: price,
@@ -68,12 +68,26 @@ module.exports = {
     .then(res => models.product_image.create({
         product_id: res.dataValues.id,
         image_url: ''
-    })),
+    }))
+    .then(async (res) => {
+        for (let key in sizes) {
+            await models.product_size.create({
+                product_id: res.dataValues.product_id,
+                size: key,
+                quantity: sizes[key]
+            })
+        }
+    }),
     removeProduct: id => models.product_image.destroy({
         where: {
             product_id: id
         },
     })
+    .then(res => models.product_size.destroy({
+        where: {
+            product_id: id
+        },
+    }))
     .then(res => models.product.destroy({
         where: {
             id: id

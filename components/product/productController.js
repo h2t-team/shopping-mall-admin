@@ -30,8 +30,9 @@ module.exports = {
     },
     addProductForm: async (req, res) => { 
         try {
-            const { pname, pcategory, pprice, pdesc } = req.body;
-            await productService.addProduct(pname, pcategory, pprice, pdesc);
+            const { pname, pcategory, pprice, pdesc, ...psizes } = req.body;
+            console.log(psizes);
+            await productService.addProduct(pname, pcategory, pprice, pdesc, psizes);
             res.redirect('/products');
         }
         catch(err) {

@@ -58,7 +58,7 @@
                         </p>
                     </div>
                     <div class="col-lg-8 p-4">
-                        <form action="/products/addproduct" id="add-product-form" method="post" onsubmit="handleAddProduct(this)">
+                        <form action="/products/addproduct" id="add-product-form" method="post" >
                             <div class="row">
                                 <div class="col-sm">
                                     <div class="form-group">
@@ -81,7 +81,7 @@
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label for="psize">Size</label>
-                                        <select name="psize" class="form-control form-select" id="psize">
+                                        <select class="form-control form-select" id="psize">
                                             <option value="xs">XS</option> 
                                             <option value="s">S</option> 
                                             <option value="m">M</option> 
@@ -94,13 +94,13 @@
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label for="pquantity">Quantity</label>
-                                        <input id="pquantity" name="pquantity" type="number" class="form-control" value="0" min="0"/>
+                                        <input id="pquantity" type="number" class="form-control" value="0" min="0"/>
                                     </div>
                                 </div>
                                 <div class="col-sm-2 col-xxl-1">
                                     <div class="form-group">
                                         <label>Add</label>
-                                        <a href="javascript:void(0)" class="btn btn-primary d-block" id="add-product-btn">
+                                        <a href="javascript:void(0)" class="btn btn-primary d-block" id="add-product-btn" onclick="addSize()">
                                             <i class="bi bi-plus"></i>
                                         </a>
                                     </div>
@@ -143,7 +143,7 @@
                                         </div>
                                     </div>
                                     <div class="media-body">
-                                        <button class="btn btn-sm btn-primary">
+                                        <button class="btn btn-sm btn-primary" >
                                             Choose photo
                                         </button>
                                     </div>
@@ -151,7 +151,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="text-end mb-5">
-                                    <button class="btn btn-success">Create</button>
+                                    <a class="btn btn-success" onclick="handleAddProduct()" href="javascript:void(0)">Create</a>
                                 </div>
                             </div>
                         </form>

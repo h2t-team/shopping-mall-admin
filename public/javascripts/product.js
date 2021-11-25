@@ -1,4 +1,4 @@
-document.getElementById('add-product-btn').addEventListener('click', () => {
+function addSize() {
     const productQuantity = document.getElementById('pquantity').value;
     const pSizeSelect = document.getElementById('psize');
 
@@ -22,11 +22,24 @@ document.getElementById('add-product-btn').addEventListener('click', () => {
 
         // Remove selectedOption
         pSizeSelect.remove(pSizeSelect.selectedIndex);
-    }
-})
 
-function handleAddProduct(form) {
-    alert(form)
+        // add values to form
+    }
+}
+
+function handleAddProduct() {
+    const form = document.getElementById("add-product-form");
+    const table = document.getElementById("table-quantities");
+    for (let i = 1; i < table.rows.length; i++) {
+        let row = table.rows[i];
+
+        input = document.createElement('input');
+        input.setAttribute('name', row.cells[0].innerText);
+        input.setAttribute('value', row.cells[1].innerText);
+        input.setAttribute('type', 'hidden');
+        form.append(input);
+    }
+    form.submit();
 }
 async function removeProduct(id) {
     try {
@@ -37,7 +50,7 @@ async function removeProduct(id) {
                 'Content-Type': 'application/json'
             }
         }
-        const response = await fetch('/products', options)
+        await fetch('/products', options)
         location.reload();
     } catch(err) {
         console.log(err.message)
