@@ -29,7 +29,7 @@ h1 {
     --bs-table-striped-bg:var(--mint);
 }
 .table-responsive {
-    overflow: hidden;
+    overflow-y: hidden;
 }
 .btn {
     font-weight: 600;

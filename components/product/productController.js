@@ -1,4 +1,6 @@
 const productService = require('./productService');
+const formidable = require('formidable');
+const { head } = require('.');
 
 module.exports = {
     list: async(req, res) => {
@@ -28,9 +30,17 @@ module.exports = {
     },
     addProductForm: async(req, res) => {
         try {
-            const { pname, pcategory, pprice, pdesc } = req.body;
-            await productService.addProduct(pname, pcategory, pprice, pdesc);
-            res.redirect('/products');
+            const form = formidable({});
+            form.parse(req, async(err, fields, files) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+                const { pname, pcategory, pprice, pdesc, ...psizes } = fields;
+                console.log(files);
+                //await productService.addProduct(pname, pcategory, pprice, pdesc, psizes);
+                //res.redirect('/products');
+            });
         } catch (err) {
             console.log(err.message);
         }
@@ -62,11 +72,8 @@ module.exports = {
     },
     updateProductForm: async(req, res) => {
         try {
-            const { pid, pname, pcategory, pprice, pdesc, prate } = req.body
-            console.log(req.body);
-            console.log("ABSid " + pid);
-            console.log("ABSid " + pname);
-            await productService.updateProduct(pid, pname, pcategory, pprice, pdesc, prate);
+            const { pid, pname, pcategory, pprice, pdesc, prate, psize } = req.body
+            await productService.updateProduct(pid, pname, pcategory, pprice, pdesc, prate, psize);
             res.redirect('/products');
         } catch (err) {
             console.log(err.message);
