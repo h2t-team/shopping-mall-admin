@@ -6,6 +6,7 @@ const logger = require('morgan');
 const hbs = require('hbs');
 const { body, validationResult } = require('express-validator');
 
+
 const indexRouter = require('./components/dashboard');
 const userRouter = require('./components/user');
 const profileRouter = require('./components/profile');
@@ -23,7 +24,6 @@ app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials', (err) => {});
 
 // load helpers
-
 helpers.helpers(hbs);
 
 app.use(logger('dev'));

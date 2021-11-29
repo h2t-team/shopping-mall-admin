@@ -1,6 +1,6 @@
 const productService = require('./productService');
 const formidable = require('formidable');
-const { head } = require('.');
+
 
 module.exports = {
     list: async(req, res) => {
