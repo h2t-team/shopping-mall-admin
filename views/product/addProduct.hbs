@@ -58,15 +58,15 @@
                         </p>
                     </div>
                     <div class="col-lg-8 p-4">
-                        <form action="/products/addproduct" id="add-product-form" method="post" onsubmit="handleAddProduct()">
+                        <form action="/products/addproduct" id="add-product-form" method="post" enctype="multipart/form-data">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-sm">
                                     <div class="form-group">
                                         <label for="pname">Name</label>
                                         <input name="pname" id="pname" type="text" class="form-control" placeholder="Product Name"  autocomplete="off"/>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-sm">
                                     <div class="form-group">
                                         <label for="pcategory">Category</label>
                                         <select name="pcategory" id="pcategory" class="form-control form-select">
@@ -78,10 +78,10 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label for="psize">Size</label>
-                                        <select name="psize" class="form-control form-select" id="psize">
+                                        <select class="form-control form-select" id="psize">
                                             <option value="xs">XS</option> 
                                             <option value="s">S</option> 
                                             <option value="m">M</option> 
@@ -91,22 +91,22 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-2">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label for="pquantity">Quantity</label>
-                                        <input id="pquantity" name="pquantity" type="number" class="form-control" value="0" min="0"/>
+                                        <input id="pquantity" type="number" class="form-control" value="0" min="0"/>
                                     </div>
                                 </div>
-                                <div class="col-1">
+                                <div class="col-sm-2 col-xxl-1">
                                     <div class="form-group">
                                         <label>Add</label>
-                                        <a href="javascript:void(0)" class="btn btn-primary d-block" id="add-product-btn">
+                                        <a href="javascript:void(0)" class="btn btn-primary d-block" id="add-product-btn" onclick="addSize()">
                                             <i class="bi bi-plus"></i>
                                         </a>
                                     </div>
                                 </div>
-                                <div class="offset-1 col-6 align-self-start">
-                                    <div class="table-responsive" >
+                                <div class="offset-sm-0 offset-xxl-1 col-sm-6 align-self-start">
+                                    <div class="table-responsive mb-3">
                                         <table class="table mb-0 table-striped" id="table-quantities">
                                             <thead>
                                                 <tr>
@@ -121,7 +121,7 @@
                                 </div>
                             </div>                     
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label for="pprice">Price (VNĐ)</label>
                                         <input id="pprice" name="pprice" type="number" class="form-control" value="0" min="0"/>
@@ -134,24 +134,18 @@
                                     placeholder="Product Description..."></textarea>
                             </div>
                             <div class="form-group">
-                                <label>Image</label>
-                                <div class="d-flex align-items-center">
-                                    <div class="me-3">
-                                        <div class="avatar" style="width: 80px; height: 80px">
-                                            <img src="/images/account-add-photo.svg" class="avatar-img rounded"
-                                                alt="..." />
-                                        </div>
+                                <label>Upload Images</label>
+                                <div class="dropzone">
+                                    <div class="dropzoneDragArea d-flex align-items-center justify-content-center" id="dZUpload">
+                                        <label class="mb-0">Upload images (Max: 3)</label>
+                                        <div class="dz-default dz-message"></div>
                                     </div>
-                                    <div class="media-body">
-                                        <button class="btn btn-sm btn-primary">
-                                            Choose photo
-                                        </button>
-                                    </div>
+                                    <div class="dropzone-previews"></div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="text-end mb-5">
-                                    <button class="btn btn-success">Create</button>
+                                    <a id="pcreate-btn" class="btn btn-success" href="javascript:void(0)">Create</a>
                                 </div>
                             </div>
                         </form>

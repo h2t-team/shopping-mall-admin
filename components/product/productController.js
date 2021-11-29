@@ -1,4 +1,5 @@
 const productService = require('./productService');
+const formidable = require('formidable');
 
 module.exports = {
     list: async(req, res) => {
@@ -28,9 +29,17 @@ module.exports = {
     },
     addProductForm: async(req, res) => {
         try {
-            const { pname, pcategory, pprice, pdesc } = req.body;
-            await productService.addProduct(pname, pcategory, pprice, pdesc);
-            res.redirect('/products');
+            const form = formidable({});
+            form.parse(req, async (err, fields, files) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+                const { pname, pcategory, pprice, pdesc, ...psizes } = fields;
+                console.log(files);
+                //await productService.addProduct(pname, pcategory, pprice, pdesc, psizes);
+                //res.redirect('/products');
+            });
         } catch (err) {
             console.log(err.message);
         }
@@ -72,4 +81,15 @@ module.exports = {
             console.log(err.message);
         }
     },
+    removeProduct: async (req, res) => {
+        try {
+            const { id } = req.body;
+            await productService.removeProduct(id);
+            res.status(200).send({ message: "Success" });
+        }
+        catch(err) {
+            console.log(err.message);
+            res.status(500).send({ message: "Failed to remove" });
+        }
+    }
 }

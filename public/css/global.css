@@ -29,7 +29,7 @@ h1 {
     --bs-table-striped-bg:var(--mint);
 }
 .table-responsive {
-    overflow: hidden;
+    overflow-y: hidden;
 }
 .btn {
     font-weight: 600;
@@ -288,4 +288,28 @@ h1 {
     color: rgba(146, 158, 172, 0.3);
     pointer-events: none;
     cursor: auto;
+}
+
+.dropzoneDragArea {
+    background-color: #fbfdff;
+    border: 1px dashed #c0ccda;
+    border-radius: 6px;
+    padding: 60px;
+    text-align: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+.dropzone{
+    box-shadow: none;
+    border: none;
+    padding: 0;
+}
+.dropzone.dz-started .dz-message {
+    display: block;
+}
+.dropzone .dz-preview.dz-error .dz-error-message {
+    display: none
+}
+.dz-progress {
+    display: none;
 }

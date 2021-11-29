@@ -5,7 +5,7 @@ const helpers = (hbs) => {
     // Huy sẽ sửa cái này sau
     hbs.registerHelper('page', (currentPage, maxPage, search) => {
         const searchTerm = typeof search !== 'undefined' ? `search=${search}&` : '';
-        let item = "<li class=\"page-item " + (currentPage == 1 ? "disabled" : "") + "\">" + 
+        let item = "<li class=\"page-item d-none d-sm-block " + (currentPage == 1 ? "disabled" : "") + "\">" + 
                         "<a class=\"page-link\" href=\"?" + searchTerm + "page=" + (currentPage - 1) + "\" aria-label=\"Previous\">" +
                             " <i class=\"bi bi-caret-left-fill\"></i>" +
                         "</a>"+
@@ -17,7 +17,7 @@ const helpers = (hbs) => {
                         "</a>"+
                     "</li>\n";
         }
-        item += "<li class=\"page-item " + (currentPage == maxPage ? "disabled" : "") + "\">" + 
+        item += "<li class=\"page-item d-none d-sm-block " + (currentPage == maxPage ? "disabled" : "") + "\">" + 
                         "<a class=\"page-link\" href=\"?" + searchTerm + "page=" + (currentPage + 1) + "\" aria-label=\"Previous\">" +
                             " <i class=\"bi bi-caret-right-fill\"></i>" +
                         "</a>"+
