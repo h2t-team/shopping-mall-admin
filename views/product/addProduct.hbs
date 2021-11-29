@@ -58,7 +58,7 @@
                         </p>
                     </div>
                     <div class="col-lg-8 p-4">
-                        <form action="/products/addproduct" id="add-product-form" method="post" >
+                        <form action="/products/addproduct" id="add-product-form" method="post" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-sm">
                                     <div class="form-group">
@@ -134,24 +134,18 @@
                                     placeholder="Product Description..."></textarea>
                             </div>
                             <div class="form-group">
-                                <label>Image</label>
-                                <div class="d-flex align-items-center">
-                                    <div class="me-3">
-                                        <div class="avatar" style="width: 80px; height: 80px">
-                                            <img src="/images/account-add-photo.svg" class="avatar-img rounded"
-                                                alt="..." />
-                                        </div>
+                                <label>Upload Images</label>
+                                <div class="dropzone">
+                                    <div class="dropzoneDragArea d-flex align-items-center justify-content-center" id="dZUpload">
+                                        <label class="mb-0">Upload images (Max: 3)</label>
+                                        <div class="dz-default dz-message"></div>
                                     </div>
-                                    <div class="media-body">
-                                        <button class="btn btn-sm btn-primary" >
-                                            Choose photo
-                                        </button>
-                                    </div>
+                                    <div class="dropzone-previews"></div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="text-end mb-5">
-                                    <a class="btn btn-success" onclick="handleAddProduct()" href="javascript:void(0)">Create</a>
+                                    <a id="pcreate-btn" class="btn btn-success" href="javascript:void(0)">Create</a>
                                 </div>
                             </div>
                         </form>

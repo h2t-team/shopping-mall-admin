@@ -1,4 +1,5 @@
 const productService = require('./productService');
+const formidable = require('formidable');
 
 module.exports = {
     list: async (req, res) => {
@@ -28,12 +29,20 @@ module.exports = {
             console.log(err.message);
         }
     },
-    addProductForm: async (req, res) => { 
+    addProductForm: (req, res, next) => { 
         try {
-            const { pname, pcategory, pprice, pdesc, ...psizes } = req.body;
-            console.log(psizes);
-            await productService.addProduct(pname, pcategory, pprice, pdesc, psizes);
-            res.redirect('/products');
+            const form = formidable({});
+            form.parse(req, async (err, fields, files) => {
+                if (err) {
+                    next(err);
+                    return;
+                }
+                const { pname, pcategory, pprice, pdesc, ...psizes } = fields;
+                console.log(files);
+                //await productService.addProduct(pname, pcategory, pprice, pdesc, psizes);
+                //res.redirect('/products');
+            });
+            
         }
         catch(err) {
             console.log(err.message);
