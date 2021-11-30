@@ -1,8 +1,5 @@
 const { models } = require('../../models');
 const sequelize = require('sequelize');
-const { raw } = require('express');
-const { singularize } = require('sequelize/dist/lib/utils');
-const { where } = require('sequelize');
 const Op = sequelize.Op;
 
 const listConfig = {
@@ -11,7 +8,8 @@ const listConfig = {
         'id',
         'name',
         'price',
-        'rate', [sequelize.fn('sum', sequelize.col('product_sizes.quantity')), 'total_amount']
+        'rate', 
+        [sequelize.fn('sum', sequelize.col('product_sizes.quantity')), 'total_amount']
     ],
     include: [{
             model: models.category,
@@ -61,21 +59,27 @@ module.exports = {
         offset: itemsPerPage * page,
         limit: itemsPerPage,
     }),
-    addProduct: (name, category_id, price, description, sizes) => models.product.create({
+    addProduct: (name, category_id, price, description, sizes, imageUrls) => models.product.create({
             category_id: category_id,
             name: name,
             price: price,
             description: description,
             rate: 0
         })
-        .then(res => models.product_image.create({
-            product_id: res.dataValues.id,
-            image_url: ''
-        }))
-        .then(async(res) => {
+        .then(async (res) => {
+            const productId = res.dataValues.id;
+            for (let i = 0; i < imageUrls.length; i++) {
+                await models.product_image.create({
+                    product_id: productId,
+                    image_url: imageUrls[i]
+                })
+            }
+            return Promise.resolve(productId);
+        })
+        .then(async (productId) => {
             for (let key in sizes) {
                 await models.product_size.create({
-                    product_id: res.dataValues.product_id,
+                    product_id: productId,
                     size: key,
                     quantity: sizes[key]
                 })

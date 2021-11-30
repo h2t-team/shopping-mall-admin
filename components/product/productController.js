@@ -1,5 +1,6 @@
 const productService = require('./productService');
 const formidable = require('formidable');
+const { uploadFile } = require('../../firebase/config')
 
 
 module.exports = {
@@ -7,7 +8,22 @@ module.exports = {
         try {
             //get request params
             const page = (!isNaN(req.query.page) && req.query.page > 0) ? Number(req.query.page) : 1;
-            const search = req.query.search;
+
+            //get product list, category and page count
+            const products = await productService.list(page - 1);
+            const category = await productService.category();
+            const maxPage = Math.floor((products.count.length - 1) / 8) + 1;
+
+            res.render('product/products', { title: 'Products', products: products.rows, category, currentPage: page, maxPage });
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
+    search: async(req, res) => {
+        try {
+            //get request params
+            const page = (!isNaN(req.query.page) && req.query.page > 0) ? Number(req.query.page) : 1;
+            const search = req.query.keyword;
 
             //get product list, category and page count
             const products = search ? await productService.findName(search, page - 1) : await productService.list(page - 1);
@@ -19,7 +35,6 @@ module.exports = {
             console.log(err.message);
         }
     },
-
     addProductPage: async(req, res) => {
         try {
             const category = await productService.category();
@@ -37,22 +52,22 @@ module.exports = {
                     return;
                 }
                 const { pname, pcategory, pprice, pdesc, ...psizes } = fields;
-                console.log(files);
-                //await productService.addProduct(pname, pcategory, pprice, pdesc, psizes);
-                //res.redirect('/products');
+                const imageUrls = []
+                for (const item in files) {
+                    try {
+                        await uploadFile(files[item].filepath)
+                        .then(url => imageUrls.push(url))
+                    }
+                    catch (err) {
+                        console.log(err)
+                    }
+                }
+                console.log(res)
+                await productService.addProduct(pname, pcategory, pprice, pdesc, psizes, imageUrls);
+                res.status(200).send({ message: "Success" });
             });
         } catch (err) {
             console.log(err.message);
-        }
-    },
-    removeProduct: async(req, res) => {
-        try {
-            const { id } = req.body;
-            await productService.removeProduct(id);
-            res.status(200).send({ message: "Success" });
-        } catch (err) {
-            console.log(err.message);
-            res.status(500).send({ message: "Failed to remove" });
         }
     },
     updateProductPage: async(req, res) => {

@@ -59,12 +59,13 @@
                                 </select>
                             </div>
                             <div class="col-md-8">
-                                <form class="search-form search-form--light d-flex" action="/products" method="get">
+                                <form class="search-form search-form--light d-flex" action="/products/search" method="get">
                                     <input type="text"
                                         class="form-control search"
                                         placeholder="Search"
-                                        name="search"
-                                        autocomplete="off">
+                                        name="keyword"
+                                        autocomplete="off"
+                                        value="{{search}}">
                                     <button class="btn"
                                             type="submit"
                                             role="button"><i class="bi bi-search"></i></button>
@@ -128,7 +129,7 @@
                                 <td class="text-center">{{currencyFormat price}}</td>
                                 <td class="text-center">{{rate}}/5</td>
                                 <td class="text-center">
-                                    <a href="products/updateproduct/{{id}}" class="btn btn-sm btn-primary">EDIT</a>
+                                    <a href="/products/updateproduct/{{id}}" class="btn btn-sm btn-primary">EDIT</a>
                                 </td>
                                 <td class="text-center">
                                     <a href="javascript:void(0)"class="btn btn-sm btn-danger" onclick="removeProduct({{id}})">REMOVE</a>

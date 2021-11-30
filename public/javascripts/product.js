@@ -57,6 +57,7 @@ async function removeProduct(id) {
 $(document).ready(function() {
     $("#dZUpload").dropzone({
         url: "/products/addproduct",
+        method: "POST",
         paramName: "file",
         previewsContainer: 'div.dropzone-previews',
         addRemoveLinks: true,
@@ -67,6 +68,7 @@ $(document).ready(function() {
         autoProcessQueue: false,
         success: function(file, response) {
             file.previewElement.classList.add("dz-success");
+            window.location.href = "/products";
         },
         error: function(file, response) {
             file.previewElement.classList.add("dz-error");
@@ -80,6 +82,5 @@ $(document).ready(function() {
                 handleAddProduct(formData);
             });
         }
-
     });
 });
