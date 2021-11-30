@@ -12,7 +12,7 @@ function addSize() {
         const pQuantityElement = document.createElement("td");
         pQuantityElement.appendChild(document.createTextNode(productQuantity));
         pQuantityElement.classList.add("text-center");
-        
+
         // add elements to the table
         const table = document.getElementById("psize-table");
         let element = document.createElement("tr");
@@ -42,19 +42,19 @@ async function removeProduct(id) {
     try {
         const options = {
             method: 'POST',
-            body: JSON.stringify({id}),
+            body: JSON.stringify({ id }),
             headers: {
                 'Content-Type': 'application/json'
             }
         }
         await fetch('/products', options)
         location.reload();
-    } catch(err) {
+    } catch (err) {
         console.log(err.message)
     }
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
     $("#dZUpload").dropzone({
         url: "/products/addproduct",
         method: "POST",
@@ -66,15 +66,15 @@ $(document).ready(function () {
         parallelUploads: 3,
         maxFiles: 3,
         autoProcessQueue: false,
-        success: function (file, response) {
+        success: function(file, response) {
             file.previewElement.classList.add("dz-success");
             window.location.href = "/products";
         },
-        error: function (file, response) {
+        error: function(file, response) {
             file.previewElement.classList.add("dz-error");
-        },  
-        init: function () {
-            $("#pcreate-btn").bind('click', e => {
+        },
+        init: function() {
+            $("#pcreate-btn").bind('click', () => {
                 console.log(this)
                 this.processQueue();
             });
@@ -82,6 +82,5 @@ $(document).ready(function () {
                 handleAddProduct(formData);
             });
         }
-            
     });
 });

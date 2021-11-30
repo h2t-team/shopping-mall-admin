@@ -58,7 +58,7 @@
                         </p>
                     </div>
                     <div class="col-lg-8 p-4">
-                        <form action="/products/updateproduct" id="update-product-form"  method="POST" >
+                        <form action="/products/updateproduct"  id="update-product-form" method="post" >
                             <input name="pid" id="pid" type="hidden" value="{{product.id}}" class="form-control"></input>
                             <input name="prate" id="prate" type="hidden" value="{{product.rate}}" class="form-control"></input>
                             <div class="row">
@@ -173,7 +173,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="text-end mb-5">
-                                    <button class="btn btn-success">Update</button>
+                                    <button class="btn btn-success" onclick="submitUpdateProductForm()" >Update</button>
                                 </div>
                             </div>
                         </form>

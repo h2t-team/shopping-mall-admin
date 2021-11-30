@@ -2,6 +2,7 @@ const productService = require('./productService');
 const formidable = require('formidable');
 const { uploadFile } = require('../../firebase/config')
 
+
 module.exports = {
     list: async(req, res) => {
         try {
@@ -45,7 +46,7 @@ module.exports = {
     addProductForm: async(req, res) => {
         try {
             const form = formidable({});
-            form.parse(req, async (err, fields, files) => {
+            form.parse(req, async(err, fields, files) => {
                 if (err) {
                     next(err);
                     return;
@@ -86,25 +87,11 @@ module.exports = {
     },
     updateProductForm: async(req, res) => {
         try {
-            const { pid, pname, pcategory, pprice, pdesc, prate } = req.body
-            console.log(req.body);
-            console.log("ABSid " + pid);
-            console.log("ABSid " + pname);
-            await productService.updateProduct(pid, pname, pcategory, pprice, pdesc, prate);
+            const { pid, pname, pcategory, pprice, pdesc, prate, psize } = req.body
+            await productService.updateProduct(pid, pname, pcategory, pprice, pdesc, prate, psize);
             res.redirect('/products');
         } catch (err) {
             console.log(err.message);
         }
     },
-    removeProduct: async (req, res) => {
-        try {
-            const { id } = req.body;
-            await productService.removeProduct(id);
-            res.status(200).send({ message: "Success" });
-        }
-        catch(err) {
-            console.log(err.message);
-            res.status(500).send({ message: "Failed to remove" });
-        }
-    }
 }

@@ -121,15 +121,27 @@ module.exports = {
         }
         return category;
     },
-    updateProduct: (id, name, category_id, price, description, rate) => models.product.update({
-        category_id: category_id,
-        name: name,
-        price: price,
-        description: description,
-        rate: rate
-    }, {
-        where: {
-            id: id,
-        },
-    }),
+    updateProduct: (id, name, category_id, price, description, rate, size) => models.product.update({
+            category_id: category_id,
+            name: name,
+            price: price,
+            description: description,
+            rate: rate
+        }, {
+            where: {
+                id: id,
+            },
+        })
+        .then(async(res) => {
+            for (let key in size) {
+                await models.product_size.update({
+                    quantity: size[key]
+                }, {
+                    where: {
+                        product_id: id,
+                        size: key,
+                    },
+                })
+            }
+        }),
 }
