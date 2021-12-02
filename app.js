@@ -12,6 +12,7 @@ const userRouter = require('./components/user');
 const profileRouter = require('./components/profile');
 const productRouter = require('./components/product');
 const orderRouter = require('./components/order');
+const adminRouter = require('./components/ad');
 
 const helpers = require('./hbsHelpers');
 
@@ -38,7 +39,7 @@ app.use('/users', userRouter);
 app.use('/profile', profileRouter);
 app.use('/orders', orderRouter);
 app.use('/products', productRouter);
-
+app.use('/admins', adminRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));
