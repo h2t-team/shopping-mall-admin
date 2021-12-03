@@ -8,8 +8,7 @@ const listConfig = {
         'id',
         'name',
         'price',
-        'rate', 
-        [sequelize.fn('sum', sequelize.col('product_sizes.quantity')), 'total_amount']
+        'rate', [sequelize.fn('sum', sequelize.col('product_sizes.quantity')), 'total_amount']
     ],
     include: [{
             model: models.category,
@@ -66,7 +65,7 @@ module.exports = {
             description: description,
             rate: 0
         })
-        .then(async (res) => {
+        .then(async(res) => {
             const productId = res.dataValues.id;
             for (let i = 0; i < imageUrls.length; i++) {
                 await models.product_image.create({
@@ -76,7 +75,7 @@ module.exports = {
             }
             return Promise.resolve(productId);
         })
-        .then(async (productId) => {
+        .then(async(productId) => {
             for (let key in sizes) {
                 await models.product_size.create({
                     product_id: productId,

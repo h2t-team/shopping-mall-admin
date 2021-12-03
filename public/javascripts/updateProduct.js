@@ -1,10 +1,34 @@
-window.onload = function() {
-    changePQuantityValue();
-}
-document.getElementById('psize').onchange = function() {
+var path = window.location.pathname;
+if (path.match('/products/updateproduct/')) {
+    window.onload = function() {
         changePQuantityValue();
+
     }
-    //change quantity value in input 
+    document.getElementById('psize').onchange = function() {
+            changePQuantityValue();
+        }
+        //change quantity value in table
+    document.getElementById('update-product-btn').addEventListener('click', () => {
+        const productQuantity = document.getElementById('pquantity').value;
+        const pSizeSelect = document.getElementById('psize');
+
+        if (productQuantity > 0 && pSizeSelect.value) {
+            const table = document.getElementById("psize-table");
+            var totalRowCount = table.rows.length;
+            for (var i = 0; i < totalRowCount; i++) {
+
+                if (table.rows[i].cells[0].innerText == pSizeSelect.value) {
+                    table.rows[i].cells[1].innerText = productQuantity;
+                }
+            }
+            //Remove selectedOption and change pquantity value
+            pSizeSelect.remove(pSizeSelect.selectedIndex);
+            changePQuantityValue();
+        }
+    })
+}
+
+//change quantity value in input 
 function changePQuantityValue() {
     const pSizeSelect = document.getElementById('psize');
     if (pSizeSelect.selectedIndex >= 0) {
@@ -17,28 +41,9 @@ function changePQuantityValue() {
             }
         }
     } else {
-        document.getElementById('pquantity').value = 0;
+        document.getElementById('pquantity').value = '';
     }
 }
-//change quantity value in table
-document.getElementById('update-product-btn').addEventListener('click', () => {
-    const productQuantity = document.getElementById('pquantity').value;
-    const pSizeSelect = document.getElementById('psize');
-
-    if (productQuantity > 0 && pSizeSelect.value) {
-        const table = document.getElementById("psize-table");
-        var totalRowCount = table.rows.length;
-        for (var i = 0; i < totalRowCount; i++) {
-
-            if (table.rows[i].cells[0].innerText == pSizeSelect.value) {
-                table.rows[i].cells[1].innerText = productQuantity;
-            }
-        }
-        //Remove selectedOption and change pquantity value
-        pSizeSelect.remove(pSizeSelect.selectedIndex);
-        changePQuantityValue();
-    }
-})
 
 function submitUpdateProductForm() {
     const pid = document.getElementById('pid').value;
