@@ -57,46 +57,78 @@
                     <div class="col-lg-4 p-4">
                         <p class="fw-bold mb-3">Admin Information</p>
                         <p class="text-muted mb-3">
-                            Update admin information.
+                            Create admin information.
                         </p>
                     </div>
                     <div class="col-lg-8 p-4">
-                        <form action="/admins/updateadmin"  id="update-admin-form" method="post" >
-                            <input name="id" id="id" type="hidden" value="{{admin.id}}" class="form-control"></input>
+                        <form action="/admins/addadmin"  id="add-admin-form" method="post" class="needs-validation"novalidate>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="lastName">Last Name</label>
-                                        <input name="lastName" id="lastName" type="text" value="{{admin.lastName}}" class="form-control"  autocomplete="off"/>
+                                        <input name="lastName" id="lastName" type="text" class="form-control"  autocomplete="off"/>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="firstName">First Name</label>
-                                        <input name="firstName" id="firstName" type="text" value="{{admin.firstName}}" class="form-control"  autocomplete="off"/>
+                                        <input name="firstName" id="firstName" type="text" class="form-control"  autocomplete="off"/>
                                     </div>
                                 </div>
                             </div>  
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input id="username" name="username" class="form-control" required/>
+                                        <div class="invalid-feedback">
+                                            Please choose a username.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input id="password" name="password" type="password" class="form-control" required/>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="confirmPassword">Confirm password</label>
+                                        <input id="confirmPassword" type="password" class="form-control" required/>
+                                        <div class="invalid-feedback">
+                                            Password do not match.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="row">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input id="email" name="email" type="number" class="form-control" value="{{admin.email}}" min="0"/>
+                                        <input id="email" name="email" type="email" class="form-control"/>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid email.
+                                        </div>
                                     </div>
                                 </div>
                             </div>                   
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="telephone">Telephone</label>
-                                        <input id="telephone" name="telephone" type="number" class="form-control" value="{{admin.telephone}}" min="0"/>
+                                        <input id="telephone" name="telephone" class="form-control" min="0"/>
                                     </div>
                                 </div>
                             </div>
                             
                             <div class="form-group">
                                 <div class="text-end mb-5">
-                                    <button class="btn btn-success" onclick="submitUpdateProductForm()" >Update</button>
+                                    <button class="btn btn-success" type="submit" onclick="submitAddAdminForm()">Create</button>
                                 </div>
                             </div>
                         </form>

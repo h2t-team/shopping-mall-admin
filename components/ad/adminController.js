@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const adminService = require('./adminService');
 
 
@@ -23,7 +24,7 @@ module.exports = {
             const search = req.query.keyword;
             //get admin and page count
             const admins = search ? await adminService.findName(search, page - 1) : await adminService.list(page - 1);
-            const maxPage = Math.floor((products.count.length - 1) / 8) + 1;
+            const maxPage = Math.floor((admins.count.length - 1) / 8) + 1;
 
             res.render('ad/admins', { title: 'Admins', admins: admins.rows, currentPage: page, maxPage, search });
         } catch (err) {
@@ -32,32 +33,42 @@ module.exports = {
     },
     addAdminPage: async(req, res) => {
         try {
-            res.render('ad/addAdmin', { title: 'Add Admin' });
+            res.render('ad/addadmin', { title: 'Add Admin' });
         } catch (err) {
             console.log(err.message);
         }
     },
     addAdminForm: async(req, res) => {
         try {
-            const { firstName, lastName, username, email, telephone } = req.body
-            await productService.addProduct(firstName, lastName, username, email, telephone);
+            console.log(req.body);
+            const { firstName, lastName, username, password, email, telephone } = req.body;
+            // const takenUsername = await adminService.findUsername(username);
+            // if (takenUsername) {
+            //     duplicate
+            // } else {
+            // const hashPassword = await bcrypt.hash(password, 10);
+            await adminService.addAdmin(firstName, lastName, username, password, email, telephone);
+            res.redirect('/admins');
+            // }
         } catch (err) {
             console.log(err.message);
+            //duplicate username
+            //res.render('ad/addadmin', { title: 'Add Admin', errorCode:2 });
         }
     },
     updateAdminPage: async(req, res) => {
         try {
-            const id = req.params.productId;
-            const admin = await productService.findProductById(id);
-            res.render('ad/updateAdmin', { title: 'Update Admin', admin });
+            const id = req.params.adminId;
+            const admin = await adminService.findAdminById(id);
+            res.render('ad/updateadmin', { title: 'Update Admin', admin });
         } catch (err) {
             console.log(err.message);
         }
     },
     updateAdminForm: async(req, res) => {
         try {
-            const { id, firstName, lastName, username, email, telephone } = req.body
-            await productService.updateProduct(id, firstName, lastName, username, email, telephone);
+            const { id, firstName, lastName, email, telephone } = req.body
+            await adminService.updateAdmin(id, firstName, lastName, email, telephone);
             res.redirect('/admins');
         } catch (err) {
             console.log(err.message);
@@ -66,7 +77,7 @@ module.exports = {
     removeAdmin: async(req, res) => {
         try {
             const { id } = req.body;
-            await productService.removeAdmin(id);
+            await adminService.removeAdmin(id);
             res.status(200).send({ message: "Success" });
         } catch (err) {
             console.log(err.message);

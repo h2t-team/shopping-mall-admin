@@ -42,7 +42,7 @@
                     </nav>
                     <h1 class="m-0 fw-bold">Admins</h1>
                 </div>
-                <a href="#"
+                <a href="/admins/addadmin"
                     class="btn btn-success ml-3">Create</a>
             </div>
         </div>
@@ -54,14 +54,17 @@
                     <div class="m-3">
                         <div class="row">
                             <div class="col-md-4 offset-md-8">
-                                <div class="search-form search-form--light d-flex">
+                                <form class="search-form search-form--light d-flex" action="/admins/search" method="get">
                                     <input type="text"
                                         class="form-control search"
-                                        placeholder="Search">
+                                        placeholder="Search"
+                                        name="keyword"
+                                        autocomplete="off"
+                                        value="{{search}}">
                                     <button class="btn"
-                                            type="button"
+                                            type="submit"
                                             role="button"><i class="bi bi-search"></i></button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     <table class="table mb-0 table-striped">
