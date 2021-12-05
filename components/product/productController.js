@@ -56,9 +56,8 @@ module.exports = {
                 for (const item in files) {
                     try {
                         await uploadFile(files[item].filepath)
-                        .then(url => imageUrls.push(url))
-                    }
-                    catch (err) {
+                            .then(url => imageUrls.push(url))
+                    } catch (err) {
                         console.log(err)
                     }
                 }
@@ -89,18 +88,17 @@ module.exports = {
         try {
             const { pid, pname, pcategory, pprice, pdesc, prate, psize } = req.body
             await productService.updateProduct(pid, pname, pcategory, pprice, pdesc, prate, psize);
-            res.redirect('/products');
+            res.status(200).send({ message: "OK" });
         } catch (err) {
-            console.log(err.message);
+            res.status(500).send({ message: err.message });
         }
     },
-    removeProduct: async (req, res) => {
+    removeProduct: async(req, res) => {
         try {
             const { id } = req.body;
             await productService.removeProduct(id);
             res.status(200).send({ message: "Success" });
-        }
-        catch(err) {
+        } catch (err) {
             console.log(err.message);
             res.status(500).send({ message: "Failed to remove" });
         }

@@ -46,6 +46,7 @@ function changePQuantityValue() {
 }
 
 function submitUpdateProductForm() {
+    event.preventDefault();
     const pid = document.getElementById('pid').value;
     const prate = document.getElementById('prate').value;
     const pname = document.getElementById('pname').value;
@@ -76,6 +77,14 @@ function submitUpdateProductForm() {
         dataType: "json",
         type: 'POST', // http method
         data: JSON.stringify(data), // data to submit
+    }).done((res) => {
+        $("#errorMessage").empty();
+        console.log("SUCCESS respones", res);
+        window.location.href = "/products";
+    }).fail((res) => {
+        $("#errorMessage").empty();
+        const msg = res.responseJSON.message;
+        $("#errorMessage").append(`<div class="alert alert-danger" role="alert">${msg}</div>`);
     });
 
 }
