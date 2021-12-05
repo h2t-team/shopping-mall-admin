@@ -16,13 +16,13 @@
                         <li class="nav-item">
                             <a href="/users" class="nav-link px-3">Users</a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a href="/products" class="nav-link px-3">Products</a>
                         </li>
                         <li class="nav-item">
                             <a href="/orders" class="nav-link px-3">Orders</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a href="/admins" class="nav-link px-3">Admins</a>
                         </li>
                     </ul>
@@ -37,12 +37,12 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0 align-items-center">
                             <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door-fill icon-1"></i></a></li>
-                            <li class="breadcrumb-item text-uppercase active">Products</li>
+                            <li class="breadcrumb-item text-uppercase active">Admins</li>
                         </ol>
                     </nav>
-                    <h1 class="m-0 fw-bold">Products</h1>
+                    <h1 class="m-0 fw-bold">Admins</h1>
                 </div>
-                <a href="/products/addproduct"
+                <a href="/admins/addadmin"
                     class="btn btn-success ml-3">Create</a>
             </div>
         </div>
@@ -53,16 +53,8 @@
                 <div class="table-responsive">
                     <div class="m-3">
                         <div class="row">
-                            <div class="col-md-4">
-                                <select name="product-category" class="form-control form-select">
-                                    <option value="-1">All</option>
-                                    {{#each category}}
-                                        <option value={{id}}>{{name}}</option> 
-                                    {{/each}}
-                                </select>
-                            </div>
-                            <div class="col-md-8">
-                                <form class="search-form search-form--light d-flex" action="/products/search" method="get">
+                            <div class="col-md-4 offset-md-8">
+                                <form class="search-form search-form--light d-flex" action="/admins/search" method="get">
                                     <input type="text"
                                         class="form-control search"
                                         placeholder="Search"
@@ -75,67 +67,55 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
                     <table class="table mb-0 table-striped">
                         <thead>
                             <tr>
-                                <th style="width: 18px;" class="text-center">
+                                <th style="width: 18px;">
                                     
                                 </th>
-                                <th style="width: 30px;"
-                                    class="text-center">#ID</th>
-                                <th style="min-width: 350px;">Product</th>
-                                <th class="text-center" style="width: 150px;">Stock</th>
-                                <th class="text-center" style="width: 150px">Category</th>
-                                <th class="text-center" style="width: 150px;">Price</th>
-                                <th class="text-center" style="width: 100px;">Rate</th>
-                                <th style="width: 50px;" class="text-center"></th>
-                                <th style="width: 50px;" class="text-center">
+                                <th style="width: 30px;">#ID</th>
+                                <th style="min-width: 300px;">Name</th>
+                                <th style="width: 200px;">Username</th>
+                                <th style="width: 250px;">Email</th>
+                                <th style="width: 200px;">Telephone</th>
+                                <th style="width: 50px;"></th>
+                                <th style="width: 50px;">
                                     <div class="dropdown">
                                         <a href="#" data-bs-toggle="dropdown" class="dropdown-toggle">Bulk</a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="javascript:void(0)" class="dropdown-item">Remove selection products</a>
+                                            <a href="javascript:void(0)" class="dropdown-item">Remove selection admins</a>
                                         </div>
                                     </div>
                                 </th>
-                                
                             </tr>
                         </thead>
                         <tbody class="list" id="products">
-                            {{#each products}}
+                            {{#each admins}}
                             <tr>
                                 <td class="text-center">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox"
                                             class="custom-control-input js-check-selected-row"
-                                            id="customCheck_{{id}}">
+                                            id="customCheck1_1">
                                         <label class="custom-control-label"
-                                            for="customCheck_{{id}}"><span class="text-hide">Check</span></label>
+                                            for="customCheck1_1"><span class="text-hide">Check</span></label>
                                     </div>
                                 </td>
                                 <td class="text-center">
                                     <div class="badge bg-lightblue">{{id}}</div>
                                 </td>
                                 <td>
-                                    <img src="{{'product_images.image_url'}}"
-                                        alt="product"
-                                        style="width:35px"
-                                        class="rounded mr-2">
-                                    <a href="#" class="ms-3">{{name}}</a>
+                                    <a href="#">{{last_name}} {{first_name}}</a>
                                 </td>
-                                {{#if total_amount}}
-                                    <td class="text-center">{{total_amount}}</td>
-                                {{else}}
-                                    <td class="text-center">0</td>
-                                {{/if}}
-                                <td class="text-center">{{'category.name'}}</td>
-                                <td class="text-center">{{currencyFormat price}}</td>
-                                <td class="text-center">{{rate}}/5</td>
-                                <td class="text-center">
-                                    <a href="/products/updateproduct/{{id}}" class="btn btn-sm btn-primary">EDIT</a>
+                                <td>{{username}}</td>
+                                <td>
+                                    <a href="#">{{email}}</a>
                                 </td>
+                                <td>{{telephone}}</td>
                                 <td class="text-center">
-                                    <a href="javascript:void(0)"class="btn btn-sm btn-danger" onclick="removeProduct({{id}})">REMOVE</a>
+                                    <a href="/admins/updateadmin/{{id}}" class="btn btn-sm btn-primary">EDIT</td>
+                                <td class="text-center">
+                                    <a href="javascript:void(0)"class="btn btn-sm btn-danger"onclick="removeAdmin('{{id}}')">REMOVE</a>
                                 </td>
                             </tr>
                             {{/each}}
