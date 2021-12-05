@@ -61,42 +61,41 @@
                         </p>
                     </div>
                     <div class="col-lg-8 p-4">
-                        <form action="/admins/updateadmin"  id="update-admin-form" method="post" >
+                        <form action=""  id="update-admin-form">
                             <input name="id" id="id" type="hidden" value="{{admin.id}}" class="form-control"></input>
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="lastName">Last Name</label>
-                                        <input name="lastName" id="lastName" type="text" value="{{admin.lastName}}" class="form-control"  autocomplete="off"/>
+                                        <input name="lastName" id="lastName" type="text" class="form-control" value="{{admin.last_name}}"  autocomplete="off"/>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="firstName">First Name</label>
-                                        <input name="firstName" id="firstName" type="text" value="{{admin.firstName}}" class="form-control"  autocomplete="off"/>
+                                        <input name="firstName" id="firstName" type="text" class="form-control" value="{{admin.first_name}}"  autocomplete="off"/>
                                     </div>
                                 </div>
                             </div>  
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input id="email" name="email" type="number" class="form-control" value="{{admin.email}}" min="0"/>
+                                        <input id="email" name="email" type="email" value="{{admin.email}}" class="form-control"/>
                                     </div>
                                 </div>
                             </div>                   
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="telephone">Telephone</label>
-                                        <input id="telephone" name="telephone" type="number" class="form-control" value="{{admin.telephone}}" min="0"/>
+                                        <input id="telephone" name="telephone" value="{{admin.telephone}}" class="form-control" min="0"/>
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="form-group">
                                 <div class="text-end mb-5">
-                                    <button class="btn btn-success" onclick="submitUpdateProductForm()" >Update</button>
+                                    <button type="submit" class="btn btn-success">Edit</button>
                                 </div>
                             </div>
                         </form>

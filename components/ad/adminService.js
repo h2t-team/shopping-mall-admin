@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const { v4: uuidv4 } = require('uuid');
 const { models } = require('../../models');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
@@ -14,30 +15,31 @@ module.exports = {
         offset: itemsPerPage * page,
         limit: itemsPerPage,
     }),
-    findUsername: (username) => models.admin.findOne({ where: { username: username } }),
-    addAdmin: (lastName, firstName, username, password, email, telephone) => models.admin.findOne({ where: { username: username } })
-        .then(async(res) => {
-            if (res) {
-                throw new Error('Oh no');
-            }
-            const hashPassword = await bcrypt.hash(password, 10);
-            models.admin.create({
-                lastName: lastName,
-                firstName: firstName,
-                username: username,
-                password: hashPassword,
-                email: email,
-                telephone: telephone,
-            })
-        }),
+    addAdmin: async(lastName, firstName, username, password, email, telephone) => {
+        var res = await models.admin.findOne({ where: { username: username }, raw: true })
+        if (res) {
+            throw new Error('Username is already taken!');
+        }
+        const hashPassword = await bcrypt.hash(password, 10);
+        return await models.admin.create({
+            id: uuidv4(),
+            last_name: lastName,
+            first_name: firstName,
+            username: username,
+            password: hashPassword,
+            email: email,
+            telephone: telephone,
+        });
+    },
+    findAdminById: id => models.admin.findByPk(id),
     removeAdmin: id => models.admin.destroy({
         where: {
             id: id
         },
     }),
     updateAdmin: (id, lastName, firstName, email, telephone) => models.admin.update({
-        lastName: lastName,
-        firstName: firstName,
+        last_name: lastName,
+        first_name: firstName,
         email: email,
         telephone: telephone,
     }, {

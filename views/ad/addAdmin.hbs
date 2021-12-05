@@ -60,8 +60,8 @@
                             Create admin information.
                         </p>
                     </div>
-                    <div class="col-lg-8 p-4">
-                        <form action="/admins/addadmin"  id="add-admin-form" method="post" class="needs-validation"novalidate>
+                    <div class="col-lg-8 p-4"> 
+                        <form action=""  id="add-admin-form">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
@@ -79,18 +79,15 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="username">Username</label>
+                                        <label for="username">Username<span>(required)</span></label>
                                         <input id="username" name="username" class="form-control" required/>
-                                        <div class="invalid-feedback">
-                                            Please choose a username.
-                                        </div>
                                     </div>
                                 </div>
                             </div>   
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="password">Password</label>
+                                        <label for="password">Password<span>(required)</span></label>
                                         <input id="password" name="password" type="password" class="form-control" required/>
                                     </div>
                                 </div>
@@ -98,11 +95,8 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="confirmPassword">Confirm password</label>
-                                        <input id="confirmPassword" type="password" class="form-control" required/>
-                                        <div class="invalid-feedback">
-                                            Password do not match.
-                                        </div>
+                                        <label for="confirmPassword">Confirm password<span>(required)</span></label>
+                                        <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" required/>
                                     </div>
                                 </div>
                             </div>  
@@ -111,9 +105,6 @@
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input id="email" name="email" type="email" class="form-control"/>
-                                        <div class="invalid-feedback">
-                                            Please provide a valid email.
-                                        </div>
                                     </div>
                                 </div>
                             </div>                   
@@ -125,11 +116,13 @@
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="form-group">
                                 <div class="text-end mb-5">
-                                    <button class="btn btn-success" type="submit" onclick="submitAddAdminForm()">Create</button>
+                                    <button type="submit" class="btn btn-success">Create</button>
                                 </div>
+                            </div>
+                             <div class="row">
+                                <div id="errorMessage"></div>
                             </div>
                         </form>
                     </div>

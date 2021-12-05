@@ -40,20 +40,11 @@ module.exports = {
     },
     addAdminForm: async(req, res) => {
         try {
-            console.log(req.body);
-            const { firstName, lastName, username, password, email, telephone } = req.body;
-            // const takenUsername = await adminService.findUsername(username);
-            // if (takenUsername) {
-            //     duplicate
-            // } else {
-            // const hashPassword = await bcrypt.hash(password, 10);
-            await adminService.addAdmin(firstName, lastName, username, password, email, telephone);
-            res.redirect('/admins');
-            // }
+            const { lastName, firstName, username, password, email, telephone } = req.body;
+            await adminService.addAdmin(lastName, firstName, username, password, email, telephone);
+            res.status(200).send({ message: "OK" });
         } catch (err) {
-            console.log(err.message);
-            //duplicate username
-            //res.render('ad/addadmin', { title: 'Add Admin', errorCode:2 });
+            res.status(500).send({ message: err.message });
         }
     },
     updateAdminPage: async(req, res) => {
@@ -67,11 +58,11 @@ module.exports = {
     },
     updateAdminForm: async(req, res) => {
         try {
-            const { id, firstName, lastName, email, telephone } = req.body
-            await adminService.updateAdmin(id, firstName, lastName, email, telephone);
-            res.redirect('/admins');
+            const { id, lastName, firstName, email, telephone } = req.body
+            await adminService.updateAdmin(id, lastName, firstName, email, telephone);
+            res.status(200).send({ message: "OK" });
         } catch (err) {
-            console.log(err.message);
+            res.status(500).send({ message: err.message });
         }
     },
     removeAdmin: async(req, res) => {

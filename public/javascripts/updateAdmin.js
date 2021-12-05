@@ -1,38 +1,17 @@
 var path = window.location.pathname;
-if (path.match('/admins/addadmin') || path.match('/admins/addAdmin')) {
-    $("#add-admin-form").validate({
+if (path.match('/admins/updateadmin/')) {
+    $("#update-admin-form").validate({
         rules: {
-            "username": {
-                required: true,
-            },
-            "password": {
-                required: true,
-                minlength: 6
-            },
-            "confirmPassword": {
-                required: true,
-                equalTo: "#password",
-                minlength: 6
-            },
             "email": {
                 email: true,
             },
             "telephone": {
-                maxlength: 10,
+                maxlength: 10
             }
         },
         messages: {
-            "username": {
-                required: "Please enter a username",
-            },
-            "password": {
-                required: "Please provide a password",
-                minlength: "Your password must be at least 6 characters long",
-            },
-            "confirmPassword": {
-                required: "Please provide a password",
-                equalTo: "Please enter the same password as above",
-                minlength: "Your password must be at least 6 characters long",
+            "email": {
+                email: "You have entered an invalid email address"
             },
             "telephone": {
                 maxlength: "Your telephone number must be at most 10 characters long"
@@ -56,24 +35,22 @@ if (path.match('/admins/addadmin') || path.match('/admins/addAdmin')) {
     });
 
     function submitForm() {
+        const id = document.getElementById("id").value;
         const lastName = document.getElementById("lastName").value;
         const firstName = document.getElementById("firstName").value;
-        const username = document.getElementById("username").value;
         const email = document.getElementById("email").value;
         const telephone = document.getElementById("telephone").value;
-        const password = document.getElementById("password").value;
         var data = {
+            id: id,
             lastName: lastName,
             firstName: firstName,
-            username: username,
             email: email,
             telephone: telephone,
-            password: password,
         }
         console.log(data);
         $.ajax({
             contentType: "application/json",
-            url: '/admins/addadmin/',
+            url: '/admins/updateadmin/',
             dataType: "json",
             type: 'POST', // http method
             data: JSON.stringify(data), // data to submit
@@ -86,20 +63,5 @@ if (path.match('/admins/addadmin') || path.match('/admins/addAdmin')) {
             const msg = res.responseJSON.message;
             $("#errorMessage").append(`<div class="alert alert-danger" role="alert">${msg}</div>`);
         });
-    }
-}
-async function removeAdmin(id) {
-    try {
-        const options = {
-            method: 'POST',
-            body: JSON.stringify({ id }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        await fetch('/admins', options)
-        location.reload();
-    } catch (err) {
-        console.log(err.message)
     }
 }
