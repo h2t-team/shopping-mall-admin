@@ -16,6 +16,7 @@ const profileRouter = require('./components/profile');
 const productRouter = require('./components/product');
 const orderRouter = require('./components/order');
 const authRouter = require('./components/auth');
+const adminRouter = require('./components/ad');
 
 // helpers
 const helpers = require('./hbsHelpers');
@@ -43,7 +44,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        maxAge: 1000 * 60,
+        maxAge: 1000 * 60 * 10,
     }
 }));
 
@@ -58,29 +59,22 @@ app.use((req, res, next) => {
 })
 
 // if user is not logged-in redirect back to login page 
-app.use(
-    ['/users', '/profile', '/orders', '/products'],
-    function (req, res, next) {
-        if (req.user == null){
+app.use('/', function (req, res, next) {
+        if (req.user == null && req.url != '/auth/login'){
             res.redirect('/auth/login');
         } else {
             next();
         }
     }
 );
-// app.all('*', (req, res, next) => {
-//     if (req.user == null){
-//         res.redirect('/auth/login');
-//     } else {
-//         next();
-//     }
-// })
 
+// otherwise 
+app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/profile', profileRouter);
 app.use('/orders', orderRouter);
 app.use('/products', productRouter);
-app.use('/', indexRouter);
+app.use('/admins', adminRouter);
 app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler

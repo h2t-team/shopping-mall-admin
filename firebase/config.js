@@ -1,6 +1,6 @@
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getStorage } = require('firebase-admin/storage');
-const uuid = require('uuid-v4');
+const { uuidv4 } = require('uuid');
 
 const serviceAccount = require('./key.json');
 
@@ -12,7 +12,7 @@ initializeApp({
 const bucket = getStorage().bucket();
 
 async function uploadFile(filename) {
-    const randomUuid = uuid();
+    const randomUuid = uuidv4();
     const metadata = {
         metadata: {
             firebaseStorageDownloadTokens: randomUuid

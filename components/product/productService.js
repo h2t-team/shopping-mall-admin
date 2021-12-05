@@ -8,8 +8,7 @@ const listConfig = {
         'id',
         'name',
         'price',
-        'rate', 
-        [sequelize.fn('sum', sequelize.col('product_sizes.quantity')), 'total_amount']
+        'rate', [sequelize.fn('sum', sequelize.col('product_sizes.quantity')), 'total_amount']
     ],
     include: [{
             model: models.category,
