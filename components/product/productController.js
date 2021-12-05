@@ -1,7 +1,7 @@
 const productService = require('./productService');
 const formidable = require('formidable');
-const { uploadFile } = require('../../firebase/config')
-
+const { uploadFile } = require('../../firebase/config');
+const uuid = require('uuid-v4');
 
 module.exports = {
     list: async(req, res) => {
@@ -52,6 +52,7 @@ module.exports = {
                     return;
                 }
                 const { pname, pcategory, pprice, pdesc, ...psizes } = fields;
+                const id = uuid();
                 const imageUrls = []
                 for (const item in files) {
                     try {
@@ -63,7 +64,7 @@ module.exports = {
                     }
                 }
                 console.log(res)
-                await productService.addProduct(pname, pcategory, pprice, pdesc, psizes, imageUrls);
+                await productService.addProduct(id, pname, pcategory, pprice, pdesc, psizes, imageUrls);
                 res.status(200).send({ message: "Success" });
             });
         } catch (err) {
@@ -97,6 +98,7 @@ module.exports = {
     removeProduct: async (req, res) => {
         try {
             const { id } = req.body;
+            console.log(id)
             await productService.removeProduct(id);
             res.status(200).send({ message: "Success" });
         }

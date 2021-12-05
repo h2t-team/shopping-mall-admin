@@ -59,27 +59,27 @@ module.exports = {
         offset: itemsPerPage * page,
         limit: itemsPerPage,
     }),
-    addProduct: (name, category_id, price, description, sizes, imageUrls) => models.product.create({
-            category_id: category_id,
-            name: name,
-            price: price,
-            description: description,
+    addProduct: (id, name, category_id, price, description, sizes, imageUrls) => models.product.create({
+            id,
+            category_id,
+            name,
+            price,
+            description,
             rate: 0
         })
-        .then(async (res) => {
-            const productId = res.dataValues.id;
+        .then(async () => {
             for (let i = 0; i < imageUrls.length; i++) {
                 await models.product_image.create({
-                    product_id: productId,
+                    product_id: id,
                     image_url: imageUrls[i]
                 })
             }
-            return Promise.resolve(productId);
+            return Promise.resolve(id);
         })
-        .then(async (productId) => {
+        .then(async () => {
             for (let key in sizes) {
                 await models.product_size.create({
-                    product_id: productId,
+                    product_id: id,
                     size: key,
                     quantity: sizes[key]
                 })
@@ -97,7 +97,7 @@ module.exports = {
         }))
         .then(res => models.product.destroy({
             where: {
-                id: id
+                id
             },
         })),
     findProductById: id => models.product.findByPk(id),

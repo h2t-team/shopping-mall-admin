@@ -1,0 +1,40 @@
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const { models } = require('../models');
+
+passport.use(
+    new LocalStrategy(async function(username, password, done) {
+        try {
+            const user = await models.admin.findOne({
+                where: {
+                    username
+                },
+                raw: true
+            });
+            if (!user) { 
+                return done(null, false, { message: "Incorrect username." }); 
+            }
+            if (!validPassword(user, password)) {
+                return done(null, false, { message: "Incorrect password." });
+            }
+            return done(null, user);
+        }
+        catch (err) {
+            return done(err);
+        }    
+    })
+);
+
+const validPassword = (user, password) => user.password === password;
+
+passport.serializeUser(function (user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+    models.admin.findByPk(id, { raw: true })
+        .then(res => done(null, res))
+        .catch(err => done(err));
+});
+
+module.exports = passport;
