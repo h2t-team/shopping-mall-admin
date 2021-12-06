@@ -67,13 +67,11 @@
                                 </form>
                             </div>
                         </div>
+                    </div>
                     <table class="table mb-0 table-striped">
                         <thead>
                             <tr>
-                                <th style="width: 18px;">
-                                    
-                                </th>
-                                <th style="width: 30px;">#ID</th>
+                                <th style="width: 18px;"></th>
                                 <th style="min-width: 300px;">Name</th>
                                 <th style="width: 200px;">Username</th>
                                 <th style="width: 250px;">Email</th>
@@ -101,9 +99,6 @@
                                             for="customCheck1_1"><span class="text-hide">Check</span></label>
                                     </div>
                                 </td>
-                                <td class="text-center">
-                                    <div class="badge bg-lightblue">{{id}}</div>
-                                </td>
                                 <td>
                                     <a href="#">{{last_name}} {{first_name}}</a>
                                 </td>
@@ -121,13 +116,13 @@
                             {{/each}}
                         </tbody>
                     </table>
-                </div>   
-                <div class="card-body d-flex justify-content-sm-end justify-content-center">
-                    <ul class="pagination">
-                        {{#page currentPage maxPage search}}
-                        {{/page}}
-                    </ul>
-                </div>                        
+                    <div class="card-body d-flex justify-content-sm-end justify-content-center">
+                        <ul class="pagination">
+                            {{#page currentPage maxPage search}}
+                            {{/page}}
+                        </ul>
+                    </div>                        
+                </div>
             </div>
         </div>
     </div>
