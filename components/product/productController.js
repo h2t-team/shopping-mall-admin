@@ -11,14 +11,15 @@ module.exports = {
     },
     list: async(req, res) => {
         try {
-            //get request params
+            //get request params and url
             const page = (!isNaN(req.query.page) && req.query.page > 0) ? Number(req.query.page) : 1;
+            const url = req.url;
 
             //get product list, category and page count
             const products = await productService.list(page - 1);
             const category = await productService.category();
             const maxPage = Math.floor((products.count.length - 1) / 8) + 1;
-            res.render('product/products', { title: 'Products', products: products.rows, category, currentPage: page, maxPage });
+            res.render('product/products', { title: 'Products', products: products.rows, category, currentPage: page, maxPage, url });
         } catch (err) {
             console.log(err.message);
         }
@@ -28,13 +29,14 @@ module.exports = {
             //get request params
             const page = (!isNaN(req.query.page) && req.query.page > 0) ? Number(req.query.page) : 1;
             const search = req.query.keyword;
+            const url = req.url;
 
             //get product list, category and page count
             const products = search ? await productService.findName(search, page - 1) : await productService.list(page - 1);
             const category = await productService.category();
             const maxPage = Math.floor((products.count.length - 1) / 8) + 1;
 
-            res.render('product/products', { title: 'Products', products: products.rows, category, currentPage: page, maxPage, search });
+            res.render('product/products', { title: 'Products', products: products.rows, category, currentPage: page, maxPage, search, url });
         } catch (err) {
             console.log(err.message);
         }

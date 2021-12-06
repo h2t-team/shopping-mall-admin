@@ -5,14 +5,14 @@ const adminService = require('./adminService');
 module.exports = {
     list: async(req, res) => {
         try {
-            //get request params
+            //get request params and url
             const page = (!isNaN(req.query.page) && req.query.page > 0) ? Number(req.query.page) : 1;
+            const url = req.url;
 
             //get admin list and page count
             const admins = await adminService.list(page - 1);
-            const maxPage = Math.floor((admins.count.length - 1) / 8) + 1;
-
-            res.render('ad/admins', { title: 'Admins', admins: admins.rows, currentPage: page, maxPage });
+            const maxPage = Math.floor((admins.count - 1) / 8) + 1;
+            res.render('ad/admins', { title: 'Admins', admins: admins.rows, currentPage: page, maxPage, url });
         } catch (err) {
             console.log(err.message);
         }
@@ -22,11 +22,12 @@ module.exports = {
             //get request params
             const page = (!isNaN(req.query.page) && req.query.page > 0) ? Number(req.query.page) : 1;
             const search = req.query.keyword;
+            const url = req.url;
+            
             //get admin and page count
             const admins = search ? await adminService.findName(search, page - 1) : await adminService.list(page - 1);
-            const maxPage = Math.floor((admins.count.length - 1) / 8) + 1;
-
-            res.render('ad/admins', { title: 'Admins', admins: admins.rows, currentPage: page, maxPage, search });
+            const maxPage = Math.floor((admins.count - 1) / 8) + 1;
+            res.render('ad/admins', { title: 'Admins', admins: admins.rows, currentPage: page, maxPage, search, url });
         } catch (err) {
             console.log(err.message);
         }
