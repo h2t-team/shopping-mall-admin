@@ -100,9 +100,8 @@ module.exports = {
     },
     removeProduct: async(req, res) => {
         try {
-            const { id } = req.body;
-            console.log(id)
-            await productService.removeProduct(id);
+            const { id, category_id } = req.body;
+            await productService.removeProduct(id, category_id);
             res.status(200).send({ message: "Success" });
         } catch (err) {
             console.log(err.message);

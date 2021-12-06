@@ -38,11 +38,11 @@ function handleAddProduct(formData) {
     }
 }
 
-async function removeProduct(id) {
+async function removeProduct(id, category_id) {
     try {
         const options = {
             method: 'POST',
-            body: JSON.stringify({ id }),
+            body: JSON.stringify({ id, category_id }),
             headers: {
                 'Content-Type': 'application/json'
             }

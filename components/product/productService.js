@@ -7,6 +7,7 @@ const listConfig = {
     attributes: [
         'id',
         'name',
+        'category_id',
         'price',
         'rate', [sequelize.fn('sum', sequelize.col('product_sizes.quantity')), 'total_amount']
     ],
@@ -58,6 +59,20 @@ module.exports = {
         offset: itemsPerPage * page,
         limit: itemsPerPage,
     }),
+    updateCategoryCount: (category_id, num) => models.category.update({
+        total_products: num
+    }, {
+        where: {
+            id: category_id
+        },
+    }),
+    findTotalByCategory: category_id => models.category.findOne({
+        attributes: ['total_products', 'parent_id'],
+        where: {
+            id: category_id
+        },
+        raw: true      
+    }),
     addProduct: (id, name, category_id, price, description, sizes, imageUrls) => models.product.create({
             id,
             category_id,
@@ -84,8 +99,21 @@ module.exports = {
                     quantity: sizes[key]
                 })
             }
+        })
+        .then(async (res) => {
+            try {
+                const { total_products, parent_id } = await module.exports.findTotalByCategory(category_id);
+                await module.exports.updateCategoryCount(category_id, total_products + 1);
+                if (parent_id !== null) {
+                    const { total_products } = await module.exports.findTotalByCategory(parent_id);
+                    await module.exports.updateCategoryCount(parent_id, total_products + 1);
+                }
+            }
+            catch (err) {
+                console.log(err.message);
+            }
         }),
-    removeProduct: id => models.product_image.destroy({
+    removeProduct: (id, category_id) => models.product_image.destroy({
             where: {
                 product_id: id
             },
@@ -95,6 +123,19 @@ module.exports = {
                 product_id: id
             },
         }))
+        .then(async (res) => {
+            try {
+                const { total_products, parent_id } = await module.exports.findTotalByCategory(category_id);
+                await module.exports.updateCategoryCount(category_id, total_products - 1);
+                if (parent_id !== null) {
+                    const { total_products } = await module.exports.findTotalByCategory(parent_id);
+                    await module.exports.updateCategoryCount(parent_id, total_products - 1);
+                }
+            }
+            catch (err) {
+                console.log(err.message);
+            }
+        })
         .then(res => models.product.destroy({
             where: {
                 id
