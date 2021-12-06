@@ -7,7 +7,6 @@ const hbs = require('hbs');
 const passport = require('./auth/passport');
 const session = require("express-session");
 const flash = require('connect-flash');
-const { body, validationResult } = require('express-validator');
 
 // router
 const indexRouter = require('./components/dashboard');

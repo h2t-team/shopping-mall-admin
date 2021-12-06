@@ -1,6 +1,6 @@
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getStorage } = require('firebase-admin/storage');
-const { uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 
 const serviceAccount = require('./key.json');
 

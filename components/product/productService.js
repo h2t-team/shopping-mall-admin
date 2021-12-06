@@ -66,8 +66,9 @@ module.exports = {
             description,
             rate: 0
         })
-        .then(async () => {
+        .then(async (res) => {
             for (let i = 0; i < imageUrls.length; i++) {
+                console.log(id)
                 await models.product_image.create({
                     product_id: id,
                     image_url: imageUrls[i]
@@ -75,7 +76,7 @@ module.exports = {
             }
             return Promise.resolve(id);
         })
-        .then(async () => {
+        .then(async (res) => {
             for (let key in sizes) {
                 await models.product_size.create({
                     product_id: id,

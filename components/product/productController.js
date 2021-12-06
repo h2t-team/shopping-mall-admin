@@ -1,9 +1,14 @@
 const productService = require('./productService');
 const formidable = require('formidable');
 const { uploadFile } = require('../../firebase/config');
-const { uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
+const { body, validationResult } = require('express-validator');
 
 module.exports = {
+    validate: (req, res) => {
+        console.log(req.body);
+        
+    },
     list: async(req, res) => {
         try {
             //get request params
