@@ -15,6 +15,7 @@ if (path.match('/admins/addadmin') || path.match('/admins/addAdmin')) {
                 minlength: 6
             },
             "email": {
+                required: true,
                 email: true,
             },
             "telephone": {
@@ -33,6 +34,10 @@ if (path.match('/admins/addadmin') || path.match('/admins/addAdmin')) {
                 required: "Please provide a password",
                 equalTo: "Please enter the same password as above",
                 minlength: "Your password must be at least 6 characters long",
+            },
+            "email": {
+                required: "Please provide an email",
+                email: "You have entered an invalid email address"
             },
             "telephone": {
                 maxlength: "Your telephone number must be at most 10 characters long"

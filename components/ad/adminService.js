@@ -16,9 +16,13 @@ module.exports = {
         limit: itemsPerPage,
     }),
     addAdmin: async(lastName, firstName, username, password, email, telephone) => {
-        var res = await models.admin.findOne({ where: { username: username }, raw: true })
-        if (res) {
+        const checkUsername = await models.admin.findOne({ where: { username: username }, raw: true })
+        if (checkUsername) {
             throw new Error('Username is already taken!');
+        }
+        const checkEmail = await models.admin.findOne({ where: { email: email }, raw: true })
+        if (checkEmail) {
+            throw new Error('Email is already taken!');
         }
         const hashPassword = await bcrypt.hash(password, 10);
         return await models.admin.create({
@@ -37,14 +41,28 @@ module.exports = {
             id: id
         },
     }),
-    updateAdmin: (id, lastName, firstName, email, telephone) => models.admin.update({
-        last_name: lastName,
-        first_name: firstName,
-        email: email,
-        telephone: telephone,
-    }, {
-        where: {
-            id: id,
-        },
-    })
+    updateAdmin: async(id, lastName, firstName, email, telephone) => {
+        const checkEmail = await models.admin.findOne({
+            where: {
+                email: email,
+                id: {
+                    [Op.not]: id
+                }
+            },
+            raw: true
+        })
+        if (checkEmail) {
+            throw new Error('Email is already taken!');
+        }
+        return models.admin.update({
+            last_name: lastName,
+            first_name: firstName,
+            email: email,
+            telephone: telephone,
+        }, {
+            where: {
+                id: id,
+            },
+        });
+    }
 }
