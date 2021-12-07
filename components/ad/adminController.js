@@ -1,6 +1,4 @@
-const bcrypt = require('bcrypt');
 const adminService = require('./adminService');
-
 
 module.exports = {
     list: async(req, res) => {

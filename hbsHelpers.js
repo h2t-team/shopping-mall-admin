@@ -2,9 +2,7 @@ const helpers = (hbs) => {
     hbs.registerHelper('currencyFormat', money => 
         new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money));
 
-    // Huy sẽ sửa cái này sau
     hbs.registerHelper('page', (currentPage, maxPage, url) => {
-        
         //check exists pagination in url
         url = url.includes('page') ? url.substring(0, url.indexOf('page') - 1) : url;
         const urlTerm = url === '/' ? '?' : `${url.substring(1)}&`;

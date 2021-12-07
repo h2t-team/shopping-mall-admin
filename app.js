@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const hbs = require('hbs');
 const passport = require('./auth/passport');
+const { checkAuthentication } = require('./auth/auth');
 const session = require("express-session");
 const flash = require('connect-flash');
 
@@ -57,24 +58,14 @@ app.use((req, res, next) => {
     next();
 })
 
-// if user is not logged-in redirect back to login page 
-app.use('/', function (req, res, next) {
-        if (req.user == null && req.url != '/auth/login'){
-            res.redirect('/auth/login');
-        } else {
-            next();
-        }
-    }
-);
-
-// otherwise 
-app.use('/', indexRouter);
-app.use('/users', userRouter);
-app.use('/profile', profileRouter);
-app.use('/orders', orderRouter);
-app.use('/products', productRouter);
-app.use('/admins', adminRouter);
+// use routes
 app.use('/auth', authRouter);
+app.use('/users', checkAuthentication, userRouter);
+app.use('/profile', checkAuthentication, profileRouter);
+app.use('/orders', checkAuthentication, orderRouter);
+app.use('/products', checkAuthentication, productRouter);
+app.use('/admins', checkAuthentication, adminRouter);
+app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

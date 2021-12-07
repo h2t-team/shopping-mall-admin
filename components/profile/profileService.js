@@ -2,5 +2,5 @@ const { models } = require('../../models');
 const sequelize = require('sequelize');
 
 module.exports = {
-    getCurrentUser: () => models.admin
+    getCurrentUser: id => models.admin.findByP
 }
