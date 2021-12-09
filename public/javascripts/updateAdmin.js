@@ -3,6 +3,7 @@ if (path.match('/admins/updateadmin/')) {
     $("#update-admin-form").validate({
         rules: {
             "email": {
+                required: true,
                 email: true,
             },
             "telephone": {
@@ -11,6 +12,7 @@ if (path.match('/admins/updateadmin/')) {
         },
         messages: {
             "email": {
+                required: "Please provide an email",
                 email: "You have entered an invalid email address"
             },
             "telephone": {
