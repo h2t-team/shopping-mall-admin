@@ -36,7 +36,7 @@
                 <div class="flex-grow-1 flex-shrink-1">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0 align-items-center">
-                            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door-fill icon-1"></i></a></li>
+                            <li class="breadcrumb-item"><a href="/"><i class="bi bi-house-door-fill icon-1"></i></a></li>
                             <li class="breadcrumb-item text-uppercase active">Orders</li>
                             <li class="breadcrumb-item text-uppercase active">Invoice</li>
                         </ol>
@@ -53,10 +53,10 @@
                 <div class="col-md-8 col-lg-6 offset-lg-3 offset-md-2">
                     <div class="card">
                         <div class="p-3">
-                            <div class="badge bg-warning text-dark text-uppercase">Delivering</div>
+                            <div class="badge bg-{{checkStatus order.status}} text-uppercase">{{order.status}}</div>
                             <div class="px-3">
                                 <div class="d-flex justify-content-center flex-column text-center my-5 navbar-light">
-                                    <a href="fixed-dashboard.html"
+                                    <a href="/"
                                         class="navbar-brand d-flex flex-column m-0 align-items-center p-0"
                                         style="min-width: 0">
                                         <img class="navbar-brand-icon mb-2"
@@ -65,7 +65,7 @@
                                             alt="FlowDash">
                                         <span class="fw-bold">Invoice</span>
                                     </a>
-                                    <div class="text-muted">Invoice #MPS1234AD</div>
+                                    <div class="text-muted">Invoice #{{order.id}}</div>
                                 </div>
                                 <div class="row mb-5">
                                     <div class="col-sm">
@@ -75,21 +75,21 @@
                                             Online Shop<br>
                                             Based in VietNam<br>
                                         </p>
-                                        <div class="text-label">Invoice NUMBER</div>
+                                        <div class="text-label">Order date</div>
                                         <p class="mb-4">
-                                            #MPS1234AD
+                                            {{dateTime order.created_at}}
                                         </p>
                                     </div>
                                     <div class="col-sm text-sm-end">
                                         <div class="text-label">TO (CUSTOMER)</div>
                                         <p class="mb-4">
-                                            <strong class="text-body">Doan The Huy</strong><br>
-                                            1 Pham Ngu Lao,<br>
-                                            Go Vap District, HCMC<br>
+                                            <strong class="text-body text-uppercase">{{order.[receiver_address.receiver_name]}}</strong><br>
+                                            {{order.[receiver_address.specific_address]}}, phường/xã {{order.[receiver_address.ward]}}<br>
+                                            quận/huyện {{order.[receiver_address.district]}}, {{order.[receiver_address.province]}}<br>
                                         </p>
-                                        <div class="text-label">Order date</div>
+                                        <div class="text-label">Telephone</div>
                                         <p class="mb-4">
-                                            Nov 15th, 2021
+                                            {{order.[receiver_address.telephone]}}
                                         </p>
                                     </div>
                                 </div>
@@ -103,27 +103,24 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Basic Tee</td>
-                                                <td class="text-center">3</td>
-                                                <td class="text-end">&dollar;2,400</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Black Hoodie</td>
-                                                <td class="text-center">1</td>
-                                                <td class="text-end">&dollar;1,000</td>
-                                            </tr>
+                                            {{#each orderDetails}}
+                                                <tr>
+                                                    <td>{{'product.name'}}</td>
+                                                    <td class="text-center">{{product_amount}}</td>
+                                                    <td class="text-end">{{currencyFormat product_price}}</td>
+                                                </tr>
+                                            {{/each}}
                                             <tr>
                                                 <td><strong>Total</strong></td>
-                                                <td colspan="2"
-                                                    class="text-end"><strong>&dollar;3,400</strong></td>
+                                                <td colspan="2" class="text-end">
+                                                    <strong>{{currencyFormat sumOrder.total}}</strong>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-
                                 <div class="text-label mt-2">Notes</div>
-                                <p class="text-muted">Deliver within 3 days.</p>
+                                <p class="text-muted">{{order.note}}</p>
                             </div>
                         </div>
                     </div>

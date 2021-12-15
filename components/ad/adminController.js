@@ -63,15 +63,5 @@ module.exports = {
         } catch (err) {
             res.status(500).send({ message: err.message });
         }
-    },
-    removeAdmin: async(req, res) => {
-        try {
-            const { id } = req.body;
-            await adminService.removeAdmin(id);
-            res.status(200).send({ message: "Success" });
-        } catch (err) {
-            console.log(err.message);
-            res.status(500).send({ message: "Failed to remove" });
-        }
     }
 }

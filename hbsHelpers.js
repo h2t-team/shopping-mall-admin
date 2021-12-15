@@ -1,6 +1,26 @@
 const helpers = (hbs) => {
+    // Currency formatter
     hbs.registerHelper('currencyFormat', money => 
         new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money));
+
+    // Date formatter
+    hbs.registerHelper('dateTime', date => date.toLocaleString('en-US', { hour12: false }));
+
+    // Address formatter
+    hbs.registerHelper('address', (specific_address, ward, district, province) => `${specific_address ? `${specific_address},` : ''} phường/xã ${ward}, quận/huyện ${district}, ${province}`);
+
+    // Order status
+    hbs.registerHelper('checkStatus', status => {
+        console.log(status)
+        if (status === 'Success') 
+            return 'success';
+        else if (status === 'Delivering') 
+            return 'warning';
+        else if (status === 'Cancel') 
+            return 'danger';
+        else return 'secondary';
+    });
+
 
     hbs.registerHelper('page', (currentPage, maxPage, url) => {
         //check exists pagination in url

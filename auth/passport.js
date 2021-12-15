@@ -18,15 +18,24 @@ passport.use(
             if (!validPassword(user, password)) {
                 return done(null, false, { message: "Incorrect password." });
             }
+            if (isUserLock(user)) {
+                return done(null, false, { message: "Your account has been blocked." });
+            }
+            console.log(user)
             return done(null, user);
         }
         catch (err) {
+            console.log(err)
             return done(err);
         }    
     })
 );
 
+// check valid password
 const validPassword = (user, password) => bcrypt.compareSync(password, user.password);
+
+// check if user account was locked
+const isUserLock = user => user.lock === 1;
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);

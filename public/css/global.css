@@ -25,6 +25,9 @@ a:hover {
 h1 {
     color: var(--darkgrey);
 }
+.badge {
+    line-height: 1.5;
+}
 .table {
     --bs-table-striped-bg:var(--mint);
 }
@@ -56,7 +59,7 @@ h1 {
     background-color: #4757d8;
     border-color: #3d4dd6;
 }
-.btn-success {
+.btn-success, .bg-success {
     background-color: var(--green);
     border-color: var(--green);
 }

@@ -22,6 +22,9 @@ module.exports = {
             res.render('product/products', { title: 'Products', products: products.rows, category, currentPage: page, maxPage, url });
         } catch (err) {
             console.log(err.message);
+            res.status(500).json({
+                err: err.message
+            });
         }
     },
     search: async(req, res) => {

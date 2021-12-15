@@ -54,10 +54,12 @@
                             <div class="col-md-4 offset-md-8">
                                 <div class="search-form search-form--light d-flex">
                                     <input type="text"
+                                        name="user-search"
                                         class="form-control search"
                                         placeholder="Search">
                                     <button class="btn"
                                             type="button"
+                                            id="search-btn"
                                             role="button"><i class="bi bi-search"></i></button>
                                 </div>
                             </div>
@@ -67,19 +69,12 @@
                         <thead>
                             <tr>
                                 <th style="width: 18px;" class="text-center">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input js-toggle-check-all" data-target="#products" id="customCheckAll">
-                                        <label class="custom-control-label" for="customCheckAll">
-                                            <span class="text-hide">Toggle all</span>
-                                        </label>
-                                    </div>
                                 </th>
-                                <th style="width: 30px;" class="text-center">#ID</th>
-                                <th>Name</th>
-                                <th style="width: 150px;">Username</th>
+                                <th style="min-width: 250px;">Name</th>
+                                <th style="width: 250px;">Username</th>
                                 <th>Email</th>
-                                <th style="width: 100px;">Created At</th>
-                                <th style="width: 60px;" class="text-center"></th>
+                                <th style="min-width: 250px;">Created At</th>
+                                <th style="width: 50px;" class="text-center"></th>
                             </tr>
                         </thead>
                         <tbody class="list" id="users">
@@ -89,37 +84,44 @@
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox"
                                             class="custom-control-input js-check-selected-row"
-                                            id="customCheck1_1">
+                                            id="customCheck_{{id}}">
                                         <label class="custom-control-label"
-                                            for="customCheck1_1"><span class="text-hide">Check</span></label>
+                                            for="customCheck_{{id}}"><span class="text-hide">Check</span></label>
                                     </div>
                                 </td>
-                                <td class="text-center">
-                                    <div class="badge bg-lightblue">{{id}}</div>
-                                </td>
                                 <td>
-                                    <img src="/images/clem-onojeghuo-192088.jpg"
+                                    {{#if avatar}}
+                                    <img src="{{avatar}}"
                                         alt="product"
                                         style="width:35px"
                                         class="rounded mr-2">
-                                    <a href="#">{{first_name}} {{last_name}}</a>
+                                    {{else}}
+                                    <img src="/images/default.png"
+                                        alt="product"
+                                        style="width:35px"
+                                        class="rounded mr-2">
+                                    {{/if}}
+                                    <a href="#" class="ms-2">{{first_name}} {{last_name}}</a>
                                 </td>
                                 <td>{{username}}</td>
                                 <td>
-                                    <a href="#">{{email}}</a>
+                                    <a href="mailto:{{email}}">{{email}}</a>
                                 </td>
-                                <td>{{dob}}</td>
+                                <td>{{#dateTime created_at}}{{/dateTime}}</td>
                                 <td class="text-center">
-                                    <a href="#" class="btn btn-sm btn-primary">EDIT</td>
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary text-uppercase">Lock</a>
+                                </td>
                             </tr>
                             {{/each}}
                         </tbody>
                     </table>
                 </div>      
-                <div class="card-body text-end">
-                    15 <span class="text-muted">of 25</span><a href="#"
-                        class="text-muted-light"><i class="bi bi-arrow-right"></i></a>
-                </div>                        
+                <div class="card-body d-flex justify-content-sm-end justify-content-center">
+                    <ul class="pagination">
+                        {{#page currentPage maxPage url}}
+                        {{/page}}
+                    </ul>
+                </div>                       
             </div>
         </div>
     </div>

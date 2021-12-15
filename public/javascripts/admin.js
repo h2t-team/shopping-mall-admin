@@ -93,18 +93,3 @@ if (path.match('/admins/addadmin') || path.match('/admins/addAdmin')) {
         });
     }
 }
-async function removeAdmin(id) {
-    try {
-        const options = {
-            method: 'POST',
-            body: JSON.stringify({ id }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        await fetch('/admins', options)
-        location.reload();
-    } catch (err) {
-        console.log(err.message)
-    }
-}

@@ -48,48 +48,40 @@
     <div class="main-section">
         <div class="container">
             <div class="card">
-                <div class="table-responsive">
-                    <div class="m-3">
+                <div class="m-3">
                         <div class="row">
-                            <div class="col-md-4">
-
-                                <select name="#"
-                                        class="form-control form-select">
+                            <div class="col-md-4 mb-2">
+                                <select name="status" class="form-control form-select">
                                     <option value="-1">All</option>
-                                    <option value="delivered">Delivered</option>
+                                    <option value="Success">Success</option>
                                     <option value="delivering">Delivering</option>
+                                    <option value="Not delivered">Not delivered</option>
                                     <option value="cancel">Cancel</option>
                                 </select>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 mb-2">
                                 <div class="search-form search-form--light d-flex">
                                     <input type="text"
                                         class="form-control search"
                                         placeholder="Search">
                                     <button class="btn"
                                             type="button"
-                                            role="button"><i class="bi bi-search"></i></button>
+                                            role="button"><i class="bi bi-search"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                <div class="table-responsive">
                     <table class="table mb-0 table-striped">
                         <thead>
                             <tr>
-                                <th style="width: 18px;" class="text-center">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input js-toggle-check-all" data-target="#products" id="customCheckAll">
-                                        <label class="custom-control-label" for="customCheckAll">
-                                            <span class="text-hide">Toggle all</span>
-                                        </label>
-                                    </div>
-                                </th>
-                                <th style="width: 30px;" class="text-center">#ID</th>
-                                <th>Customer Name</th>
-                                <th class="text-center" style="width: 120px;">Total</th>
-                                <th>Address</th>
-                                <th style="width: 120px;">Created At</th>
-                                <th style="width: 60px;" class="text-center">Status</th>
+                                <th style="width: 18px;" class="text-center"></th>
+                                <th style="min-width: 200px;">Customer Name</th>
+                                <th class="text-center" style="width: 200px;">Total</th>
+                                <th style="min-width: 350px;">Address</th>
+                                <th style="min-width: 200px;">Created At</th>
+                                <th style="width: 50px;" class="text-center">Status</th>
                             </tr>
                         </thead>
                         <tbody class="list" id="orders">
@@ -99,39 +91,37 @@
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox"
                                             class="custom-control-input js-check-selected-row"
-                                            id="customCheck1_1">
+                                            id="customCheck_{{id}}">
                                         <label class="custom-control-label"
-                                            for="customCheck1_1"><span class="text-hide">Check</span></label>
+                                            for="customCheck_{{id}}"><span class="text-hide">Check</span></label>
                                     </div>
                                 </td>
+                                <td>
+                                    <a href="/orders/{{id}}">{{'receiver_address.receiver_name'}}</a>
+                                </td>
                                 <td class="text-center">
-                                    <div class="badge bg-lightblue">{{id}}</div>
+                                    {{currencyFormat total}}
                                 </td>
                                 <td>
-                                    <img src="/images/clem-onojeghuo-192088.jpg"
-                                        alt="product"
-                                        style="width:35px"
-                                        class="rounded mr-2">
-                                    <a href="/orders/invoice">Nguyen Gia Huy</a>
+                                    {{address this.[receiver_address.specific_address] this.[receiver_address.ward] this.[receiver_address.district] this.[receiver_address.province]}}
                                 </td>
-                                <td class="text-center">
-                                    {{total}}đ</td>
                                 <td>
-                                    <a href="#">1 Dien Bien Phu, Binh Thanh</a>
+                                    {{dateTime created_at}}
                                 </td>
-                                <td>01/01/2021</td>
                                 <td class="text-center">
-                                    <a href="#" class="btn btn-sm btn-success">Delivered</a>
+                                    <span class="badge bg-{{checkStatus status}}">{{status}}</span>
                                 </td>
                             </tr>
                             {{/each}}
                         </tbody>
                     </table>
                 </div>   
-                <div class="card-body text-end">
-                    15 <span class="text-muted">of 25</span> <a href="#"
-                        class="text-muted-light"><i class="bi bi-arrow-right"></i></a>
-                </div>                        
+                <div class="card-body d-flex justify-content-sm-end justify-content-center">
+                    <ul class="pagination">
+                        {{#page currentPage maxPage url}}
+                        {{/page}}
+                    </ul>
+                </div>                           
             </div>
         </div>
     </div>

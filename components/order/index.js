@@ -5,6 +5,6 @@ const orderController = require('./orderController');
 
 /* GET orders page. */
 router.get('/', orderController.list);
-router.get('/invoice', orderController.invoice);
+router.get('/:orderId', orderController.invoice);
 
 module.exports = router;
