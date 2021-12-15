@@ -10,7 +10,7 @@ module.exports = {
 
             //get user list and page count
             const users = keyword ? await userService.search(keyword, page - 1) : await userService.list(page - 1);
-            const maxPage = Math.floor((users.count - 1) / 8) + 1;
+            const maxPage = Math.floor((users.count - 1) / 5) + 1;
 
             // render list
             res.render('user/users', { title: 'Users' , users: users.rows, currentPage: page, maxPage, url, keyword});
@@ -29,6 +29,21 @@ module.exports = {
             res.status(500).json({
                 err: err.message
             });
+        }
+    },
+    lockUser: async (req, res) => {
+        try {
+            const { id, checkLock } = req.body;
+            if (checkLock) {
+                await userService.lockUser(id);
+            }
+            else {
+                await userService.unlockUser(id);
+            }
+            res.status(200).send({ message: "OK" });
+        }
+        catch (err)  {
+            res.status(500).send({ message: err.message });
         }
     }
 }

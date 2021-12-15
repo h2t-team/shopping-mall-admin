@@ -21,7 +21,6 @@ passport.use(
             if (isUserLock(user)) {
                 return done(null, false, { message: "Your account has been blocked." });
             }
-            console.log(user)
             return done(null, user);
         }
         catch (err) {

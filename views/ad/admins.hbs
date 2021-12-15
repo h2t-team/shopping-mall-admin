@@ -49,6 +49,7 @@
     </div>
     <div class="main-section">
         <div class="container">
+            <div id="errorMessage"></div>
             <div class="card">
                 <div class="table-responsive">
                     <div class="m-3">
@@ -103,7 +104,11 @@
                                 <td class="text-center">
                                     <a href="/admins/updateadmin/{{id}}" class="btn btn-sm btn-primary">EDIT</td>
                                 <td class="text-center">
-                                    <a href="javascript:void(0)"class="btn btn-sm btn-primary">LOCK</a>
+                                    {{#if lock}} 
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary lock-btn" onclick="lockAdmin('{{id}}', false)">UNLOCK</a>
+                                    {{else}}
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary lock-btn" onclick="lockAdmin('{{id}}', true)">LOCK</a>
+                                    {{/if}}
                                 </td>
                             </tr>
                             {{/each}}

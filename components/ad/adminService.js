@@ -5,12 +5,12 @@ const sequelize = require('sequelize');
 const Op = sequelize.Op;
     
 module.exports = {
-    list: (page = 0, itemsPerPage = 8) => models.admin.findAndCountAll({
+    list: (page = 0, itemsPerPage = 5) => models.admin.findAndCountAll({
         raw: true,
         offset: itemsPerPage * page,
         limit: itemsPerPage
     }),
-    findName: (name, page = 0, itemsPerPage = 8) => models.admin.findAndCountAll({
+    findName: (name, page = 0, itemsPerPage = 5) => models.admin.findAndCountAll({
         where: sequelize.where(sequelize.fn('concat', sequelize.col('last_name'), ' ', sequelize.col('first_name')), {
             [Op.like]: '%' + name + '%'
         }),
@@ -66,5 +66,19 @@ module.exports = {
                 id: id,
             },
         });
-    }
+    },
+    lockAdmin: id => models.admin.update({
+        lock: 1,
+    }, {
+        where: {
+            id
+        },
+    }),
+    unlockAdmin: id => models.admin.update({
+        lock: 0,
+    }, {
+        where: {
+            id
+        },
+    })  
 }

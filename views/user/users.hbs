@@ -47,6 +47,7 @@
     </div>
     <div class="main-section">
         <div class="container">
+            <div id="errorMessage"></div>
             <div class="card">
                 <div class="table-responsive">
                     <div class="m-3">
@@ -109,7 +110,11 @@
                                 </td>
                                 <td>{{#dateTime created_at}}{{/dateTime}}</td>
                                 <td class="text-center">
-                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary text-uppercase">Lock</a>
+                                    {{#if lock}} 
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary lock-btn" onclick="lockUser('{{id}}', false)">UNLOCK</a>
+                                    {{else}}
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary lock-btn" onclick="lockUser('{{id}}', true)">LOCK</a>
+                                    {{/if}}
                                 </td>
                             </tr>
                             {{/each}}

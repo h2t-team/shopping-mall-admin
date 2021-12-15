@@ -17,4 +17,7 @@ router.post('/addadmin', adminController.addAdminForm);
 router.get('/updateadmin/:adminId', adminController.updateAdminPage);
 router.post('/updateadmin', adminController.updateAdminForm);
 
+// lock admin
+router.post('/lockadmin', adminController.lockAdmin);
+
 module.exports = router;
