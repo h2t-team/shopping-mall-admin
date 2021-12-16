@@ -24,7 +24,7 @@ const helpers = (hbs) => {
     // status select
     hbs.registerHelper('select', function(value, options) {
         return options.fn(this).replace(
-            new RegExp(' value=\"' + value + '\"'),
+            new RegExp(` value="${value}"`),
             '$& selected');
     });
 

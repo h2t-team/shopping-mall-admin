@@ -52,29 +52,37 @@
             <div class="card">
                 <div class="table-responsive">
                     <div class="m-3">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <select name="product-category" class="form-control form-select">
-                                    <option value="-1">All</option>
-                                    {{#each category}}
-                                        <option value={{id}}>{{name}}</option> 
-                                    {{/each}}
-                                </select>
+                        <form action="/products/search" method="get">
+                            <div class="row">
+                                <div class="col-md-4 mb-2">
+                                    <div class="search-form">
+                                        <select name="category" class="form-control form-select">
+                                            {{#select cat}}
+                                                <option value="all">All</option>
+                                                {{#each category}}
+                                                    <option value="{{id}}">{{name}}</option> 
+                                                {{/each}}
+                                            {{/select}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 mb-2">
+                                    <div class="search-form d-flex">
+                                        <input type="text"
+                                            class="form-control search"
+                                            placeholder="Search"
+                                            name="keyword"
+                                            autocomplete="off"
+                                            value="{{search}}">
+                                        <button class="btn"
+                                                type="submit"
+                                                role="button">
+                                            <i class="bi bi-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-8">
-                                <form class="search-form search-form--light d-flex" action="/products/search" method="get">
-                                    <input type="text"
-                                        class="form-control search"
-                                        placeholder="Search"
-                                        name="keyword"
-                                        autocomplete="off"
-                                        value="{{search}}">
-                                    <button class="btn"
-                                            type="submit"
-                                            role="button"><i class="bi bi-search"></i></button>
-                                </form>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                     <table class="table mb-0 table-striped">
                         <thead>

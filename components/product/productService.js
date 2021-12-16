@@ -49,12 +49,28 @@ module.exports = {
     category: () => models.category.findAll({
         raw: true
     }),
-    findName: (name, page = 0, itemsPerPage = 8) => models.product.findAndCountAll({
+    search: (category, keyword, page = 0, itemsPerPage = 8) => models.product.findAndCountAll({
         ...listConfig,
         where: {
-            'name': {
-                [Op.like]: `%${name}%`
-            }
+            category_id: {
+                [Op.like]: `%${category}%`
+            },
+            
+            [Op.or]: [
+                {
+                    name: {
+                        [Op.like]: `%${keyword}%`
+                    }  
+                }, {
+                    price: {
+                        [Op.like]: `%${keyword}%`
+                    }  
+                }, {
+                    rate: {
+                        [Op.like]: `%${keyword}%`
+                    }  
+                }
+            ]
         },
         offset: itemsPerPage * page,
         limit: itemsPerPage,
