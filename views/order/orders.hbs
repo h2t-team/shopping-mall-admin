@@ -49,29 +49,37 @@
         <div class="container">
             <div class="card">
                 <div class="m-3">
+                    <form action="/orders/search" method="get">
                         <div class="row">
                             <div class="col-md-4 mb-2">
-                                <select name="status" class="form-control form-select">
-                                    <option value="-1">All</option>
-                                    <option value="Success">Success</option>
-                                    <option value="delivering">Delivering</option>
-                                    <option value="Not delivered">Not delivered</option>
-                                    <option value="cancel">Cancel</option>
-                                </select>
+                                <div class="search-form">
+                                    <select name="status" class="form-control form-select" id="status">
+                                        {{#select status}}
+                                            <option value="all">All</option>
+                                            <option value="success">Success</option>
+                                            <option value="delivering">Delivering</option>
+                                            <option value="not delivered">Not delivered</option>
+                                            <option value="cancel">Cancel</option>
+                                        {{/select}}
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-md-8 mb-2">
-                                <div class="search-form search-form--light d-flex">
+                                <div class="search-form d-flex">
                                     <input type="text"
                                         class="form-control search"
-                                        placeholder="Search">
+                                        placeholder="Search"
+                                        name="keyword"
+                                        value="{{search}}">
                                     <button class="btn"
-                                            type="button"
+                                            type="submit"
                                             role="button"><i class="bi bi-search"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                </div>
                 <div class="table-responsive">
                     <table class="table mb-0 table-striped">
                         <thead>

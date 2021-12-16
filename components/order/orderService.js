@@ -55,18 +55,36 @@ module.exports = {
             order_id: id
         }
     }),
-    search: (keyword, page = 0, itemsPerPage = 8) => models.customer.findAndCountAll({
+    search: (status, keyword, page = 0, itemsPerPage = 8) => models.order.findAndCountAll({
         ...listConfig,
         where: {
+            status: {
+                [Op.like]: `%${status}%`
+            },
             [Op.or]: [
                 {
-                    status: {
-                        [Op.like]: `${keyword}`
-                    }  
-                },
-                {
                     total: {
-                        [Op.like]: `${keyword}`
+                        [Op.like]: `%${keyword}%`
+                    }  
+                }, {
+                    '$receiver_address.receiver_name$': {
+                        [Op.like]: `%${keyword}%`
+                    }  
+                }, {
+                    '$receiver_address.province$': {
+                        [Op.like]: `%${keyword}%`
+                    }  
+                }, {
+                    '$receiver_address.district$': {
+                        [Op.like]: `%${keyword}%`
+                    }  
+                }, {
+                    '$receiver_address.ward$': {
+                        [Op.like]: `%${keyword}%`
+                    }  
+                }, {
+                    '$receiver_address.specific_address$': {
+                        [Op.like]: `%${keyword}%`
                     }  
                 }
             ]

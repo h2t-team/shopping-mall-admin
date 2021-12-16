@@ -21,7 +21,14 @@ const helpers = (hbs) => {
         else return 'secondary';
     });
 
+    // status select
+    hbs.registerHelper('select', function(value, options) {
+        return options.fn(this).replace(
+            new RegExp(' value=\"' + value + '\"'),
+            '$& selected');
+    });
 
+    // pagination
     hbs.registerHelper('page', (currentPage, maxPage, url) => {
         //check exists pagination in url
         url = url.includes('page') ? url.substring(0, url.indexOf('page') - 1) : url;
