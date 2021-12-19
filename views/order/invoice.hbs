@@ -43,7 +43,20 @@
                     </nav>
                     <h1 class="m-0 fw-bold">Invoice</h1>
                 </div>
-                <a href="#" class="btn btn-primary me-md-5 my-2"><i class="bi bi-download me-1"></i> Download</a>
+                <div class="w-25">
+                    <div class="search-form d-flex align-items-center">
+                        <input type="hidden" value="{{order.id}}" id="order-id">
+                        <label>Status: </label>
+                        <select name="status" class="form-control form-select ms-3" id="status-invoice">
+                            {{#select order.status}}
+                                <option value="Success">Success</option>
+                                <option value="Delivering">Delivering</option>
+                                <option value="Not delivered">Not delivered</option>
+                                <option value="Cancel">Cancel</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -51,9 +64,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-lg-6 offset-lg-3 offset-md-2">
+                    <div id="error-message"></div>
                     <div class="card">
                         <div class="p-3">
-                            <div class="badge bg-{{checkStatus order.status}} text-uppercase">{{order.status}}</div>
+                            <div class="badge bg-{{checkStatus order.status}} text-uppercase status-badge">{{order.status}}</div>
                             <div class="px-3">
                                 <div class="d-flex justify-content-center flex-column text-center my-5 navbar-light">
                                     <a href="/"

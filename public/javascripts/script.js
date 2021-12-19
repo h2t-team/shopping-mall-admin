@@ -1,5 +1,5 @@
 $("form").submit(function() {
-    if($(".search").val()=="") {
+    if($(".search").val() == "") {
             $(".search").remove();
     }
 });

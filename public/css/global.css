@@ -347,3 +347,6 @@ h1 {
     font-size: .875em;
     color: #dc3545;
 }
+.search-form {
+    background-color: transparent;
+}

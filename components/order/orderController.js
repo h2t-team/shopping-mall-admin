@@ -23,7 +23,7 @@ module.exports = {
             console.log(err.message);
         }
     },
-    search: async(req, res) => {
+    search: async (req, res) => {
         try {
             //get request params
             const page = (!isNaN(req.query.page) && req.query.page > 0) ? Number(req.query.page) : 1;
@@ -40,4 +40,17 @@ module.exports = {
             console.log(err);
         }
     },
+    updateStatus: async (req, res) => {
+        try {
+            //get request params
+            const { id, status } = req.body;
+
+            //get order list and page count
+            await orderService.updateStatus(id, status);
+            res.status(201).send({ message: "Updated successfully!" });
+        } catch (err) {
+            console.log(err)
+            res.status(500).send({ message: "Failed to update status!" });
+        }
+    }
 }
