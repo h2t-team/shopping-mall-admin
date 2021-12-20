@@ -28,6 +28,8 @@ const helpers = (hbs) => {
             '$& selected');
     });
 
+    hbs.registerHelper('preview', url => url ? url : "/images/default.png");
+
     // pagination
     hbs.registerHelper('page', (currentPage, maxPage, url) => {
         //check exists pagination in url

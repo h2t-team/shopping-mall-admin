@@ -14,7 +14,7 @@ const listConfig = {
     include: [{
             model: models.category,
             as: 'category',
-            attributes: ['name'],
+            attributes: ['name', 'parent_id'],
             required: true
         },
         {
@@ -52,23 +52,36 @@ module.exports = {
     search: (category, keyword, page = 0, itemsPerPage = 8) => models.product.findAndCountAll({
         ...listConfig,
         where: {
-            category_id: {
-                [Op.like]: `%${category}%`
-            },
-            
-            [Op.or]: [
+            [Op.and]: [
                 {
-                    name: {
-                        [Op.like]: `%${keyword}%`
-                    }  
+                    [Op.or]: [
+                        {
+                            name: {
+                                [Op.like]: `%${keyword}%`
+                            }  
+                        }, {
+                            price: {
+                                [Op.like]: `%${keyword}%`
+                            }  
+                        }, {
+                            rate: {
+                                [Op.like]: `%${keyword}%`
+                            } 
+                        }
+                    ]
                 }, {
-                    price: {
-                        [Op.like]: `%${keyword}%`
-                    }  
-                }, {
-                    rate: {
-                        [Op.like]: `%${keyword}%`
-                    }  
+                    [Op.or]: [
+                        {
+                            '$category.id$': {
+                                [Op.like]: `%${category}%`
+                            },
+                        },
+                        {
+                            '$category.parent_id$': {
+                                [Op.like]: `%${category}%`
+                            },
+                        },
+                    ]
                 }
             ]
         },
@@ -97,7 +110,7 @@ module.exports = {
             description,
             rate: 0
         })
-        .then(async (res) => {
+        .then(async res => {
             for (let i = 0; i < imageUrls.length; i++) {
                 await models.product_image.create({
                     product_id: id,
@@ -106,7 +119,7 @@ module.exports = {
             }
             return Promise.resolve(id);
         })
-        .then(async (res) => {
+        .then(async res => {
             for (let key in sizes) {
                 await models.product_size.create({
                     product_id: id,
@@ -115,7 +128,7 @@ module.exports = {
                 })
             }
         })
-        .then(async (res) => {
+        .then(async res => {
             try {
                 const { total_products, parent_id } = await module.exports.findTotalByCategory(category_id);
                 await module.exports.updateCategoryCount(category_id, total_products + 1);
@@ -178,26 +191,26 @@ module.exports = {
         return category;
     },
     updateProduct: (id, name, category_id, price, description, rate, size) => models.product.update({
-            category_id: category_id,
-            name: name,
-            price: price,
-            description: description,
-            rate: rate
-        }, {
-            where: {
-                id: id,
-            },
-        })
-        .then(async(res) => {
-            for (let key in size) {
-                await models.product_size.update({
-                    quantity: size[key]
-                }, {
-                    where: {
-                        product_id: id,
-                        size: key,
-                    },
-                })
-            }
-        }),
+        category_id: category_id,
+        name: name,
+        price: price,
+        description: description,
+        rate: rate
+    }, {
+        where: {
+            id: id,
+        },
+    })
+    .then(async(res) => {
+        for (let key in size) {
+            await models.product_size.update({
+                quantity: size[key]
+            }, {
+                where: {
+                    product_id: id,
+                    size: key,
+                },
+            })
+        }
+    }),
 }
