@@ -21,7 +21,7 @@ module.exports = {
             const page = (!isNaN(req.query.page) && req.query.page > 0) ? Number(req.query.page) : 1;
             const search = req.query.keyword;
             const url = req.url;
-            
+
             //get admin and page count
             const admins = search ? await adminService.findName(search, page - 1) : await adminService.list(page - 1);
             const maxPage = Math.floor((admins.count - 1) / 8) + 1;
@@ -64,24 +64,30 @@ module.exports = {
             res.status(500).send({ message: err.message });
         }
     },
-    lockAdmin: async (req, res) => {
+    lockAdmin: async(req, res) => {
         try {
-            const { id, checkLock} = req.body;
+            const { id, checkLock } = req.body;
             if (id === req.user.id) {
                 res.status(400).send({ message: `You can't lock your account!` });
-            }
-            else {
+            } else {
                 if (checkLock) {
                     await adminService.lockAdmin(id);
-                }
-                else {
+                } else {
                     await adminService.unlockAdmin(id);
                 }
                 res.status(200).send({ message: "OK" });
             }
-        }
-        catch (err)  {
+        } catch (err) {
             res.status(500).send({ message: err.message });
+        }
+    },
+    detail: async(req, res) => {
+        try {
+            const id = req.params.adminId;
+            const admin = await adminService.findAdminById(id);
+            res.render('ad/adminDetail', { title: 'Admin Detail', admin });
+        } catch (err) {
+            console.log(err.message);
         }
     }
 }

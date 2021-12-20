@@ -5,7 +5,8 @@ const adminController = require('./adminController');
 
 // get admin list
 router.get('/', adminController.list);
-
+// get admin detail
+router.get('/:adminId', adminController.detail);
 // get admins search
 router.get('/search', adminController.search);
 

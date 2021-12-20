@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 const { models } = require('../../models');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
-    
+
 module.exports = {
     list: (page = 0, itemsPerPage = 5) => models.admin.findAndCountAll({
         raw: true,
@@ -80,5 +80,5 @@ module.exports = {
         where: {
             id
         },
-    })  
+    }),
 }
