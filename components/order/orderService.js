@@ -92,6 +92,13 @@ module.exports = {
         offset: itemsPerPage * page,
         limit: itemsPerPage
     }),
+    updateStatus: (id, status) => models.order.update({
+        status: status
+    }, {
+        where: {
+            id: id
+        }
+    })
 }
 
 

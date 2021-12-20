@@ -10,6 +10,7 @@ router.get('/search', orderController.search);
 router.get('/', orderController.list);
 router.get('/:orderId', orderController.invoice);
 
-
+// get update status
+router.post('/:orderId/updatestatus', orderController.updateStatus);
 
 module.exports = router;

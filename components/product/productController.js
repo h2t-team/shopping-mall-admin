@@ -1,6 +1,6 @@
 const productService = require('./productService');
 const formidable = require('formidable');
-const { uploadFile } = require('../../firebase/config');
+const { uploadImage } = require('../../cloudinary')
 const { v4: uuidv4 } = require('uuid');
 const { body, validationResult } = require('express-validator');
 
@@ -66,13 +66,12 @@ module.exports = {
                 const imageUrls = []
                 for (const item in files) {
                     try {
-                        await uploadFile(files[item].filepath)
-                            .then(url => imageUrls.push(url))
+                        const res = await uploadImage(files[item].filepath);
+                        imageUrls.push(res.url);
                     } catch (err) {
                         console.log(err)
                     }
                 }
-                console.log(res)
                 await productService.addProduct(id, pname, pcategory, pprice, pdesc, psizes, imageUrls);
                 res.status(200).send({ message: "Success" });
             });

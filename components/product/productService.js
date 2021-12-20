@@ -99,7 +99,6 @@ module.exports = {
         })
         .then(async (res) => {
             for (let i = 0; i < imageUrls.length; i++) {
-                console.log(id)
                 await models.product_image.create({
                     product_id: id,
                     image_url: imageUrls[i]
