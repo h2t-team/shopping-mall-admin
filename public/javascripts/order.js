@@ -10,9 +10,6 @@ $('#status-invoice').on('change', function() {
         data: JSON.stringify({ id, status }),
         
     }).done(res => {
-        // $('.status-badge').replaceWith(`
-        //     <div class="badge bg-{{checkStatus ${status}}} text-uppercase status-badge">${status}</div>
-        // `)  
         location.reload();
     })
     .fail(err => {

@@ -138,13 +138,13 @@
                             </div>
                             <div class="form-group">
                                 <label>Upload Images</label>
-                                <div class="dropzone">
-                                    <div class="dropzoneDragArea d-flex align-items-center justify-content-center" id="dZUpload">
-                                        <label class="mb-0">Upload images (Max: 3)</label>
-                                        <div class="dz-default dz-message"></div>
+                                <div class="d-flex align-items-center" id="product-imgs">
+                                    <div class="media-body me-3">
+                                        <label for="photo" class="btn px-3 btn-primary text-white">Choose</label>
+                                        <input type="file" id="photo" name="photos" class="d-none" accept="image/*" multiple />
                                     </div>
-                                    <div class="dropzone-previews"></div>
                                 </div>
+                                <div id="error-upload" class="text-danger"></div>
                             </div>
                             <div class="form-group">
                                 <div class="text-end mb-5">
