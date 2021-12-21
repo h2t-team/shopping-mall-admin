@@ -13,7 +13,7 @@ $(document).ready(() => {
                 for (let i = 0; i < files.length; i++) {
                     console.log(files[i]);
                     const src = URL.createObjectURL(files[i]);
-                    const imgContainer = `<div class="me-3 product-img-container">
+                    const imgContainer = `<div class="me-3 mb-3 product-img-container">
                                             <div>
                                                 <img class="product-img rounded" src="${src}" alt="" width="80" height="80">
                                             </div>

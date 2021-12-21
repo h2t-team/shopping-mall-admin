@@ -7,7 +7,7 @@ const helpers = (hbs) => {
     hbs.registerHelper('dateTime', date => date.toLocaleString('en-US', { hour12: false }));
 
     // Address formatter
-    hbs.registerHelper('address', (specific_address, ward, district, province) => `${specific_address ? `${specific_address},` : ''} phường/xã ${ward}, quận/huyện ${district}, ${province}`);
+    hbs.registerHelper('address', (specific_address, ward, district, city) => `${specific_address ? `${specific_address},` : ''} phường ${ward}, quận ${district}, ${city}`);
 
     // Order status
     hbs.registerHelper('checkStatus', status => {

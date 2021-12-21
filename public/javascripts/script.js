@@ -1,5 +1,5 @@
 $("form").submit(function() {
     if($(".search").val() == "") {
-            $(".search").remove();
+            $(".search").attr('disabled', true);
     }
 });

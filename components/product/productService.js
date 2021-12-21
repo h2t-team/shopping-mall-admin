@@ -9,29 +9,19 @@ const listConfig = {
         'name',
         'category_id',
         'price',
-        'rate', [sequelize.fn('sum', sequelize.col('product_sizes.quantity')), 'total_amount']
+        'rate'
     ],
-    include: [{
+    include: [
+        {
             model: models.category,
             as: 'category',
             attributes: ['name', 'parent_id'],
             required: true
-        },
-        {
-            model: models.product_size,
-            as: 'product_sizes',
-            attributes: [
-                'product_id',
-                'quantity',
-            ],
-            duplicating: false,
-        },
-        {
+        }, {
             model: models.product_image,
             as: 'product_images',
-            attributes: ['image_url'],
+            attributes: ['product_id', 'image_url'],
             duplicating: false,
-            required: true
         }
     ],
     group: ['product.id'],

@@ -13,6 +13,7 @@ module.exports = {
             //get request params and url
             const page = (!isNaN(req.query.page) && req.query.page > 0) ? Number(req.query.page) : 1;
             const url = req.url;
+
             //get product list, category and page count
             const products = await productService.list(page - 1);
             const category = await productService.category();
