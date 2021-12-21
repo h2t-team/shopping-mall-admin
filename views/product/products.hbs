@@ -51,51 +51,50 @@
         <div class="container">
             <div id="errorMessage"></div>
             <div class="card">
-                <div class="table-responsive">
-                    <div class="m-3">
-                        <form action="/products/search" method="get">
-                            <div class="row">
-                                <div class="col-md-4 mb-2">
-                                    <div class="search-form">
-                                        <select name="category" class="form-control form-select">
-                                            {{#select cat}}
-                                                <option value="all">All</option>
-                                                {{#each category}}
-                                                    <option value="{{id}}">{{name}}</option> 
-                                                {{/each}}
-                                            {{/select}}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 mb-2">
-                                    <div class="search-form d-flex">
-                                        <input type="text"
-                                            class="form-control search"
-                                            placeholder="Search"
-                                            name="keyword"
-                                            autocomplete="off"
-                                            value="{{search}}">
-                                        <button class="btn"
-                                                type="submit"
-                                                role="button">
-                                            <i class="bi bi-search"></i>
-                                        </button>
-                                    </div>
+                <div class="m-3">
+                    <form action="/products/search" method="get">
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <div class="search-form">
+                                    <select name="category" class="form-control form-select">
+                                        {{#select cat}}
+                                            <option value="all">All</option>
+                                            {{#each category}}
+                                                <option value="{{id}}">{{name}}</option> 
+                                            {{/each}}
+                                        {{/select}}
+                                    </select>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="col-md-8 mb-2">
+                                <div class="search-form d-flex">
+                                    <input type="text"
+                                        class="form-control search"
+                                        placeholder="Search"
+                                        name="keyword"
+                                        autocomplete="off"
+                                        value="{{search}}">
+                                    <button class="btn"
+                                            type="submit"
+                                            role="button">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="table-responsive">
                     <table class="table mb-0 table-striped">
                         <thead>
                             <tr>
                                 <th style="width: 18px;" class="text-center"></th>
                                 <th style="min-width: 350px;">Product</th>
-                                <th class="text-center" style="width: 150px;">Stock</th>
-                                <th class="text-center" style="width: 150px">Category</th>
-                                <th class="text-center" style="width: 150px;">Price</th>
-                                <th class="text-center" style="width: 100px;">Rate</th>
-                                <th style="width: 50px;" class="text-center"></th>
-                                <th style="width: 50px;" class="text-center">
+                                <th class="text-center" style="width: 200px; min-width:100px;">Category</th>
+                                <th class="text-center" style="width: 200px;">Price</th>
+                                <th class="text-center" style="width: 150px;">Rate</th>
+                                <th style="width: 75px;" class="text-center"></th>
+                                <th style="width: 75px;" class="text-center">
                                     <div class="dropdown">
                                         <a href="#" data-bs-toggle="dropdown" class="dropdown-toggle">Bulk</a>
                                         <div class="dropdown-menu dropdown-menu-right">
@@ -122,13 +121,8 @@
                                         alt="product"
                                         style="width:35px"
                                         class="rounded mr-2">
-                                    <a href="#" class="ms-3">{{name}}</a>
+                                    <span href="#" class="ms-3">{{name}}</span>
                                 </td>
-                                {{#if total_amount}}
-                                    <td class="text-center">{{total_amount}}</td>
-                                {{else}}
-                                    <td class="text-center">0</td>
-                                {{/if}}
                                 <td class="text-center">{{'category.name'}}</td>
                                 <td class="text-center">{{currencyFormat price}}</td>
                                 <td class="text-center">{{rate}}/5</td>

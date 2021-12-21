@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-2">
+                                <div class="col-md-2 col-sm-4 col-6">
                                     <div class="form-group">
                                         <label for="psize">Size</label>
                                         <select class="form-control form-select" id="psize">
@@ -94,13 +94,13 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-md-2 col-sm-4 col-6">
                                     <div class="form-group">
                                         <label for="pquantity">Quantity</label>
                                         <input id="pquantity" type="number" class="form-control" value="0" min="0"/>
                                     </div>
                                 </div>
-                                <div class="col-sm-2 col-xxl-1">
+                                <div class="col-md-2 col-xxl-1 col-sm-2 col-4">
                                     <div class="form-group">
                                         <label>Add</label>
                                         <a href="javascript:void(0)" class="btn btn-primary d-block" id="add-product-btn" onclick="addSize()">
@@ -108,7 +108,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="offset-sm-0 offset-xxl-1 col-sm-6 align-self-start">
+                                <div class="offset-md-0 offset-xxl-1 col-md-6 align-self-start">
                                     <div class="table-responsive mb-3">
                                         <table class="table mb-0 table-striped" id="table-quantities">
                                             <thead>
@@ -124,7 +124,7 @@
                                 </div>
                             </div>                     
                             <div class="row">
-                                <div class="col-sm-2">
+                                <div class="col-sm-3 col-8">
                                     <div class="form-group">
                                         <label for="pprice">Price (VNĐ)</label>
                                         <input id="pprice" name="pprice" type="number" class="form-control" value="0" min="0"/>
@@ -138,11 +138,12 @@
                             </div>
                             <div class="form-group">
                                 <label>Upload Images</label>
-                                <div class="d-flex align-items-center" id="product-imgs">
+                                <div class="d-flex flex-wrap">
                                     <div class="media-body me-3">
                                         <label for="photo" class="btn px-3 btn-primary text-white">Choose</label>
                                         <input type="file" id="photo" name="photos" class="d-none" accept="image/*" multiple />
                                     </div>
+                                    <div id="product-imgs" class="d-flex flex-wrap"></div>
                                 </div>
                                 <div id="error-upload" class="text-danger"></div>
                             </div>

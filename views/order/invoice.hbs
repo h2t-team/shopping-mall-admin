@@ -43,7 +43,7 @@
                     </nav>
                     <h1 class="m-0 fw-bold">Invoice</h1>
                 </div>
-                <div class="w-25">
+                <div class="mt-3">
                     <div class="search-form d-flex align-items-center">
                         <input type="hidden" value="{{order.id}}" id="order-id">
                         <label>Status: </label>
@@ -68,7 +68,7 @@
                     <div class="card">
                         <div class="p-3">
                             <div class="badge bg-{{checkStatus order.status}} text-uppercase status-badge">{{order.status}}</div>
-                            <div class="px-3">
+                            <div class="px-sm-3">
                                 <div class="d-flex justify-content-center flex-column text-center my-5 navbar-light">
                                     <a href="/"
                                         class="navbar-brand d-flex flex-column m-0 align-items-center p-0"
@@ -98,8 +98,8 @@
                                         <div class="text-label">TO (CUSTOMER)</div>
                                         <p class="mb-4">
                                             <strong class="text-body text-uppercase">{{order.[receiver_address.receiver_name]}}</strong><br>
-                                            {{order.[receiver_address.specific_address]}}, phường/xã {{order.[receiver_address.ward]}}<br>
-                                            quận/huyện {{order.[receiver_address.district]}}, {{order.[receiver_address.province]}}<br>
+                                            {{order.[receiver_address.specific_address]}}, phường {{order.[receiver_address.ward]}}<br>
+                                            quận {{order.[receiver_address.district]}}, {{order.[receiver_address.city]}}<br>
                                         </p>
                                         <div class="text-label">Telephone</div>
                                         <p class="mb-4">

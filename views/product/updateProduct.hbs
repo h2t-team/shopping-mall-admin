@@ -2,8 +2,7 @@
     <div class="header-section">
         <div class="container">
             <nav class="navbar navbar-light navbar-expand-sm p-0">
-                <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav-section"
-                    type="button">
+                <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav-section" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse" id="nav-section">
@@ -61,63 +60,59 @@
                         </p>
                     </div>
                     <div class="col-lg-8 p-4">
-                        <form action=""  id="update-product-form" >
-                            <input name="pid" id="pid" type="hidden" value="{{product.id}}" class="form-control"></input>
-                            <input name="prate" id="prate" type="hidden" value="{{product.rate}}" class="form-control"></input>
+                        <form action="" id="update-product-form">
+                            <input name="pid" id="pid" type="hidden" value="{{product.id}}"
+                                class="form-control"></input>
+                            <input name="prate" id="prate" type="hidden" value="{{product.rate}}"
+                                class="form-control"></input>
                             <div class="row">
-                                <div class="col">
+                                <div class="col-sm">
                                     <div class="form-group">
                                         <label for="pname">Name</label>
-                                        <input name="pname" id="pname" type="text" value="{{product.name}}" class="form-control"  autocomplete="off"/>
+                                        <input name="pname" id="pname" type="text" value="{{product.name}}"
+                                            class="form-control" autocomplete="off" />
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-sm">
                                     <div class="form-group">
                                         <label for="pcategory">Category</label>
                                         <select name="pcategory" id="pcategory" class="form-control form-select">
-                                            <option selected value={{productCategory.id}}>{{productCategory.name}}</option>
+                                            <option selected value={{productCategory.id}}>{{productCategory.name}}
+                                            </option>
                                             {{#each categoryWithoutProductCategory}}
-                                                <option value={{id}}>{{name}}</option> 
+                                                <option value={{id}}>{{name}}</option>
                                             {{/each}}
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col form-group">
-                                    <div class="row">
-                                        <div class="col">
-                                            <label for="psize">Size</label>
-                                        </div>
-                                        <div class="col">
-                                            <label for="pquantity">Quantity</label>
-                                        </div>
-                                        <div class="col">
-                                            <label>Update Size</label>
-                                        </div>
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <div class="form-group">
+                                        <label for="psize">Size</label>
+                                        <select id="psize" name="psize" class="form-control form-select">
+                                            {{#each productSize}}
+                                                <option value="{{size}}">{{size}}</option>
+                                            {{/each}}
+                                        </select>
                                     </div>
-                                    
-                                    <div class="row mb-2">
-                                        <div class="col">
-                                            <select  id="psize" name="psize" class="form-control form-select"  >
-                                               {{#each productSize}}
-                                                <option value="{{size}}">{{size}}</option> 
-                                                {{/each}}
-                                            </select >
-                                        </div>
-                                        <div class="col">
-                                            <input id="pquantity" name="pquantity" type="number" class="form-control" min="0"/>
-                                        </div>
-                                        <div class="col">
-                                           <a href="javascript:void(0)" class="btn btn-primary d-block" id="update-product-btn">
-                                                    <i class="bi bi-plus"></i>
-                                            </a>
-                                       </div>  
-                                    </div>
-                                   
                                 </div>
-                                <div class="col-6 align-self-start">
-                                    <div class="table-responsive" >
+                                <div class="col-md-2 col-sm-4 col-6">
+                                    <div class="form-group">
+                                        <label for="pquantity">Quantity</label>
+                                        <input id="pquantity" name="pquantity" type="number" class="form-control" min="0" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-xxl-1 col-sm-2 col-4">
+                                    <div class="form-group">
+                                        <label>Update</label>
+                                        <a href="javascript:void(0)" class="btn btn-primary d-block" id="update-product-btn">
+                                            <i class="bi bi-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="offset-md-0 offset-xxl-1 col-md-6 align-self-start">
+                                    <div class="table-responsive mb-3">
                                         <table class="table mb-0 table-striped" id="table-quantities">
                                             <thead>
                                                 <tr>
@@ -133,31 +128,31 @@
                                                 </tr>
                                                 {{/each}}
                                             </tbody>
-                                        </table>                
-                                    </div>        
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>                     
+                            </div>
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-sm-3 col-8">
                                     <div class="form-group">
                                         <label for="pprice">Price (VNĐ)</label>
-                                        <input id="pprice" name="pprice" type="number" class="form-control" value="{{product.price}}" min="0"/>
+                                        <input id="pprice" name="pprice" type="number" class="form-control"
+                                            value="{{product.price}}" min="0" />
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="pdesc">Description</label>
-                                <textarea name="pdesc" id="pdesc" rows="4" class="form-control">{{product.description}}</textarea>
+                                <textarea name="pdesc" id="pdesc" rows="4"
+                                    class="form-control">{{product.description}}</textarea>
                             </div>
                             <div class="form-group">
-                                <label>Image</label>
-                                <div class="d-flex align-items-center">
-                                    
+                                <label>Images</label>
+                                <div class="d-flex flex-wrap">
                                     {{#each productImage}}
-                                    <div class="me-3">
+                                    <div class="me-3 mb-3">
                                         <div class="avatar" style="width: 80px; height: 80px">
-                                            <img src={{image_url}} class="avatar-img rounded"
-                                                alt="..." />
+                                            <img src={{image_url}} class="avatar-img rounded" alt="..." />
                                         </div>
                                     </div>
                                     {{/each}}
@@ -165,7 +160,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="text-end mb-5">
-                                    <button class="btn btn-success" onclick="submitUpdateProductForm()" >Update</button>
+                                    <button class="btn btn-success" onclick="submitUpdateProductForm()">Update</button>
                                 </div>
                             </div>
                         </form>
