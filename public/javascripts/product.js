@@ -1,3 +1,35 @@
+$(document).ready(() => {
+    // add product previews
+    $('#photo').on('change', e => {
+        $('#error-upload').empty();
+        if (e.target.files.length > 3) {
+            $('#error-upload').append('Please choose at most 3 images!');
+        }
+        else {
+            $('.product-img-container').remove();
+            const { files } = e.target;
+            console.log(files)
+            if (files.length > 0) {
+                for (let i = 0; i < files.length; i++) {
+                    console.log(files[i]);
+                    const src = URL.createObjectURL(files[i]);
+                    const imgContainer = `<div class="me-3 product-img-container">
+                                            <div>
+                                                <img class="product-img rounded" src="${src}" alt="" width="80" height="80">
+                                            </div>
+                                        </div>`
+                    $("#product-imgs").append(imgContainer);
+                }
+            }
+        }
+    });
+
+    // validate and submit form
+    $('#pcreate-btn').on('click', e => {
+        handleAddProduct();
+    })
+})
+
 function addSize() {
     const productQuantity = document.getElementById('pquantity').value;
     const pSizeSelect = document.getElementById('psize');
@@ -24,63 +56,48 @@ function addSize() {
         pSizeSelect.remove(pSizeSelect.selectedIndex);
     }
 }
+function handleAddProduct() {
+    if ($('#photo').get(0).files.length === 0) {
+        $('#error-upload').append('Please choose an image!');
+        return;
+    }
 
-function handleAddProduct(formData) {
-    formData.append("pname", jQuery("#pname").val());
-    formData.append("pcategory", jQuery("#pcategory").val());
-    formData.append("pprice", jQuery("#pprice").val());
-    formData.append("pdesc", jQuery("#pdesc").val());
-
+    const form = document.getElementById("add-product-form");
     const table = document.getElementById("table-quantities");
     for (let i = 1; i < table.rows.length; i++) {
         let row = table.rows[i];
-        formData.append(row.cells[0].innerText, row.cells[1].innerText);
+
+        input = document.createElement('input');
+        input.setAttribute('name', row.cells[0].innerText);
+        input.setAttribute('value', row.cells[1].innerText);
+        input.setAttribute('type', 'hidden');
+        form.append(input);
     }
+    form.submit();
 }
 
 async function removeProduct(id, category_id) {
-    try {
-        const options = {
-            method: 'POST',
-            body: JSON.stringify({ id, category_id }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        await fetch('/products', options)
+    $.ajax({
+        contentType: "application/json",
+        url: `/products`,
+        dataType: "json",
+        type: 'POST',
+        data: JSON.stringify({ id, category_id }),
+    }).done(res => {
         location.reload();
-    } catch (err) {
-        console.log(err.message)
-    }
+    })
+    .fail(err => {
+        $("#errorMessage").empty();
+        const msg = err.responseJSON.message;
+        $("#errorMessage").append(`
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+                <div>
+                    ${msg}
+                </div>
+            </div>`
+        );
+    })
 }
-
-$(document).ready(function() {
-    $("#dZUpload").dropzone({
-        url: "/products/addproduct",
-        method: "POST",
-        paramName: "file",
-        previewsContainer: 'div.dropzone-previews',
-        addRemoveLinks: true,
-        acceptedFiles: ".png, .jpg, .bpm, .jpeg",
-        uploadMultiple: true,
-        parallelUploads: 3,
-        maxFiles: 3,
-        autoProcessQueue: false,
-        success: function(file, response) {
-            file.previewElement.classList.add("dz-success");
-            window.location.href = "/products";
-        },
-        error: function(file, response) {
-            file.previewElement.classList.add("dz-error");
-        },
-        init: function() {
-            $("#pcreate-btn").bind('click', () => {
-                console.log(this)
-                this.processQueue();
-            });
-            this.on("sendingmultiple", function(data, xhr, formData) {
-                handleAddProduct(formData);
-            });
-        }
-    });
-});

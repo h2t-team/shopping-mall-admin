@@ -2,7 +2,6 @@ const productService = require('./productService');
 const formidable = require('formidable');
 const { uploadImage } = require('../../cloudinary')
 const { v4: uuidv4 } = require('uuid');
-const { body, validationResult } = require('express-validator');
 
 module.exports = {
     validate: (req, res) => {
@@ -14,17 +13,13 @@ module.exports = {
             //get request params and url
             const page = (!isNaN(req.query.page) && req.query.page > 0) ? Number(req.query.page) : 1;
             const url = req.url;
-
             //get product list, category and page count
             const products = await productService.list(page - 1);
             const category = await productService.category();
             const maxPage = Math.floor((products.count.length - 1) / 8) + 1;
             res.render('product/products', { title: 'Products', products: products.rows, category, currentPage: page, maxPage, url });
         } catch (err) {
-            console.log(err.message);
-            res.status(500).json({
-                err: err.message
-            });
+            res.status(500).send({ err: err.message });
         }
     },
     search: async(req, res) => {
@@ -42,20 +37,20 @@ module.exports = {
 
             res.render('product/products', { title: 'Products', products: products.rows, category, currentPage: page, maxPage, search, cat, url });
         } catch (err) {
-            console.log(err.message);
+            res.status(500).send({ err: err.message });
         }
     },
-    addProductPage: async(req, res) => {
+    addProductPage: async (req, res) => {
         try {
             const category = await productService.category();
             res.render('product/addProduct', { title: 'Add Product', category });
         } catch (err) {
-            console.log(err.message);
+            res.status(500).send({ err: err.message });
         }
     },
-    addProductForm: async(req, res) => {
+    addProductForm: async (req, res) => {
         try {
-            const form = formidable({});
+            const form = formidable({ multiples: true });
             form.parse(req, async(err, fields, files) => {
                 if (err) {
                     next(err);
@@ -63,23 +58,27 @@ module.exports = {
                 }
                 const { pname, pcategory, pprice, pdesc, ...psizes } = fields;
                 const id = uuidv4();
-                const imageUrls = []
-                for (const item in files) {
-                    try {
-                        const res = await uploadImage(files[item].filepath);
+                const imageUrls = [];
+                if (files.photos.length > 1) {
+                    for (const item in files.photos) {
+                        const res = await uploadImage(files.photos[item].filepath);
                         imageUrls.push(res.url);
-                    } catch (err) {
-                        console.log(err)
                     }
                 }
+                else {
+                    const res = await uploadImage(files.photos.filepath);
+                    imageUrls.push(res.url);
+                }
+
                 await productService.addProduct(id, pname, pcategory, pprice, pdesc, psizes, imageUrls);
-                res.status(200).send({ message: "Success" });
+                res.redirect('/products');
             });
         } catch (err) {
             console.log(err.message);
+            res.status(500).send({ message: err.message });
         }
     },
-    updateProductPage: async(req, res) => {
+    updateProductPage: async (req, res) => {
         try {
             const id = req.params.productId;
 
@@ -94,23 +93,24 @@ module.exports = {
             console.log(err.message);
         }
     },
-    updateProductForm: async(req, res) => {
+    updateProductForm: async (req, res) => {
         try {
-            const { pid, pname, pcategory, pprice, pdesc, prate, psize } = req.body
+            const { pid, pname, pcategory, pprice, pdesc, prate, psize } = req.body;
+            
             await productService.updateProduct(pid, pname, pcategory, pprice, pdesc, prate, psize);
             res.status(200).send({ message: "OK" });
         } catch (err) {
             res.status(500).send({ message: err.message });
         }
     },
-    removeProduct: async(req, res) => {
+    removeProduct: async (req, res) => {
         try {
             const { id, category_id } = req.body;
+            
             await productService.removeProduct(id, category_id);
             res.status(200).send({ message: "Success" });
         } catch (err) {
-            console.log(err.message);
-            res.status(500).send({ message: "Failed to remove" });
+            res.status(500).send({ message: err.message });
         }
     }
 }
