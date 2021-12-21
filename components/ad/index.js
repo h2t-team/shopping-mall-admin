@@ -5,8 +5,7 @@ const adminController = require('./adminController');
 
 // get admin list
 router.get('/', adminController.list);
-// get admin detail
-router.get('/:adminId', adminController.detail);
+
 // get admins search
 router.get('/search', adminController.search);
 
@@ -20,5 +19,6 @@ router.post('/updateadmin', adminController.updateAdminForm);
 
 // lock admin
 router.post('/lockadmin', adminController.lockAdmin);
-
+// get admin detail
+router.get('/:adminId', adminController.detail);
 module.exports = router;
