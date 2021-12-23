@@ -58,20 +58,19 @@
                         </p>
                     </div>
                     <div class="col-lg-8 p-4">
-                        <form action="/profile/editaccount" method="post">
+                        <form id="update-admin-form">
+                            <input name="id" id="id" type="hidden" value="{{user.id}}" class="form-control" />
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="lname">Last name</label>
-                                        <input id="lname" type="text" class="form-control" placeholder="Last name"
-                                            value="{{user.last_name}}" />
+                                        <label for="lastName">Last Name</label>
+                                        <input name="lastName" id="lastName" type="text" class="form-control" value="{{user.last_name}}" />
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="fname">First name (Required)</label>
-                                        <input id="fname" type="text" class="form-control" placeholder="First name"
-                                            value="{{user.first_name}}" />
+                                        <label for="firstName">First Name (Required)</label>
+                                        <input name="firstName" id="firstName" type="text" class="form-control" value="{{user.first_name}}" />
                                     </div>
                                 </div>
                             </div>
@@ -79,20 +78,23 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="email">Email (Required)</label>
-                                        <input id="email" type="text" class="form-control" placeholder="Email"
-                                            value="{{user.email}}" />
+                                        <input id="email" name="email" type="email" value="{{user.email}}" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="tel">Telephone</label>
-                                        <input id="tel" type="text" class="form-control" placeholder="Tel"
-                                            value="{{user.telephone}}" />
+                                        <label for="telephone">Telephone</label>
+                                        <input id="telephone" name="telephone" value="{{user.telephone}}" class="form-control" min="0"/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-end mb-5">
-                                <a href="javascript:void(0)" class="btn btn-success">Save</a>
+                            <div class="form-group">
+                                <div class="text-end mb-5">
+                                    <button type="submit" class="btn btn-success">Save</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="successfullyMessage"></div>
                             </div>
                         </form>
                     </div>
