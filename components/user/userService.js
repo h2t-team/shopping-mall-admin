@@ -10,26 +10,27 @@ module.exports = {
     }),
     search: (keyword, page = 0, itemsPerPage = 5) => models.customer.findAndCountAll({
         where: {
-            [Op.or]: [{
-                    username: {
-                        [Op.like]: `${keyword}`
-                    }
-                },
-                {
-                    email: {
-                        [Op.like]: `${keyword}`
-                    }
-                },
-                {
-                    first_name: {
-                        [Op.like]: `${keyword}`
-                    }
-                },
-                {
+            [Op.or]: [
+                // sequelize.where(sequelize.fn('concat', sequelize.col('last_name'), ' ', sequelize.col('first_name')), {
+                //     [Op.like]: `%${keyword}%`
+                // })
+                , {
                     last_name: {
-                        [Op.like]: `${keyword}`
-                    }
-                },
+                        [Op.like]: `%${keyword}%`
+                    }  
+                }, {
+                    first_name: {
+                        [Op.like]: `%${keyword}%`
+                    }  
+                }, {
+                    username: {
+                        [Op.like]: `%${keyword}%`
+                    }  
+                }, {
+                    email: {
+                        [Op.like]: `%${keyword}%`
+                    }  
+                }
             ]
         },
         offset: itemsPerPage * page,

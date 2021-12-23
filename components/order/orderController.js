@@ -8,7 +8,7 @@ module.exports = {
 
         const orders = await orderService.list(page - 1);
         const maxPage = Math.floor((orders.count - 1) / 8) + 1;
-        res.render('order/orders', { title: 'Orders', orders: orders.rows, currentPage: page, maxPage, url });
+        res.render('order/orders', { title: 'Orders', orders: orders.rows, currentPage: page, maxPage, url, scripts: ['order.js'] });
     },
     invoice: async (req, res) => {
         try {
@@ -17,7 +17,7 @@ module.exports = {
             const order = await orderService.findOrderById(id);
             const orderDetails = await orderService.findOrderDetailsById(id);
             const sumOrder = await orderService.sumOrder(id);
-            res.render('order/invoice', { title: 'Invoice', order, orderDetails, sumOrder });
+            res.render('order/invoice', { title: 'Invoice', order, orderDetails, sumOrder, scripts: ['order.js'] });
         } 
         catch (err) {
             console.log(err.message);
@@ -35,7 +35,7 @@ module.exports = {
             const orders = await orderService.search(status, search, page - 1);
             const maxPage = Math.floor((orders.count - 1) / 8) + 1;
 
-            res.render('order/orders', { title: 'Orders', orders: orders.rows, currentPage: page, maxPage, search, url, status });
+            res.render('order/orders', { title: 'Orders', orders: orders.rows, currentPage: page, maxPage, search, url, status, scripts: ['order.js'] });
         } catch (err) {
             console.log(err);
         }

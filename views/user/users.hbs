@@ -49,33 +49,36 @@
         <div class="container">
             <div id="errorMessage"></div>
             <div class="card">
-                <div class="table-responsive">
-                    <div class="m-3">
-                        <div class="row">
-                            <div class="col-md-4 offset-md-8">
-                                <div class="search-form search-form--light d-flex">
-                                    <input type="text"
-                                        name="user-search"
-                                        class="form-control search"
-                                        placeholder="Search">
-                                    <button class="btn"
-                                            type="button"
-                                            id="search-btn"
-                                            role="button"><i class="bi bi-search"></i></button>
-                                </div>
-                            </div>
+                <div class="m-3">
+                    <div class="row">
+                        <div class="col-md-4 offset-md-8">
+                            <form class="search-form search-form--light d-flex" action="/users/search" method="get">
+                                <input type="text"
+                                    class="form-control search"
+                                    placeholder="Search"
+                                    name="keyword"
+                                    autocomplete="off"
+                                    value="{{search}}">
+                                <button class="btn"
+                                        type="submit"
+                                        role="button">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
+                </div>
+                <div class="table-responsive">
                     <table class="table mb-0 table-striped">
                         <thead>
                             <tr>
                                 <th style="width: 18px;" class="text-center">
                                 </th>
-                                <th style="min-width: 250px;">Name</th>
-                                <th style="width: 250px;">Username</th>
+                                <th style="min-width: 200px;">Name</th>
+                                <th style="min-width: 150px;">Username</th>
                                 <th>Email</th>
-                                <th style="min-width: 250px;">Created At</th>
-                                <th style="width: 50px;" class="text-center"></th>
+                                <th style="min-width: 200px;">Created At</th>
+                                <th style="min-width: 100px;" class="text-center"></th>
                             </tr>
                         </thead>
                         <tbody class="list" id="users">

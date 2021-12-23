@@ -64,29 +64,29 @@
                         <form action=""  id="update-admin-form">
                             <input name="id" id="id" type="hidden" value="{{admin.id}}" class="form-control"></input>
                             <div class="row">
-                                <div class="col">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="lastName">Last Name</label>
                                         <input name="lastName" id="lastName" type="text" class="form-control" value="{{admin.last_name}}"  autocomplete="off"/>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="firstName">First Name</label>
+                                        <label for="firstName">First Name (Required)</label>
                                         <input name="firstName" id="firstName" type="text" class="form-control" value="{{admin.first_name}}"  autocomplete="off"/>
                                     </div>
                                 </div>
                             </div>   
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="email">Email</label>
+                                        <label for="email">Email (Required)</label>
                                         <input id="email" name="email" type="email" value="{{admin.email}}" class="form-control"/>
                                     </div>
                                 </div>
                             </div>                   
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="telephone">Telephone</label>
                                         <input id="telephone" name="telephone" value="{{admin.telephone}}" class="form-control" min="0"/>
@@ -98,7 +98,7 @@
                                     <button type="submit" class="btn btn-success">Edit</button>
                                 </div>
                             </div>
-                             <div class="row">
+                            <div class="row">
                                 <div id="errorMessage"></div>
                             </div>
                         </form>

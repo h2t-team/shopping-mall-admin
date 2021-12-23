@@ -1,7 +1,8 @@
+// change the order status 
 $('#status-invoice').on('change', function() {
     const id = $('#order-id').val();
     const status = this.value;
-    console.log(id);
+    
     $.ajax({
         contentType: "application/json",
         url: `/orders/${id}/updatestatus`,

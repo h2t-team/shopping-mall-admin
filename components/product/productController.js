@@ -36,7 +36,7 @@ module.exports = {
             const category = await productService.category();
             const maxPage = Math.floor((products.count.length - 1) / 8) + 1;
 
-            res.render('product/products', { title: 'Products', products: products.rows, category, currentPage: page, maxPage, search, cat, url });
+            res.render('product/products', { title: 'Products', products: products.rows, category, currentPage: page, maxPage, search, cat, url, scripts: ['product.js'] });
         } catch (err) {
             res.status(500).send({ err: err.message });
         }
@@ -44,7 +44,7 @@ module.exports = {
     addProductPage: async (req, res) => {
         try {
             const category = await productService.category();
-            res.render('product/addProduct', { title: 'Add Product', category });
+            res.render('product/addProduct', { title: 'Add Product', category, scripts: ['product.js'] });
         } catch (err) {
             res.status(500).send({ err: err.message });
         }
@@ -89,7 +89,7 @@ module.exports = {
             const categoryWithoutProductCategory = await productService.removeCurrentProductCategory(category, productCategory);
             const productSize = await productService.findProductSizeById(product.id);
             const productImage = await productService.findProductImageById(product.id);
-            res.render('product/updateProduct', { title: 'Update Product', product, productCategory, productSize, productImage, categoryWithoutProductCategory });
+            res.render('product/updateProduct', { title: 'Update Product', product, productCategory, productSize, productImage, categoryWithoutProductCategory, scripts: ['product.js'] });
         } catch (err) {
             console.log(err.message);
         }

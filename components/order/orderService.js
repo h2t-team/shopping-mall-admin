@@ -71,7 +71,7 @@ module.exports = {
                         [Op.like]: `%${keyword}%`
                     }  
                 }, {
-                    '$receiver_address.province$': {
+                    '$receiver_address.city$': {
                         [Op.like]: `%${keyword}%`
                     }  
                 }, {

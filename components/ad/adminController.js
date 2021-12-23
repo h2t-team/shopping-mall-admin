@@ -10,7 +10,7 @@ module.exports = {
             //get admin list and page count
             const admins = await adminService.list(page - 1);
             const maxPage = Math.floor((admins.count - 1) / 5) + 1;
-            res.render('ad/admins', { title: 'Admins', admins: admins.rows, currentPage: page, maxPage, url });
+            res.render('ad/admins', { title: 'Admins', admins: admins.rows, currentPage: page, maxPage, url, scripts: ['admin.js'] });
         } catch (err) {
             console.log(err.message);
         }
@@ -23,16 +23,16 @@ module.exports = {
             const url = req.url;
 
             //get admin and page count
-            const admins = search ? await adminService.findName(search, page - 1) : await adminService.list(page - 1);
+            const admins = search ? await adminService.search(search, page - 1) : await adminService.list(page - 1);
             const maxPage = Math.floor((admins.count - 1) / 8) + 1;
-            res.render('ad/admins', { title: 'Admins', admins: admins.rows, currentPage: page, maxPage, search, url });
+            res.render('ad/admins', { title: 'Admins', admins: admins.rows, currentPage: page, maxPage, search, url, scripts: ['admin.js'] });
         } catch (err) {
             console.log(err.message);
         }
     },
     addAdminPage: async(req, res) => {
         try {
-            res.render('ad/addadmin', { title: 'Add Admin' });
+            res.render('ad/addadmin', { title: 'Add Admin', scripts: ['admin.js'] });
         } catch (err) {
             console.log(err.message);
         }
@@ -50,7 +50,7 @@ module.exports = {
         try {
             const id = req.params.adminId;
             const admin = await adminService.findAdminById(id);
-            res.render('ad/updateadmin', { title: 'Update Admin', admin });
+            res.render('ad/updateadmin', { title: 'Update Admin', admin, scripts: ['admin.js'] });
         } catch (err) {
             console.log(err.message);
         }
@@ -85,7 +85,7 @@ module.exports = {
         try {
             const id = req.params.adminId;
             const admin = await adminService.findAdminById(id);
-            res.render('ad/adminDetail', { title: 'Admin Detail', admin });
+            res.render('ad/adminDetail', { title: 'Admin Detail', admin, scripts: ['admin.js'] });
         } catch (err) {
             console.log(err.message);
         }
