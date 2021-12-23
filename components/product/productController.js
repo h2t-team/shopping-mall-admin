@@ -18,7 +18,7 @@ module.exports = {
             const products = await productService.list(page - 1);
             const category = await productService.category();
             const maxPage = Math.floor((products.count.length - 1) / 8) + 1;
-            res.render('product/products', { title: 'Products', products: products.rows, category, currentPage: page, maxPage, url });
+            res.render('product/products', { title: 'Products', products: products.rows, category, currentPage: page, maxPage, url, scripts: ['product.js'] });
         } catch (err) {
             res.status(500).send({ err: err.message });
         }

@@ -24,6 +24,18 @@ $(document).ready(() => {
         }
     });
 
+    // confirm remove the product
+    $(document).on('click', ".remove-btn", function () {
+        const name  = $(this).data('name');
+        const id = $(this).data('id');
+        const category = $(this).data('category');
+        
+        $('.modal-body').text(`Are you sure to want to remove ${name.toLowerCase()}?`);
+        $('.confirm-btn').click(() => {
+            removeProduct(id, category);
+        })
+    });
+
     // validate and submit form
     $('#pcreate-btn').on('click', e => {
         handleAddProduct();
@@ -80,6 +92,8 @@ function handleAddProduct() {
     }
     form.submit();
 }
+
+
 
 // remove a product
 function removeProduct(id, category_id) {
