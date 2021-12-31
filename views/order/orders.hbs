@@ -58,7 +58,7 @@
                                             <option value="all">All</option>
                                             <option value="success">Success</option>
                                             <option value="delivering">Delivering</option>
-                                            <option value="not delivered">Not delivered</option>
+                                            <option value="prepairing">Prepairing</option>
                                             <option value="cancel">Cancel</option>
                                         {{/select}}
                                     </select>
@@ -112,7 +112,7 @@
                                     {{currencyFormat total}}
                                 </td>
                                 <td>
-                                    {{address this.[receiver_address.specific_address] this.[receiver_address.ward] this.[receiver_address.district] this.[receiver_address.province]}}
+                                    {{address this.[receiver_address.specific_address] this.[receiver_address.ward] this.[receiver_address.district] this.[receiver_address.city]}}
                                 </td>
                                 <td>
                                     {{dateTime created_at}}
