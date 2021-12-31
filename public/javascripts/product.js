@@ -12,7 +12,7 @@ const success = () => `<div class="alert alert-success d-flex align-items-center
                             <div>
                                 Update account successfully!
                             </div>
-                        </div>`                 
+                        </div>`
 
 $(document).ready(() => {
     // add product previews
@@ -20,8 +20,7 @@ $(document).ready(() => {
         $('#error-upload').empty();
         if (e.target.files.length > 3) {
             $('#error-upload').append('Please choose at most 3 images!');
-        }
-        else {
+        } else {
             $('.product-img-container').remove();
             const { files } = e.target;
             if (files.length > 0) {
@@ -39,8 +38,8 @@ $(document).ready(() => {
     });
 
     // confirm remove the product
-    $(document).on('click', ".remove-btn", function () {
-        const name  = $(this).data('name');
+    $(document).on('click', ".remove-btn", function() {
+        const name = $(this).data('name');
         const id = $(this).data('id');
         const category = $(this).data('category');
 
@@ -60,6 +59,9 @@ const validateProduct = {
             required: true,
             min: 1000,
         },
+        "pquantity": {
+            min: 1,
+        }
     },
     messages: {
         "pname": {
@@ -68,6 +70,9 @@ const validateProduct = {
         "pprice": {
             required: "Please enter the price",
             min: "Price must be at least 1000đ",
+        },
+        "pquantity": {
+            min: "Quantity must be at least 1",
         },
     },
     errorPlacement: (error, element) => {
@@ -154,19 +159,19 @@ function handleAddProduct() {
 // remove a product
 function removeProduct(id, category_id) {
     $.ajax({
-        contentType: "application/json",
-        url: `/products`,
-        dataType: "json",
-        type: 'POST',
-        data: JSON.stringify({ id, category_id }),
-    }).done(res => {
-        location.reload();
-    })
-    .fail(err => {
-        $("#errorMessage").empty();
-        const msg = err.responseJSON.message;
-        $("#errorMessage").append(error(msg));
-    })
+            contentType: "application/json",
+            url: `/products`,
+            dataType: "json",
+            type: 'POST',
+            data: JSON.stringify({ id, category_id }),
+        }).done(res => {
+            location.reload();
+        })
+        .fail(err => {
+            $("#errorMessage").empty();
+            const msg = err.responseJSON.message;
+            $("#errorMessage").append(error(msg));
+        })
 }
 
 if (path.match('/products/updateproduct/')) {
