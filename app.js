@@ -17,7 +17,7 @@ const productRouter = require('./components/product');
 const orderRouter = require('./components/order');
 const authRouter = require('./components/auth');
 const adminRouter = require('./components/ad');
-
+const categoryRouter = require('./components/category');
 // helpers
 const helpers = require('./hbsHelpers');
 
@@ -64,6 +64,7 @@ app.use('/users', checkAuthentication, userRouter);
 app.use('/profile', checkAuthentication, profileRouter);
 app.use('/orders', checkAuthentication, orderRouter);
 app.use('/products', checkAuthentication, productRouter);
+app.use('/categories', checkAuthentication, categoryRouter);
 app.use('/admins', checkAuthentication, adminRouter);
 app.use('/', indexRouter);
 
