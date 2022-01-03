@@ -226,7 +226,7 @@ function submitUpdateProductForm() {
     const pcategory = document.getElementById('pcategory').value;
     const pprice = document.getElementById('pprice').value;
     const pdesc = document.getElementById('pdesc').value;
-
+    const poldCategory = document.getElementById('poldCategory').value;
     var psize = {};
     const table = document.getElementById("psize-table");
     var totalRowCount = table.rows.length;
@@ -243,6 +243,7 @@ function submitUpdateProductForm() {
         pprice: pprice,
         pdesc: pdesc,
         psize: psize,
+        poldCategory: poldCategory,
     }
     $.ajax({
         contentType: "application/json",

@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 module.exports = {
     validate: (req, res) => {
         console.log(req.body);
-        
+
     },
     list: async(req, res) => {
         try {
@@ -30,7 +30,7 @@ module.exports = {
             const search = req.query.keyword ? req.query.keyword : '';
             const cat = req.query.category === 'all' ? '' : req.query.category;
             const url = req.url;
-            
+
             //get product list, category and page count
             const products = await productService.search(cat, search, page - 1);
             const category = await productService.category();
@@ -41,7 +41,7 @@ module.exports = {
             res.status(500).send({ err: err.message });
         }
     },
-    addProductPage: async (req, res) => {
+    addProductPage: async(req, res) => {
         try {
             const category = await productService.category();
             res.render('product/addProduct', { title: 'Add Product', category, scripts: ['product.js'] });
@@ -49,7 +49,7 @@ module.exports = {
             res.status(500).send({ err: err.message });
         }
     },
-    addProductForm: async (req, res) => {
+    addProductForm: async(req, res) => {
         try {
             const form = formidable({ multiples: true });
             form.parse(req, async(err, fields, files) => {
@@ -65,8 +65,7 @@ module.exports = {
                         const res = await uploadImage(files.photos[item].filepath);
                         imageUrls.push(res.url);
                     }
-                }
-                else {
+                } else {
                     const res = await uploadImage(files.photos.filepath);
                     imageUrls.push(res.url);
                 }
@@ -79,7 +78,7 @@ module.exports = {
             res.status(500).send({ message: err.message });
         }
     },
-    updateProductPage: async (req, res) => {
+    updateProductPage: async(req, res) => {
         try {
             const id = req.params.productId;
 
@@ -94,20 +93,20 @@ module.exports = {
             console.log(err.message);
         }
     },
-    updateProductForm: async (req, res) => {
+    updateProductForm: async(req, res) => {
         try {
-            const { pid, pname, pcategory, pprice, pdesc, prate, psize } = req.body;
-            
-            await productService.updateProduct(pid, pname, pcategory, pprice, pdesc, prate, psize);
+            const { pid, pname, pcategory, pprice, pdesc, prate, psize, poldCategory } = req.body;
+            console.log(req.body);
+            await productService.updateProduct(pid, pname, pcategory, pprice, pdesc, prate, psize, poldCategory);
             res.status(200).send({ message: "OK" });
         } catch (err) {
             res.status(500).send({ message: err.message });
         }
     },
-    removeProduct: async (req, res) => {
+    removeProduct: async(req, res) => {
         try {
             const { id, category_id } = req.body;
-            
+
             await productService.removeProduct(id, category_id);
             res.status(200).send({ message: "Success" });
         } catch (err) {
