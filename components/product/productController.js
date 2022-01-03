@@ -70,7 +70,6 @@ module.exports = {
                     const res = await uploadImage(files.photos.filepath);
                     imageUrls.push(res.url);
                 }
-
                 await productService.addProduct(id, pname, pcategory, pprice, pdesc, psizes, imageUrls);
                 res.redirect('/products');
             });
