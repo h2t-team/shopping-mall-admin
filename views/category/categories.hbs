@@ -54,35 +54,18 @@
         <div class="container">
             <div class="card mx-auto" style="width: 65%;">
                 <div class="m-3">
-                    <form action="/products/search" method="get">
-                        <div class="row">
-                            <div class="col-md-4 mb-2">
-                                <div class="search-form">
-                                    <select name="category" class="form-control form-select">
-                                        {{#select cat}}
-                                            <option value="all">All</option>
-                                            {{#each category}}
-                                                <option value="{{id}}">{{name}}</option> 
-                                            {{/each}}
-                                        {{/select}}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-8 mb-2">
-                                <div class="search-form d-flex">
-                                    <input type="text"
-                                        class="form-control search"
-                                        placeholder="Search"
-                                        name="keyword"
-                                        autocomplete="off"
-                                        value="{{search}}">
-                                    <button class="btn"
-                                            type="submit"
-                                            role="button">
-                                        <i class="bi bi-search"></i>
-                                    </button>
-                                </div>
-                            </div>
+                    <form action="/categories/filter" method="get">
+                        <div class="search-form">
+                            <select name="levelValue" id="levelValue" class="form-control form-select">
+                                {{#if level}}
+                                    <option value="{{maxLevel}}">All</option>
+                                    {{#allLevelOptions maxLevel}} {{/allLevelOptions}}
+                                {{else}}
+                                    <option value="{{levelValue}}">{{levelValue}} level(s)</option>
+                                    <option value="{{maxLevel}}">All</option>
+                                    {{#levelOptions maxLevel levelValue}} {{/levelOptions}}
+                                {{/if}}
+                            </select>
                         </div>
                     </form>
                 </div>
@@ -96,7 +79,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{{result}}}
+                            {{{html}}}
                         </tbody>
                     </table>
                 </div>

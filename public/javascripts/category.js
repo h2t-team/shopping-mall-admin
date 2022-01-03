@@ -117,3 +117,8 @@ if (path.match('/categories/updatecategory/')) {
         });
     }
 }
+if (path.match('/categories')) {
+    $('#levelValue').on('change', function() {
+        this.form.submit();
+    });
+}
