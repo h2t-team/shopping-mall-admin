@@ -11,19 +11,17 @@ const listConfig = {
         'price',
         'rate'
     ],
-    include: [
-        {
-            model: models.category,
-            as: 'category',
-            attributes: ['name', 'parent_id'],
-            required: true
-        }, {
-            model: models.product_image,
-            as: 'product_images',
-            attributes: ['product_id', 'image_url'],
-            duplicating: false,
-        }
-    ],
+    include: [{
+        model: models.category,
+        as: 'category',
+        attributes: ['name', 'parent_id'],
+        required: true
+    }, {
+        model: models.product_image,
+        as: 'product_images',
+        attributes: ['product_id', 'image_url'],
+        duplicating: false,
+    }],
     group: ['product.id'],
     order: [
         ['id', 'ASC']
@@ -42,38 +40,33 @@ module.exports = {
     search: (category, keyword, page = 0, itemsPerPage = 8) => models.product.findAndCountAll({
         ...listConfig,
         where: {
-            [Op.and]: [
-                {
-                    [Op.or]: [
-                        {
-                            name: {
-                                [Op.like]: `%${keyword}%`
-                            }  
-                        }, {
-                            price: {
-                                [Op.like]: `%${keyword}%`
-                            }  
-                        }, {
-                            rate: {
-                                [Op.like]: `%${keyword}%`
-                            } 
-                        }
-                    ]
+            [Op.and]: [{
+                [Op.or]: [{
+                    name: {
+                        [Op.like]: `%${keyword}%`
+                    }
                 }, {
-                    [Op.or]: [
-                        {
-                            '$category.id$': {
-                                [Op.like]: `%${category}%`
-                            },
+                    price: {
+                        [Op.like]: `%${keyword}%`
+                    }
+                }, {
+                    rate: {
+                        [Op.like]: `%${keyword}%`
+                    }
+                }]
+            }, {
+                [Op.or]: [{
+                        '$category.id$': {
+                            [Op.like]: `%${category}%`
                         },
-                        {
-                            '$category.parent_id$': {
-                                [Op.like]: `%${category}%`
-                            },
+                    },
+                    {
+                        '$category.parent_id$': {
+                            [Op.like]: `%${category}%`
                         },
-                    ]
-                }
-            ]
+                    },
+                ]
+            }]
         },
         offset: itemsPerPage * page,
         limit: itemsPerPage,
@@ -90,7 +83,7 @@ module.exports = {
         where: {
             id: category_id
         },
-        raw: true      
+        raw: true
     }),
     addProduct: (id, name, category_id, price, description, sizes, imageUrls) => models.product.create({
             id,
@@ -120,14 +113,16 @@ module.exports = {
         })
         .then(async res => {
             try {
-                const { total_products, parent_id } = await module.exports.findTotalByCategory(category_id);
+                //plus 1 for new category and parent categories
+                var { total_products, parent_id } = await module.exports.findTotalByCategory(category_id);
                 await module.exports.updateCategoryCount(category_id, total_products + 1);
-                if (parent_id !== null) {
-                    const { total_products } = await module.exports.findTotalByCategory(parent_id);
-                    await module.exports.updateCategoryCount(parent_id, total_products + 1);
+                var new_parent_id = parent_id;
+                while (new_parent_id != null) {
+                    var { total_products, parent_id } = await module.exports.findTotalByCategory(new_parent_id);
+                    await module.exports.updateCategoryCount(new_parent_id, total_products + 1);
+                    new_parent_id = parent_id;
                 }
-            }
-            catch (err) {
+            } catch (err) {
                 console.log(err.message);
             }
         }),
@@ -141,16 +136,18 @@ module.exports = {
                 product_id: id
             },
         }))
-        .then(async (res) => {
+        .then(async(res) => {
             try {
-                const { total_products, parent_id } = await module.exports.findTotalByCategory(category_id);
+                //subtract 1 for old category and parent categories
+                var { total_products, parent_id } = await module.exports.findTotalByCategory(category_id);
                 await module.exports.updateCategoryCount(category_id, total_products - 1);
-                if (parent_id !== null) {
-                    const { total_products } = await module.exports.findTotalByCategory(parent_id);
-                    await module.exports.updateCategoryCount(parent_id, total_products - 1);
+                var new_parent_id = parent_id;
+                while (new_parent_id != null) {
+                    var { total_products, parent_id } = await module.exports.findTotalByCategory(new_parent_id);
+                    await module.exports.updateCategoryCount(new_parent_id, total_products - 1);
+                    new_parent_id = parent_id;
                 }
-            }
-            catch (err) {
+            } catch (err) {
                 console.log(err.message);
             }
         })
@@ -180,27 +177,53 @@ module.exports = {
         }
         return category;
     },
-    updateProduct: (id, name, category_id, price, description, rate, size) => models.product.update({
-        category_id: category_id,
-        name: name,
-        price: price,
-        description: description,
-        rate: rate
-    }, {
-        where: {
-            id: id,
-        },
-    })
-    .then(async(res) => {
-        for (let key in size) {
-            await models.product_size.update({
-                quantity: size[key]
-            }, {
-                where: {
-                    product_id: id,
-                    size: key,
-                },
-            })
-        }
-    }),
+    updateProduct: (id, name, category_id, price, description, rate, size, oldCategory_id) => models.product.update({
+            category_id: category_id,
+            name: name,
+            price: price,
+            description: description,
+            rate: rate
+        }, {
+            where: {
+                id: id,
+            },
+        })
+        .then(async(res) => {
+            for (let key in size) {
+                await models.product_size.update({
+                    quantity: size[key]
+                }, {
+                    where: {
+                        product_id: id,
+                        size: key,
+                    },
+                })
+            }
+        })
+        .then(async(res) => {
+            try {
+                if (oldCategory_id != category_id) {
+                    //subtract 1 for old category and parent categories
+                    var { total_products, parent_id } = await module.exports.findTotalByCategory(oldCategory_id);
+                    await module.exports.updateCategoryCount(oldCategory_id, total_products - 1);
+                    var new_parent_id = parent_id;
+                    while (new_parent_id != null) {
+                        var { total_products, parent_id } = await module.exports.findTotalByCategory(new_parent_id);
+                        await module.exports.updateCategoryCount(new_parent_id, total_products - 1);
+                        new_parent_id = parent_id;
+                    }
+                    //plus 1 for new category and parent categories
+                    var { total_products, parent_id } = await module.exports.findTotalByCategory(category_id);
+                    await module.exports.updateCategoryCount(category_id, total_products + 1);
+                    var new_parent_id = parent_id;
+                    while (new_parent_id != null) {
+                        var { total_products, parent_id } = await module.exports.findTotalByCategory(new_parent_id);
+                        await module.exports.updateCategoryCount(new_parent_id, total_products + 1);
+                        new_parent_id = parent_id;
+                    }
+                }
+            } catch (err) {
+                console.log(err.message);
+            }
+        }),
 }

@@ -1,13 +1,13 @@
 const helpers = (hbs) => {
-    // Currency formatter
-    hbs.registerHelper('currencyFormat', money => 
-        new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money));
+        // Currency formatter
+        hbs.registerHelper('currencyFormat', money =>
+            new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(money));
 
-    // Date formatter
-    hbs.registerHelper('dateTime', date => date.toLocaleString('en-US', { hour12: false }));
+        // Date formatter
+        hbs.registerHelper('dateTime', date => date.toLocaleString('en-US', { hour12: false }));
 
-    // Address formatter
-    hbs.registerHelper('address', (specific_address, ward, district, city) => `${specific_address ? `${specific_address},` : ''} phường ${ward}, quận ${district}, ${city}`);
+        // Address formatter
+        hbs.registerHelper('address', (specific_address, ward, district, city) => `${specific_address ? `${specific_address},` : ''} phường ${ward}, quận ${district}, ${city}`);
 
     // Order status
     hbs.registerHelper('checkStatus', status => {
@@ -29,7 +29,25 @@ const helpers = (hbs) => {
     });
 
     hbs.registerHelper('preview', url => url ? url : "/images/default.png");
-
+    
+    //loop for all level options
+    hbs.registerHelper('allLevelOptions', (n) => {
+        let options;
+        for (let i = n-1; i >=1 ; i--) {
+            options += `<option value="${i}">${i} level(s)</option>`;
+        }
+        return options;
+    });
+    //loop for level options without 1 level
+    hbs.registerHelper('levelOptions', (n, levelValue) => {
+        let options;
+        for (let i = n-1; i >=1 ; i--) {
+            if (i!=levelValue){
+                options += `<option value="${i}">${i} levels</option>`;
+            }
+        }
+        return options;
+    });
     // pagination
     hbs.registerHelper('page', (currentPage, maxPage, url) => {
         //check exists pagination in url

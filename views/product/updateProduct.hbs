@@ -17,6 +17,9 @@
                             <a href="/products" class="nav-link px-3">Products</a>
                         </li>
                         <li class="nav-item">
+                            <a href="/categories" class="nav-link px-3">Category</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="/orders" class="nav-link px-3">Orders</a>
                         </li>
                         <li class="nav-item">
@@ -61,8 +64,8 @@
                     </div>
                     <div class="col-lg-8 p-4">
                         <form action="" id="update-product-form">
-                            <input name="pid" id="pid" type="hidden" value="{{product.id}}"
-                                class="form-control"></input>
+                            <input name="pid" id="pid" type="hidden" value="{{product.id}}"class="form-control"></input>
+                            <input name="poldCategory" id="poldCategory" type="hidden" value="{{product.category_id}}"class="form-control"></input>
                             <input name="prate" id="prate" type="hidden" value="{{product.rate}}"
                                 class="form-control"></input>
                             <div class="row">
