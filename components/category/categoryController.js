@@ -147,8 +147,8 @@ module.exports = {
     },
     updateCategoryForm: async(req, res) => {
         try {
-            const { id, name, description, parentId } = req.body;
-            await categoryService.updateCategory(id, name, description, parentId);
+            const { id, name, description, parentId, oldParentId } = req.body;
+            await categoryService.updateCategory(id, name, description, parentId, oldParentId);
             res.status(200).send({ message: "OK" });
         } catch (err) {
             res.status(500).send({ message: err.message });

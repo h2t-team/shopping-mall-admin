@@ -116,10 +116,11 @@ module.exports = {
                 //plus 1 for new category and parent categories
                 var { total_products, parent_id } = await module.exports.findTotalByCategory(category_id);
                 await module.exports.updateCategoryCount(category_id, total_products + 1);
-                while (parent_id != null) {
-                    var { total_products, newParent_id } = await module.exports.findTotalByCategory(parent_id);
-                    await module.exports.updateCategoryCount(parent_id, total_products + 1);
-                    parent_id = newParent_id;
+                var new_parent_id = parent_id;
+                while (new_parent_id != null) {
+                    var { total_products, parent_id } = await module.exports.findTotalByCategory(new_parent_id);
+                    await module.exports.updateCategoryCount(new_parent_id, total_products + 1);
+                    new_parent_id = parent_id;
                 }
             } catch (err) {
                 console.log(err.message);
@@ -140,10 +141,11 @@ module.exports = {
                 //subtract 1 for old category and parent categories
                 var { total_products, parent_id } = await module.exports.findTotalByCategory(category_id);
                 await module.exports.updateCategoryCount(category_id, total_products - 1);
-                while (parent_id != null) {
-                    var { total_products, newParent_id } = await module.exports.findTotalByCategory(parent_id);
-                    await module.exports.updateCategoryCount(parent_id, total_products - 1);
-                    parent_id = newParent_id;
+                var new_parent_id = parent_id;
+                while (new_parent_id != null) {
+                    var { total_products, parent_id } = await module.exports.findTotalByCategory(new_parent_id);
+                    await module.exports.updateCategoryCount(new_parent_id, total_products - 1);
+                    new_parent_id = parent_id;
                 }
             } catch (err) {
                 console.log(err.message);
@@ -204,18 +206,20 @@ module.exports = {
                     //subtract 1 for old category and parent categories
                     var { total_products, parent_id } = await module.exports.findTotalByCategory(oldCategory_id);
                     await module.exports.updateCategoryCount(oldCategory_id, total_products - 1);
-                    while (parent_id != null) {
-                        var { total_products, newParent_id } = await module.exports.findTotalByCategory(parent_id);
-                        await module.exports.updateCategoryCount(parent_id, total_products - 1);
-                        parent_id = newParent_id;
+                    var new_parent_id = parent_id;
+                    while (new_parent_id != null) {
+                        var { total_products, parent_id } = await module.exports.findTotalByCategory(new_parent_id);
+                        await module.exports.updateCategoryCount(new_parent_id, total_products - 1);
+                        new_parent_id = parent_id;
                     }
                     //plus 1 for new category and parent categories
                     var { total_products, parent_id } = await module.exports.findTotalByCategory(category_id);
                     await module.exports.updateCategoryCount(category_id, total_products + 1);
-                    while (parent_id != null) {
-                        var { total_products, newParent_id } = await module.exports.findTotalByCategory(parent_id);
-                        await module.exports.updateCategoryCount(parent_id, total_products + 1);
-                        parent_id = newParent_id;
+                    var new_parent_id = parent_id;
+                    while (new_parent_id != null) {
+                        var { total_products, parent_id } = await module.exports.findTotalByCategory(new_parent_id);
+                        await module.exports.updateCategoryCount(new_parent_id, total_products + 1);
+                        new_parent_id = parent_id;
                     }
                 }
             } catch (err) {

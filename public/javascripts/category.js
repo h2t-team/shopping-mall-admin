@@ -92,11 +92,13 @@ if (path.match('/categories/updatecategory/')) {
         const name = document.getElementById("name").value;
         const description = document.getElementById("desc").value;
         const parentId = document.getElementById("parentId").value;
+        const oldParentId = document.getElementById("oldParentId").value;
         const data = {
             id: id,
             name: name,
             description: description,
             parentId: parentId,
+            oldParentId: oldParentId == "" ? '0' : oldParentId,
         }
         $.ajax({
             contentType: "application/json",
