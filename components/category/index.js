@@ -2,18 +2,18 @@ const express = require('express');
 const router = express.Router();
 const categoryController = require('./categoryController');
 
-// get product list
+// get category list
 router.get('/', categoryController.list);
 
-// // get products search
+// // get categories search
 // router.get('/search', categoryController.search);
 
-// //get add product page
-// router.get('/addproduct', categoryController.addProductPage);
-// router.post('/addproduct', categoryController.addProductForm);
+//get add category page
+router.get('/addcategory', categoryController.addCategoryPage);
+router.post('/addcategory', categoryController.addCategoryForm);
 
-// //get update product page
-// router.get('/updateproduct/:productId', categoryController.updateProductPage);
-// router.post('/updateproduct', categoryController.updateProductForm);
+//get update category page
+router.get('/updatecategory/:categoryId', categoryController.updateCategoryPage);
+router.post('/updatecategory', categoryController.updateCategoryForm);
 
 module.exports = router;

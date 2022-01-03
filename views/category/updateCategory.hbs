@@ -17,13 +17,13 @@
                         <li class="nav-item">
                             <a href="/products" class="nav-link px-3">Products</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a href="/categories" class="nav-link px-3">Category</a>
                         </li>
                         <li class="nav-item">
                             <a href="/orders" class="nav-link px-3">Orders</a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a href="/admins" class="nav-link px-3">Admins</a>
                         </li>
                     </ul>
@@ -41,14 +41,14 @@
                                 <a href="/"><i class="bi bi-house-door-fill icon-1"></i></a>
                             </li>
                             <li class="breadcrumb-item text-uppercase active">
-                                Admins
+                                Categories
                             </li>
                             <li class="breadcrumb-item text-uppercase active">
-                                {{title}}
+                                Update Category
                             </li>
                         </ol>
                     </nav>
-                    <h1 class="m-0 fw-bold">{{title}}</h1>
+                    <h1 class="m-0 fw-bold">Update Category</h1>
                 </div>
             </div>
         </div>
@@ -58,52 +58,49 @@
             <div class="card">
                 <div class="row g-0">
                     <div class="col-lg-4 p-4">
-                        <p class="fw-bold mb-3">Admin Information</p>
+                        <p class="fw-bold mb-3">Category Information</p>
                         <p class="text-muted mb-3">
-                            Update admin information.
+                            Update some basic category information.
                         </p>
                     </div>
                     <div class="col-lg-8 p-4">
-                        <form action=""  id="update-admin-form">
-                            <input name="id" id="id" type="hidden" value="{{admin.id}}" class="form-control" />
+                        <form id="update-category-form">
+                            <input name="id" id="id" type="hidden" value="{{category.id}}" class="form-control" />
+                            <input name="oldParentId" id="oldParentId" type="hidden" value="{{category.parent_id}}" class="form-control" />
+                            <div class="form-group">
+                                <label for="name">Name (Required)</label>
+                                <input name="name" id="name" type="text" class="form-control" value="{{category.name}}"  autocomplete="off"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="desc">Description</label>
+                                <textarea name="desc" id="desc" rows="4" class="form-control"
+                                    value="{{category.description}}"></textarea>
+                            </div>
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-6">
                                     <div class="form-group">
-                                        <label for="lastName">Last Name</label>
-                                        <input name="lastName" id="lastName" type="text" class="form-control" value="{{admin.last_name}}"  autocomplete="off"/>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="firstName">First Name (Required)</label>
-                                        <input name="firstName" id="firstName" type="text" class="form-control" value="{{admin.first_name}}"  autocomplete="off"/>
-                                    </div>
-                                </div>
-                            </div>   
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="email">Email (Required)</label>
-                                        <input id="email" name="email" type="email" value="{{admin.email}}" class="form-control"/>
-                                    </div>
-                                </div>
-                            </div>                   
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="telephone">Telephone</label>
-                                        <input id="telephone" name="telephone" value="{{admin.telephone}}" class="form-control" min="0"/>
+                                        <label for="parentId">Parent Category</label>
+                                        <select name="parentId" id="parentId" class="form-control form-select">
+                                            {{#if category.parent_id}}
+                                                <option value={{parentCategory.id}}>{{parentCategory.name}}</option>
+                                                <option value=0>None</option> 
+                                            {{else}}
+                                                <option value=0>None</option> 
+                                            {{/if}}
+                                            {{#each categoryList}}
+                                                <option value={{id}}>{{name}}</option>
+                                            {{/each}}
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="text-end mb-5">
-                                    <button type="submit" class="btn btn-success">Edit</button>
+                                    <button type="submit" class="btn btn-success">Update</button>
                                 </div>
                             </div>
                             <div class="row">
                                 <div id="errorMessage"></div>
-                                <div id="successfullyMessage"></div>
                             </div>
                         </form>
                     </div>

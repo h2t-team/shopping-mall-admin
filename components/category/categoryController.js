@@ -13,7 +13,7 @@ function buildCategory(level, parent, categories, parent_cats) {
                         `</td>
                     <td class="text-center">` + categories[parent_cats[parent][i]].total_products + `</td>
                     <td class="text-center">
-                        <a href="#" class="btn btn-sm btn-primary">EDIT</a>
+                        <a href="/categories/updatecategory/${categories[parent_cats[parent][i]].id}" class="btn btn-sm btn-primary">EDIT</a>
                     </td>
                     </tr>`;
                 } else {
@@ -26,7 +26,7 @@ function buildCategory(level, parent, categories, parent_cats) {
                         `</td>
                         <td class="text-center">` + categories[parent_cats[parent][i]].total_products + `</td>
                         <td class="text-center">
-                            <a href="#" class="btn btn-sm btn-primary">EDIT</a>
+                            <a href="/categories/updatecategory/${categories[parent_cats[parent][i]].id}" class="btn btn-sm btn-primary">EDIT</a>
                         </td>
                     </tr>`;
                 }
@@ -40,7 +40,7 @@ function buildCategory(level, parent, categories, parent_cats) {
                         `</td>
                         <td class="text-center">` + categories[parent_cats[parent][i]].total_products + `</td>
                         <td class="text-center">
-                            <a href="#" class="btn btn-sm btn-primary">EDIT</a>
+                            <a href="/categories/updatecategory/${categories[parent_cats[parent][i]].id}" class="btn btn-sm btn-primary">EDIT</a>
                         </td>
                     </tr>`;
                 } else {
@@ -53,7 +53,7 @@ function buildCategory(level, parent, categories, parent_cats) {
                         `</td>
                         <td class="text-center">` + categories[parent_cats[parent][i]].total_products + `</td>
                         <td class="text-center">
-                            <a href="#" class="btn btn-sm btn-primary">EDIT</a>
+                            <a href="/categories/updatecategory/${categories[parent_cats[parent][i]].id}" class="btn btn-sm btn-primary">EDIT</a>
                         </td>
                     </tr>`;
                 }
@@ -69,7 +69,6 @@ module.exports = {
     list: async(req, res) => {
         try {
             const categories = await categoryService.list();
-
             var cats = new Array();
             var parent_cats = new Array();
             //create cats array (index: id, value: its value)
@@ -96,5 +95,63 @@ module.exports = {
             res.status(500).send({ err: err.message });
         }
     },
-
+    addCategoryPage: async(req, res) => {
+        try {
+            const category = await categoryService.listSortNameAsc();
+            res.render('category/addCategory', { title: 'Add Category', category, scripts: ['category.js'] });
+        } catch (err) {
+            res.status(500).send({ err: err.message });
+        }
+    },
+    addCategoryForm: async(req, res) => {
+        try {
+            const { name, description, parentId } = req.body;
+            await categoryService.addCategory(name, description, parentId);
+            res.status(200).send({ message: "OK" });
+        } catch (err) {
+            res.status(500).send({ message: err.message });
+        }
+    },
+    updateCategoryPage: async(req, res) => {
+        try {
+            const id = req.params.categoryId;
+            const category = await categoryService.findCategoryById(id);
+            const parentCategory = await categoryService.findCategoryById(category.parent_id);
+            const categoryList = await categoryService.listSortNameAsc();
+            //find child id
+            var childId = [];
+            childId.push(category.id);
+            for (let j = 0; j < childId.length; j++) {
+                for (let i = 0; i < categoryList.length; i++) {
+                    if (childId[j] == categoryList[i].parent_id) {
+                        childId.push(categoryList[i].id);
+                    }
+                }
+            }
+            //remove child out of list
+            for (let i = 0; i < childId.length; i++) {
+                const index = categoryList.map(function(e) { return e.id; }).indexOf(childId[i]);
+                if (index > -1) {
+                    categoryList.splice(index, 1);
+                }
+            }
+            //remove parent of category
+            const index = categoryList.map(function(e) { return e.id; }).indexOf(category.parent_id);
+            if (index > -1) {
+                categoryList.splice(index, 1);
+            }
+            res.render('category/updateCategory', { title: 'Update Category', category, parentCategory, categoryList, scripts: ['category.js'] });
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
+    updateCategoryForm: async(req, res) => {
+        try {
+            const { id, name, description, parentId } = req.body;
+            await categoryService.updateCategory(id, name, description, parentId);
+            res.status(200).send({ message: "OK" });
+        } catch (err) {
+            res.status(500).send({ message: err.message });
+        }
+    },
 }
