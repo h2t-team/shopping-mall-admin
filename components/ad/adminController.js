@@ -34,6 +34,7 @@ module.exports = {
         try {
             res.render('ad/addadmin', { title: 'Add Admin', scripts: ['admin.js'] });
         } catch (err) {
+            res.status(500).send({ message: err.message });
             console.log(err.message);
         }
     },
