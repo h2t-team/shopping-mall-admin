@@ -32,7 +32,7 @@ module.exports = {
     },
     addAdminPage: async(req, res) => {
         try {
-            res.render('ad/addadmin', { title: 'Add Admin', scripts: ['admin.js'] });
+            res.render('ad/addAdmin', { title: 'Add Admin', scripts: ['admin.js'] });
         } catch (err) {
             console.log(err.message);
         }
@@ -50,7 +50,7 @@ module.exports = {
         try {
             const id = req.params.adminId;
             const admin = await adminService.findAdminById(id);
-            res.render('ad/updateadmin', { title: 'Update Admin', admin, scripts: ['admin.js'] });
+            res.render('ad/updateAdmin', { title: 'Update Admin', admin, scripts: ['admin.js'] });
         } catch (err) {
             console.log(err.message);
         }
@@ -88,7 +88,6 @@ module.exports = {
             res.render('ad/adminDetail', { title: 'Admin Detail', admin, scripts: ['admin.js'] });
         } catch (err) {
             console.log(err.message);
-            res.status(500).send({ message: err.message });
         }
     }
 }
