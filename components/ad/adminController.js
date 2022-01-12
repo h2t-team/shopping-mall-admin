@@ -88,6 +88,7 @@ module.exports = {
             res.render('ad/adminDetail', { title: 'Admin Detail', admin, scripts: ['admin.js'] });
         } catch (err) {
             console.log(err.message);
+            res.status(500).send({ message: err.message });
         }
     }
 }

@@ -21,5 +21,5 @@ router.post('/updateadmin', adminController.updateAdminForm);
 router.post('/lockadmin', adminController.lockAdmin);
 
 // get admin detail
-// router.get('/:adminId', adminController.detail);
+router.get('/:adminId', adminController.detail);
 module.exports = router;
