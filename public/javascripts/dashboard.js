@@ -26,7 +26,8 @@ jQuery(document).ready(function($) {
                     console.log($(".dateRange"));
                     $('#dateSubmit').submit();
                 }
-            }
+            },
+            maxDate: "today"
         };
         flatpickr(element, options);
     });
