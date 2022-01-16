@@ -47,31 +47,33 @@
         </div>
     </div>
     <div class="main-section">
-        <div class="chart-container card mx-auto">
-            <div class="card-header bg-white d-flex align-items-center" id="datePicker">
-                <h4 class="card-header__title flex m-0">Current Sales</h4>
-                <div data-toggle="flatpickr" data-flatpickr-wrap="true" data-flatpickr-static="true"
-                    data-flatpickr-mode="range" data-flatpickr-alt-format="Y-m-d" data-flatpickr-date-format="Y-m-d">
-                    <form id="dateSubmit" action="/dashboard" method="get">
-                        <input class="link-date" name="dateRange" value="{{dateFormat fromDate " YYYY-MM-DD"}} to {{dateFormat toDate "YYYY-MM-DD" }}" data-input>
-                    </form>
+        <div class="container">
+            <div class="chart-container card mx-auto">
+                <div class="card-header bg-white d-flex align-items-center flex-wrap" id="datePicker">
+                    <h4 class="card-header__title flex m-2 m-sm-0">Current Sales</h4>
+                    <div data-toggle="flatpickr" data-flatpickr-wrap="true" data-flatpickr-static="true"
+                        data-flatpickr-mode="range" data-flatpickr-alt-format="Y-m-d" data-flatpickr-date-format="Y-m-d">
+                        <form id="dateSubmit" action="/dashboard" method="get">
+                            <input class="link-date" name="dateRange" value="{{dateFormat fromDate " YYYY-MM-DD"}} to {{dateFormat toDate "YYYY-MM-DD" }}" data-input>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body text-muted">
+                    <div class="chart">
+                        <canvas id="revenueChart">
+                        </canvas>
+                    </div>
                 </div>
             </div>
-            <div class="card-body text-muted">
-                <div class="chart">
-                    <canvas id="revenueChart">
-                    </canvas>
+            <div class="chart-container card mx-auto">
+                <div class="card-header bg-white d-flex align-items-center">
+                    <h4 class="card-header__title flex m-2 m-sm-0">Top 10 sales</h4>
                 </div>
-            </div>
-        </div>
-        <div class="chart-container card mx-auto">
-            <div class="card-header bg-white d-flex align-items-center">
-                <h4 class="card-header__title flex m-0">Top 10 sales</h4>
-            </div>
-            <div class="card-body text-muted">
-                <div class="chart">
-                    <canvas id="topTenChart">
-                    </canvas>
+                <div class="card-body text-muted">
+                    <div class="chart">
+                        <canvas id="topTenChart">
+                        </canvas>
+                    </div>
                 </div>
             </div>
         </div>

@@ -416,7 +416,7 @@ table thead a {
 
 @media screen and (min-width: 768px) {
     .chart-container {
-        width: 60%;
+        width: 80%;
     }
 }
 
