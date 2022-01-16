@@ -52,15 +52,13 @@ module.exports = {
                 revenue: 0,
             }
         }
-        var revenue = 0;
         for (let i = 0; i < orders.length; i++) {
             const spaceIndex = orders[i].created_at.indexOf(' ');
             const orderDate = orders[i].created_at.substring(0, spaceIndex);
             const index = chartData.map(function(e) { return e.labels; }).indexOf(orderDate);
-            revenue += parseInt(orders[i].total);
             chartData[index] = {
                 labels: orderDate,
-                revenue: revenue
+                revenue: chartData[index].revenue + parseInt(orders[i].total)
             };
         }
         let label1 = chartData.map(a => a.labels);
