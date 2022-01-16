@@ -5,7 +5,7 @@ const helpers = (hbs) => {
 
         // Date formatter
         hbs.registerHelper('dateTime', date => date.toLocaleString('en-US', { hour12: false }));
-
+        hbs.registerHelper('dateFormat', require('handlebars-dateformat'));
         // Address formatter
         hbs.registerHelper('address', (specific_address, ward, district, city) => `${specific_address ? `${specific_address},` : ''} phường ${ward}, quận ${district}, ${city}`);
 

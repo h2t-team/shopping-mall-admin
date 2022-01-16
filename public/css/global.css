@@ -407,8 +407,34 @@ table thead a {
 .search-form {
     background-color: transparent;
 }
+
 @media screen and (min-width: 768px) {
     .category-container {
         width: 65%;
     }
+}
+
+@media screen and (min-width: 768px) {
+    .chart-container {
+        width: 60%;
+    }
+}
+
+.card-header__title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: "Roboto", sans-serif;
+    letter-spacing: 0;
+    color: rgba(17, 43, 74, 0.84);
+}
+
+.flex {
+    flex: 1 1 0% !important;
+}
+
+.link-date {
+    color: #4a90e2;
+    background: rgba(103, 116, 223, 0.05);
+    padding: 2px 4px;
+    border-radius: 2px;
 }

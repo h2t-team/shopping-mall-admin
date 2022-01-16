@@ -2,10 +2,7 @@
     <div class="header-section">
         <div class="container">
             <nav class="navbar navbar-light navbar-expand-md p-0">
-                <button class="navbar-toggler"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#nav-section"
-                        type="button">
+                <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav-section" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse" id="nav-section">
@@ -39,7 +36,8 @@
                 <div class="flex-grow-1 flex-shrink-1">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0 align-items-center">
-                            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door-fill icon-1"></i></a></li>
+                            <li class="breadcrumb-item"><a href="index.html"><i
+                                        class="bi bi-house-door-fill icon-1"></i></a></li>
                             <li class="breadcrumb-item text-uppercase active">Dashboard</li>
                         </ol>
                     </nav>
@@ -48,4 +46,64 @@
             </div>
         </div>
     </div>
+    <div class="main-section">
+        <div class="chart-container card mx-auto">
+            <div class="card-header bg-white d-flex align-items-center" id="datePicker" >
+                <h4 class="card-header__title flex m-0">Current Sales</h4>
+                <div data-toggle="flatpickr" data-flatpickr-wrap="true" data-flatpickr-static="true"
+                    data-flatpickr-mode="range" data-flatpickr-alt-format="Y-m-d" data-flatpickr-date-format="Y-m-d">
+                    {{!-- <a href="javascript:void(0)" class="link-date" data-toggle>{{dateFormat fromDate "DD/MM/YYYY"}}
+                        <span class="text-muted mx-1">to</span> {{dateFormat toDate "DD/MM/YYYY"}}</a> --}}
+                         <form id="dateSubmit" action="/dashboard" method="get">
+                    <input  class="link-date" name="dateRange"  value="{{dateFormat fromDate "YYYY-MM-DD"}} to {{dateFormat toDate "YYYY-MM-DD"}}" data-input>
+                         </form>
+                </div>
+            </div>
+            <div class="card-body text-muted">
+                <div class="chart">
+                    <canvas id="revenueChart">
+                        <span style="font-size: 1rem;"><strong>Website Traffic / Earnings</strong> area chart goes
+                            here.</span>
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        {{!-- <div class="chart-container mx-auto">
+
+            <canvas id="myChart" width="50" height="50"></canvas>
+        </div> --}}
+    </div>
 </div>
+<script>
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    const labels = {{{ labels }}};
+    const formatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{{ labels }}},
+    datasets: [{
+        label: 'Revenue (VND)',
+        data: {{{ revenues }}},
+        backgroundColor:
+        'rgba(54, 162, 235, 0.2)',
+
+        borderColor:
+        'rgba(54, 162, 235, 1)',
+
+        borderWidth: 1
+            }]
+        },
+    options: {
+        scales: {
+            y: {
+                ticks: {
+                    callback: (label, index, labels) => {
+                        return formatter.format(label);
+                    }
+                }
+            }
+        }
+    }
+    });
+</script>
