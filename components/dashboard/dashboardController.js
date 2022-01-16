@@ -3,7 +3,6 @@ var Duration = require("duration");
 module.exports = {
     dashboard: async(req, res) => {
         const dateRange = req.query.dateRange;
-        console.log("DR", dateRange);
         var fromDate;
         var toDate;
         var fromDateUTC;
@@ -19,7 +18,6 @@ module.exports = {
             fromDate = new Date(utc2 + (3600000 * offset));
         } else {
             const index = dateRange.indexOf(' to ');
-            console.log(index);
             if (index != -1) {
                 fromDate = new Date(dateRange.substring(0, index));
                 toDate = new Date(dateRange.substring(index + 4));
@@ -28,7 +26,6 @@ module.exports = {
                 toDate = new Date(dateRange);
             }
         }
-        console.log
         fromDate.setHours(0, 0, 0, 0);
         toDate.setHours(23, 59, 59, 999);
         const duration = new Duration(fromDate, toDate);
@@ -87,8 +84,20 @@ module.exports = {
                 revenue: chartData[i].revenue + chartData[i - 1].revenue,
             }
         }
-        let labels = chartData.map(a => a.labels);
-        let revenues = chartData.map(a => a.revenue);
-        res.render('index', { title: 'Dashboard', labels: JSON.stringify(labels), revenues: JSON.stringify(revenues), fromDate, toDate, scripts: ['dashboard.js'] });
+        let label1 = chartData.map(a => a.labels);
+        let revenue1 = chartData.map(a => a.revenue);
+        //top 10
+        const topList = await dashboardService.topList();
+        var topChartData = new Array();
+        for (let i = 0; i < topList.length; i++) {
+            const productName = await dashboardService.findProductNameById(topList[i].product_id);
+            topChartData[i] = {
+                labels: productName.name,
+                count: parseInt(topList[i].total),
+            }
+        }
+        let label2 = topChartData.map(a => a.labels);
+        let count2 = topChartData.map(a => a.count);
+        res.render('index', { title: 'Dashboard', label1: JSON.stringify(label1), revenue1: JSON.stringify(revenue1), label2: JSON.stringify(label2), count2: JSON.stringify(count2), fromDate, toDate, scripts: ['dashboard.js'] });
     }
 }

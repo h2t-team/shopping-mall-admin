@@ -31,6 +31,3 @@ jQuery(document).ready(function($) {
         flatpickr(element, options);
     });
 });
-// $("#datePicker").change(function() {
-//     alert("Handler for .change() called.");
-// });
