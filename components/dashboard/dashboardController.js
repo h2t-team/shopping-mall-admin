@@ -63,27 +63,6 @@ module.exports = {
                 revenue: revenue
             };
         }
-        for (let i = 1; i <= duration.days; i++) {
-            var date;
-            if (!dateRange) {
-                const currentDateUTC = new Date(fromDateUTC.getTime() + (i * 24 * 60 * 60 * 1000));
-                const utc = currentDateUTC.getTime() + (currentDateUTC.getTimezoneOffset() * 60000);
-                const currentDate = new Date(utc + (3600000 * offset));
-                const month = (currentDate.getMonth() + 1) < 10 ? "" + currentDate.getMonth() + 1 : currentDate.getMonth() + 1;
-                const day = (currentDate.getDate()) < 10 ? "0" + currentDate.getDate() : currentDate.getDate();
-                date = currentDate.getFullYear() + '-' + month + '-' + day;
-            } else {
-                var currentDate = new Date(fromDate);
-                currentDate.setDate(currentDate.getDate() + i);
-                const month = (currentDate.getMonth() + 1) < 10 ? "" + currentDate.getMonth() + 1 : currentDate.getMonth() + 1;
-                const day = (currentDate.getDate()) < 10 ? "0" + currentDate.getDate() : currentDate.getDate();
-                date = currentDate.getFullYear() + '-' + month + '-' + day;
-            }
-            chartData[i] = {
-                labels: date,
-                revenue: chartData[i].revenue + chartData[i - 1].revenue,
-            }
-        }
         let label1 = chartData.map(a => a.labels);
         let revenue1 = chartData.map(a => a.revenue);
         //top 10
